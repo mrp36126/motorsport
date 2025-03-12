@@ -1,50 +1,72 @@
-const API_KEY = "YOUR_API_KEY"; // Replace with your actual API key
-const locations = ["Silverstone, UK", "Monza, Italy", "Suzuka, Japan", "Daytona, USA"];
-
-function showTab(tabName) {
-    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("bg-blue-500"));
-    
-    document.getElementById(tabName).classList.remove("hidden");
-    document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add("bg-blue-500");
-    
-    if (tabName === "motorsport") {
-        getWeather();
-    }
-}
-
-async function getWeather() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Elements for displaying weather
     const weatherContainer = document.getElementById("weather");
-    weatherContainer.innerHTML = "<p class='text-center text-gray-400'>Loading weather data...</p>";
 
-    let weatherHTML = "";
-    for (let location of locations) {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`;
+    // Locations for motorsport events (update as needed)
+    const locations = ["Silverstone,UK", "Monaco", "Suzuka,JP", "Daytona Beach,US"];
 
+    // Function to fetch weather data
+    async function fetchWeather() {
         try {
-            const response = await fetch(url);
-            const data = await response.json();
+            const response = await fetch("/api/weather");
+            if (!response.ok) throw new Error("Weather API error");
             
-            if (data.cod === 200) {
-                weatherHTML += `
-                    <div class="weather-card bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-md text-center border border-gray-500">
-                        <h3 class="text-xl font-semibold text-blue-300">${data.name}</h3>
-                        <p class="text-gray-300">${data.weather[0].description}</p>
-                        <p class="text-lg font-bold text-blue-400">${data.main.temp}°C</p>
-                        <p class="text-gray-400">Wind: ${data.wind.speed} m/s</p>
-                    </div>
-                `;
-            } else {
-                weatherHTML += `<p class="text-red-400">Could not fetch data for ${location}</p>`;
-            }
+            const weatherData = await response.json();
+            displayWeather(weatherData);
         } catch (error) {
-            weatherHTML += `<p class="text-red-400">Error loading data for ${location}</p>`;
+            console.error("Weather fetch error:", error);
+            weatherContainer.innerHTML = `<p>Failed to load weather data.</p>`;
         }
     }
-    
-    weatherContainer.innerHTML = weatherHTML;
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-    showTab('motorsport');
+    // Function to display weather data
+    function displayWeather(data) {
+        weatherContainer.innerHTML = ""; // Clear previous data
+
+        data.forEach((location, index) => {
+            const weatherHTML = `
+                <div class="weather-card">
+                    <h3>${locations[index]}</h3>
+                    <p>Temp: ${location.temp}°C</p>
+                    <p>Condition: ${location.description}</p>
+                </div>
+            `;
+            weatherContainer.innerHTML += weatherHTML;
+        });
+    }
+
+    // Function to fetch news
+    async function fetchNews() {
+        try {
+            const response = await fetch("/api/news");
+            if (!response.ok) throw new Error("News API error");
+            
+            const newsData = await response.json();
+            displayNews(newsData);
+        } catch (error) {
+            console.error("News fetch error:", error);
+            document.getElementById("news").innerHTML = `<p>Failed to load news.</p>`;
+        }
+    }
+
+    // Function to display news
+    function displayNews(data) {
+        const newsContainer = document.getElementById("news");
+        newsContainer.innerHTML = ""; // Clear previous data
+
+        data.articles.forEach(article => {
+            const newsHTML = `
+                <div class="news-card">
+                    <h3>${article.title}</h3>
+                    <p>${article.description}</p>
+                    <a href="${article.url}" target="_blank">Read more</a>
+                </div>
+            `;
+            newsContainer.innerHTML += newsHTML;
+        });
+    }
+
+    // Fetch both weather and news on page load
+    fetchWeather();
+    fetchNews();
 });
