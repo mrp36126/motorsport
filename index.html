@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motorsport Weather</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Motorsport Weather Tracker</h1>
+        </header>
+        <nav>
+            <ul>
+                <li class="tab active" onclick="showTab('motorsport')">Motorsport</li>
+                <li class="tab" onclick="showTab('sport')">Sport</li>
+                <li class="tab" onclick="showTab('news')">News</li>
+                <li class="tab" onclick="showTab('rugby')">Rugby</li>
+            </ul>
+        </nav>
+        <main>
+            <section id="motorsport" class="tab-content active">
+                <h2>Motorsport Weather</h2>
+                <div id="weather"></div>
+            </section>
+            <section id="sport" class="tab-content">
+                <h2>Sport News</h2>
+                <p>Coming soon...</p>
+            </section>
+            <section id="news" class="tab-content">
+                <h2>General News</h2>
+                <p>Coming soon...</p>
+            </section>
+            <section id="rugby" class="tab-content">
+                <h2>Rugby News</h2>
+                <p>Coming soon...</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
