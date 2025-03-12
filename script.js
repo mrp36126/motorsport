@@ -1,12 +1,13 @@
-const API_KEY = "YOUR_API_KEY"; // Replace with your API key
-const locations = ["Silverstone, UK", "Monza, Italy", "Suzuka, Japan", "Daytona, USA"]; 
+const API_KEY = "YOUR_API_KEY"; // Replace with your actual API key
+const locations = ["Silverstone, UK", "Monza, Italy", "Suzuka, Japan", "Daytona, USA"];
 
 function showTab(tabName) {
-    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
-    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-    document.getElementById(tabName).classList.add("active");
-    document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add("active");
-
+    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("bg-blue-500"));
+    
+    document.getElementById(tabName).classList.remove("hidden");
+    document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add("bg-blue-500");
+    
     if (tabName === "motorsport") {
         getWeather();
     }
@@ -14,7 +15,7 @@ function showTab(tabName) {
 
 async function getWeather() {
     const weatherContainer = document.getElementById("weather");
-    weatherContainer.innerHTML = "<p>Loading weather data...</p>";
+    weatherContainer.innerHTML = "<p class='text-center text-gray-400'>Loading weather data...</p>";
 
     let weatherHTML = "";
     for (let location of locations) {
@@ -26,18 +27,18 @@ async function getWeather() {
             
             if (data.cod === 200) {
                 weatherHTML += `
-                    <div class="weather-card">
-                        <h3>${data.name}</h3>
-                        <p>${data.weather[0].description}</p>
-                        <p>Temp: ${data.main.temp}°C</p>
-                        <p>Wind: ${data.wind.speed} m/s</p>
+                    <div class="weather-card bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-md text-center border border-gray-500">
+                        <h3 class="text-xl font-semibold text-blue-300">${data.name}</h3>
+                        <p class="text-gray-300">${data.weather[0].description}</p>
+                        <p class="text-lg font-bold text-blue-400">${data.main.temp}°C</p>
+                        <p class="text-gray-400">Wind: ${data.wind.speed} m/s</p>
                     </div>
                 `;
             } else {
-                weatherHTML += `<p>Could not fetch data for ${location}</p>`;
+                weatherHTML += `<p class="text-red-400">Could not fetch data for ${location}</p>`;
             }
         } catch (error) {
-            weatherHTML += `<p>Error loading data for ${location}</p>`;
+            weatherHTML += `<p class="text-red-400">Error loading data for ${location}</p>`;
         }
     }
     
