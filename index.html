@@ -4,40 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motorsport Weather</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="script.js"></script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Motorsport Weather Tracker</h1>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <header class="text-center text-3xl font-bold mb-6 text-blue-400">
+            Motorsport Weather & News
         </header>
-        <nav>
-            <ul>
-                <li class="tab active" onclick="showTab('motorsport')">Motorsport</li>
-                <li class="tab" onclick="showTab('sport')">Sport</li>
-                <li class="tab" onclick="showTab('news')">News</li>
-                <li class="tab" onclick="showTab('rugby')">Rugby</li>
-            </ul>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex justify-center space-x-4 border-b-2 border-gray-700 pb-4">
+            <button class="tab active px-6 py-2 rounded-lg text-lg bg-blue-500 hover:bg-blue-600 transition" onclick="showTab('motorsport')">Motorsport</button>
+            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('sport')">Sport</button>
+            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('news')">News</button>
+            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('rugby')">Rugby</button>
         </nav>
-        <main>
+
+        <!-- Tab Content -->
+        <main class="mt-6">
+            <!-- Motorsport Weather -->
             <section id="motorsport" class="tab-content active">
-                <h2>Motorsport Weather</h2>
-                <div id="weather"></div>
+                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Motorsport Weather</h2>
+                <div id="weather" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
             </section>
-            <section id="sport" class="tab-content">
-                <h2>Sport News</h2>
-                <p>Coming soon...</p>
+
+            <!-- Sport -->
+            <section id="sport" class="tab-content hidden">
+                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Sport News</h2>
+                <p class="text-center text-gray-400">Coming soon...</p>
             </section>
-            <section id="news" class="tab-content">
-                <h2>General News</h2>
-                <p>Coming soon...</p>
+
+            <!-- News -->
+            <section id="news" class="tab-content hidden">
+                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Latest News</h2>
+                <p class="text-center text-gray-400">Coming soon...</p>
             </section>
-            <section id="rugby" class="tab-content">
-                <h2>Rugby News</h2>
-                <p>Coming soon...</p>
+
+            <!-- Rugby -->
+            <section id="rugby" class="tab-content hidden">
+                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Rugby Updates</h2>
+                <p class="text-center text-gray-400">Coming soon...</p>
             </section>
         </main>
     </div>
 </body>
 </html>
+
