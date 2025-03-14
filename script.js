@@ -27,18 +27,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayWeather(data) {
         data.forEach(location => {
-            if (location.location === "Pretoria,ZA" && document.getElementById("zwartkops-temp")) {
+            if (location.location === "Pretoria,ZA") {
+                // Update both Zwartkops and Mahem with Pretoria weather
                 document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("zwartkops-condition").textContent = `Condition: ${location.description}`;
+                document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("mahem-condition").textContent = `Condition: ${location.description}`;
             } else if (location.location === "Vereeniging,ZA") {
                 document.getElementById("ultimate-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("ultimate-condition").textContent = `Condition: ${location.description}`;
             } else if (location.location === "Brakpan,ZA") {
                 document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
-            } else if (location.location === "Zandfontein,ZA") {
-                document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("mahem-condition").textContent = `Condition: ${location.description}`;
             }
         });
     }
