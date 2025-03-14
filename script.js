@@ -1,72 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Elements for displaying weather
     const weatherContainer = document.getElementById("weather");
 
-    // Locations for motorsport events (update as needed)
-    const locations = ["Silverstone,UK", "Monaco", "Suzuka,JP", "Daytona Beach,US"];
+    function showTab(tabId) {
+        document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
+        
+        const activeTab = document.getElementById(tabId);
+        activeTab.classList.remove("hidden");
+        document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add("active", "bg-blue-500");
 
-    // Function to fetch weather data
+        if (tabId === "motorsport") fetchWeather();
+        if (tabId === "news") fetchNews();
+    }
+
     async function fetchWeather() {
         try {
             const response = await fetch("/api/weather");
             if (!response.ok) throw new Error("Weather API error");
-            
             const weatherData = await response.json();
             displayWeather(weatherData);
         } catch (error) {
             console.error("Weather fetch error:", error);
-            weatherContainer.innerHTML = `<p>Failed to load weather data.</p>`;
+            weatherContainer.innerHTML = `<p class="text-red-400">Failed to load weather data.</p>`;
         }
     }
 
-    // Function to display weather data
     function displayWeather(data) {
-        weatherContainer.innerHTML = ""; // Clear previous data
-
-        data.forEach((location, index) => {
-            const weatherHTML = `
-                <div class="weather-card">
-                    <h3>${locations[index]}</h3>
-                    <p>Temp: ${location.temp}°C</p>
-                    <p>Condition: ${location.description}</p>
-                </div>
-            `;
-            weatherContainer.innerHTML += weatherHTML;
+        data.forEach(location => {
+            if (location.location === "Pretoria,ZA") {
+                document.getElementById("pretoria-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("pretoria-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Silverstone,UK") {
+                document.getElementById("silverstone-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("silverstone-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Monaco") {
+                document.getElementById("monaco-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("monaco-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Suzuka,JP") {
+                document.getElementById("suzuka-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("suzuka-condition").textContent = `Condition: ${location.description}`;
+            }
         });
     }
 
-    // Function to fetch news
     async function fetchNews() {
         try {
             const response = await fetch("/api/news");
             if (!response.ok) throw new Error("News API error");
-            
             const newsData = await response.json();
+            if (newsData.error) throw new Error(newsData.error);
             displayNews(newsData);
         } catch (error) {
             console.error("News fetch error:", error);
-            document.getElementById("news").innerHTML = `<p>Failed to load news.</p>`;
+            document.getElementById("news").innerHTML = `<p class="text-red-400">${error.message}</p>`;
         }
     }
 
-    // Function to display news
     function displayNews(data) {
         const newsContainer = document.getElementById("news");
-        newsContainer.innerHTML = ""; // Clear previous data
-
+        newsContainer.innerHTML = "";
         data.articles.forEach(article => {
             const newsHTML = `
-                <div class="news-card">
-                    <h3>${article.title}</h3>
+                <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
+                    <h3 class="text-lg font-bold">${article.title}</h3>
                     <p>${article.description}</p>
-                    <a href="${article.url}" target="_blank">Read more</a>
+                    <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
                 </div>
             `;
             newsContainer.innerHTML += newsHTML;
         });
     }
 
-    // Fetch both weather and news on page load
-    fetchWeather();
-    fetchNews();
+    showTab("motorsport"); // Load default tab
 });
