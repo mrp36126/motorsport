@@ -27,18 +27,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayWeather(data) {
         data.forEach(location => {
-            if (location.location === "Pretoria,ZA") {
-                document.getElementById("pretoria-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("pretoria-condition").textContent = `Condition: ${location.description}`;
-            } else if (location.location === "Silverstone,UK") {
-                document.getElementById("silverstone-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("silverstone-condition").textContent = `Condition: ${location.description}`;
-            } else if (location.location === "Monaco") {
-                document.getElementById("monaco-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("monaco-condition").textContent = `Condition: ${location.description}`;
-            } else if (location.location === "Suzuka,JP") {
-                document.getElementById("suzuka-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("suzuka-condition").textContent = `Condition: ${location.description}`;
+            if (location.location === "Pretoria,ZA" && document.getElementById("zwartkops-temp")) {
+                document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("zwartkops-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Vereeniging,ZA") {
+                document.getElementById("ultimate-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("ultimate-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Brakpan,ZA") {
+                document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === "Zandfontein,ZA") {
+                document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("mahem-condition").textContent = `Condition: ${location.description}`;
             }
         });
     }
