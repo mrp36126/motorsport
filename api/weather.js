@@ -1,20 +1,26 @@
 export default async function handler(req, res) {
     const apiKey = process.env.WEATHER_API_KEY;
-    const locations = ["Silverstone,UK", "Monaco", "Suzuka,JP", "Daytona Beach,US"];
-    
+    const locations = ["Silverstone,UK", "Monaco", "Suzuka,JP", "Pretoria,ZA"]; // Replaced Daytona with Pretoria
+
     try {
-        const weatherData = await Promise.all(locations.map(async (location) => {
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            return {
-                location: location,
-                temp: data.main.temp,
-                description: data.weather[0].description,
-            };
-        }));
-
+        const weatherData = await Promise.all(
+            locations.map(async (location) => {
+                try {
+                    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Failed to fetch ${location}`);
+                    const data = await response.json();
+                    return {
+                        location: location,
+                        temp: data.main.temp,
+                        description: data.weather[0].description,
+                    };
+                } catch (error) {
+                    console.error(`Error fetching ${location}:`, error);
+                    return { location: location, error: "Weather unavailable" };
+                }
+            })
+        );
         res.status(200).json(weatherData);
     } catch (error) {
         console.error("Weather API error:", error);
