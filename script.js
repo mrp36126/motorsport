@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (tabId === "motorsport") {
             fetchWeather();
             displaySchedules();
+            displayUpcomingEvents();
         }
         if (tabId === "news") fetchNews();
     }
@@ -76,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayWeather(data) {
         data.forEach(location => {
             if (location.location === "Pretoria,ZA") {
-                // Update both Zwartkops and Mahem with Pretoria weather
                 document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("zwartkops-condition").textContent = `Condition: ${location.description}`;
                 document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function displaySchedules() {
         const currentDate = new Date("2025-03-14"); // Current date as per system info
 
-        // Function to format date as "DD Month"
         function formatDate(dateStr) {
             const date = new Date(dateStr);
             const day = date.getDate();
@@ -102,10 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return `${day} ${month}`;
         }
 
-        // Render schedules
         Object.keys(schedules).forEach(raceway => {
             const scheduleList = document.getElementById(`${raceway}-schedule`);
-            scheduleList.innerHTML = ""; // Clear existing content
+            scheduleList.innerHTML = "";
 
             const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
             if (futureEvents.length === 0) {
@@ -118,6 +116,44 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         });
+    }
+
+    function displayUpcomingEvents() {
+        const currentDate = new Date("2025-03-14"); // Current date as per system info
+        const currentMonth = currentDate.getMonth(); // 0-11 (March = 2)
+        const currentYear = currentDate.getFullYear(); // 2025
+        const nextMonthStart = new Date(currentYear, currentMonth + 1, 1); // Start of April
+
+        const upcomingList = document.getElementById("upcoming-schedule");
+        upcomingList.innerHTML = "";
+
+        // Collect all events from all raceways
+        const allEvents = [];
+        Object.keys(schedules).forEach(raceway => {
+            schedules[raceway].forEach(event => {
+                allEvents.push({ ...event, raceway });
+            });
+        });
+
+        // Filter events for the next month (April 2025)
+        const upcomingEvents = allEvents.filter(event => {
+            const eventDate = new Date(event.date);
+            return eventDate >= nextMonthStart && eventDate < new Date(currentYear, currentMonth + 2, 1);
+        });
+
+        if (upcomingEvents.length === 0) {
+            upcomingList.innerHTML = "<li>No events this month</li>";
+        } else {
+            upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
+            upcomingEvents.forEach(event => {
+                const li = document.createElement("li");
+                const date = new Date(event.date);
+                const day = date.getDate();
+                const month = date.toLocaleString("default", { month: "long" });
+                li.textContent = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
+                upcomingList.appendChild(li);
+            });
+        }
     }
 
     async function fetchNews() {
