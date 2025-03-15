@@ -8,64 +8,64 @@
     <script defer src="script.js"></script>
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="container mx-auto p-6">
+    <div class="container mx-auto p-4 sm:p-6">
         <!-- Header -->
-        <header class="text-center text-3xl font-bold mb-6 text-blue-400">
+        <header class="text-center text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-blue-400">
             Motorsport Weather & News
         </header>
 
         <!-- Navigation Tabs -->
-        <nav class="flex justify-center space-x-4 border-b-2 border-gray-700 pb-4">
-            <button class="tab active px-6 py-2 rounded-lg text-lg bg-blue-500 hover:bg-blue-600 transition" onclick="showTab('motorsport')">Motorsport</button>
-            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('sport')">Sport</button>
-            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('news')">News</button>
-            <button class="tab px-6 py-2 rounded-lg text-lg bg-gray-700 hover:bg-gray-600 transition" onclick="showTab('rugby')">Rugby</button>
+        <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
+            <button class="tab active px-4 py-2 rounded-lg text-base sm:text-lg bg-blue-500 hover:bg-blue-600 transition whitespace-nowrap" onclick="showTab('motorsport')">Motorsport</button>
+            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-700 hover:bg-gray-600 transition whitespace-nowrap" onclick="showTab('sport')">Sport</button>
+            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-700 hover:bg-gray-600 transition whitespace-nowrap" onclick="showTab('news')">News</button>
+            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-700 hover:bg-gray-600 transition whitespace-nowrap" onclick="showTab('rugby')">Rugby</button>
         </nav>
 
         <!-- Tab Content -->
-        <main class="mt-6">
+        <main class="mt-4 sm:mt-6">
             <!-- Motorsport Weather -->
             <section id="motorsport" class="tab-content active">
-                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Motorsport Weather</h2>
-                <div id="weather" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Motorsport Weather</h2>
+                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                     <!-- Tile 1: Zwartkops Raceway, Pretoria -->
                     <div id="card-zwartkops" class="weather-card bg-[url('images/Racing1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-lg font-bold">Zwartkops Raceway, Pretoria</h3>
+                            <h3 class="text-base sm:text-lg font-bold">Zwartkops Raceway, Pretoria</h3>
                             <p id="zwartkops-temp">Temp: Loading...</p>
                             <p id="zwartkops-condition">Condition: Loading...</p>
-                            <p class="text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="zwartkops-schedule" class="text-sm list-disc list-inside"></ul>
+                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
+                            <ul id="zwartkops-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
                     <!-- Tile 2: Ultimate Raceway, Vereeniging -->
                     <div id="card-ultimate" class="weather-card bg-[url('images/Racing2.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-lg font-bold">Ultimate Raceway, Vereeniging</h3>
+                            <h3 class="text-base sm:text-lg font-bold">Ultimate Raceway, Vereeniging</h3>
                             <p id="ultimate-temp">Temp: Loading...</p>
                             <p id="ultimate-condition">Condition: Loading...</p>
-                            <p class="text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="ultimate-schedule" class="text-sm list-disc list-inside"></ul>
+                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
+                            <ul id="ultimate-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
                     <!-- Tile 3: The Rock Raceway, Brakpan -->
                     <div id="card-rock" class="weather-card bg-[url('images/Racing3.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-lg font-bold">The Rock Raceway, Brakpan</h3>
+                            <h3 class="text-base sm:text-lg font-bold">The Rock Raceway, Brakpan</h3>
                             <p id="rock-temp">Temp: Loading...</p>
                             <p id="rock-condition">Condition: Loading...</p>
-                            <p class="text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="rock-schedule" class="text-sm list-disc list-inside"></ul>
+                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
+                            <ul id="rock-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
                     <!-- Tile 4: Mahem Raceway, Pretoria -->
                     <div id="card-mahem" class="weather-card bg-[url('images/Racing4.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-lg font-bold">Mahem Raceway, Pretoria</h3>
+                            <h3 class="text-base sm:text-lg font-bold">Mahem Raceway, Pretoria</h3>
                             <p id="mahem-temp">Temp: Loading...</p>
                             <p id="mahem-condition">Condition: Loading...</p>
-                            <p class="text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="mahem-schedule" class="text-sm list-disc list-inside"></ul>
+                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
+                            <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
                 </div>
@@ -73,19 +73,19 @@
 
             <!-- Sport -->
             <section id="sport" class="tab-content hidden">
-                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Sport News</h2>
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Sport News</h2>
                 <p class="text-center text-gray-400">Coming soon...</p>
             </section>
 
             <!-- News -->
             <section id="news" class="tab-content hidden">
-                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Latest News</h2>
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Latest News</h2>
                 <p class="text-center text-gray-400">Coming soon...</p>
             </section>
 
             <!-- Rugby -->
             <section id="rugby" class="tab-content hidden">
-                <h2 class="text-center text-2xl font-semibold text-blue-400 mb-4">Rugby Updates</h2>
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Rugby Updates</h2>
                 <p class="text-center text-gray-400">Coming soon...</p>
             </section>
         </main>
