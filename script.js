@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const weatherContainer = document.getElementById("weather");
+    const currentDateTime = new Date("2025-03-15T03:37:00-07:00"); // March 15, 2025, 03:37 AM PDT
+    const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (9 * 60 * 60 * 1000)); // Convert to GMT+2 (9h ahead)
 
-    // Schedules data with session times for F1
+    // Schedules data with session times for all F1 races
     const schedules = {
         zwartkops: [
             { date: "2025-02-01", event: "Passion for Speed" },
@@ -46,29 +48,29 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
         f1: [
             { date: "2025-03-16", event: "Australia", location: "Melbourne,AU", flag: "AustraliaFlag.jpg", track: "AustraliaTrack.jpg", trackName: "Albert Park Grand Prix Circuit", practice1: "2025-03-14 12:30", practice2: "2025-03-14 16:00", practice3: "2025-03-15 12:30", qualifying: "2025-03-15 16:00", race: "2025-03-16 15:00", timezone: "AEDT" },
-            { date: "2025-03-23", event: "China", location: "Shanghai,CN", flag: "ChinaFlag.jpg", track: "ChinaTrack.jpg", trackName: "Shanghai International Circuit", practice1: "2025-03-21 11:30", practice2: "2025-03-21 15:30", practice3: "2025-03-22 11:00", qualifying: "2025-03-22 15:00", race: "2025-03-23 15:00", timezone: "CST" },
-            { date: "2025-04-06", event: "Japan", location: "Suzuka,JP", flag: "JapanFlag.jpg", track: "JapanTrack.jpg", trackName: "Suzuka International Racing Course" },
-            { date: "2025-04-13", event: "Bahrain", location: "Sakhir,BH", flag: "BahrainFlag.jpg", track: "BahrainTrack.jpg", trackName: "Bahrain International Circuit" },
-            { date: "2025-04-20", event: "Saudi Arabia", location: "Jeddah,SA", flag: "SaudiArabiaFlag.jpg", track: "SaudiArabiaTrack.jpg", trackName: "Jeddah Corniche Circuit" },
-            { date: "2025-05-04", event: "Miami", location: "Miami,US", flag: "USFlag.jpg", track: "MiamiTrack.jpg", trackName: "Miami International Autodrome" },
-            { date: "2025-05-18", event: "Emilia-Romagna (Italy)", location: "Imola,IT", flag: "ItalyFlag.jpg", track: "EmiliaRomagnaTrack.jpg", trackName: "Autodromo Enzo e Dino Ferrari" },
-            { date: "2025-05-25", event: "Monaco", location: "Monaco,MC", flag: "MonacoFlag.jpg", track: "MonacoTrack.jpg", trackName: "Circuit de Monaco" },
-            { date: "2025-06-01", event: "Spain", location: "Barcelona,ES", flag: "SpainFlag.jpg", track: "SpainTrack.jpg", trackName: "Circuit de Barcelona-Catalunya" },
-            { date: "2025-06-15", event: "Canada", location: "Montreal,CA", flag: "CanadaFlag.jpg", track: "CanadaTrack.jpg", trackName: "Circuit Gilles Villeneuve" },
-            { date: "2025-06-29", event: "Austria", location: "Spielberg,AT", flag: "AustriaFlag.jpg", track: "AustriaTrack.jpg", trackName: "Red Bull Ring" },
-            { date: "2025-07-06", event: "Great Britain", location: "Silverstone,GB", flag: "GBFlag.jpg", track: "GreatBritainTrack.jpg", trackName: "Silverstone Circuit" },
-            { date: "2025-07-27", event: "Belgium", location: "Spa,BE", flag: "BelgiumFlag.jpg", track: "BelgiumTrack.jpg", trackName: "Circuit de Spa-Francorchamps" },
-            { date: "2025-08-03", event: "Hungary", location: "Budapest,HU", flag: "HungaryFlag.jpg", track: "HungaryTrack.jpg", trackName: "Hungaroring" },
-            { date: "2025-08-31", event: "Netherlands", location: "Zandvoort,NL", flag: "NetherlandsFlag.jpg", track: "NetherlandsTrack.jpg", trackName: "Circuit Zandvoort" },
-            { date: "2025-09-07", event: "Monza (Italy)", location: "Monza,IT", flag: "ItalyFlag.jpg", track: "MonzaTrack.jpg", trackName: "Autodromo Nazionale Monza" },
-            { date: "2025-09-21", event: "Azerbaijan", location: "Baku,AZ", flag: "AzerbaijanFlag.jpg", track: "AzerbaijanTrack.jpg", trackName: "Baku City Circuit" },
-            { date: "2025-10-05", event: "Singapore", location: "Singapore,SG", flag: "SingaporeFlag.jpg", track: "SingaporeTrack.jpg", trackName: "Marina Bay Street Circuit" },
-            { date: "2025-10-19", event: "United States", location: "Austin,US", flag: "USFlag.jpg", track: "UnitedStatesTrack.jpg", trackName: "Circuit of the Americas" },
-            { date: "2025-10-26", event: "Mexico", location: "Mexico City,MX", flag: "MexicoFlag.jpg", track: "MexicoTrack.jpg", trackName: "Autódromo Hermanos Rodríguez" },
-            { date: "2025-11-09", event: "Brazil", location: "Sao Paulo,BR", flag: "BrazilFlag.jpg", track: "BrazilTrack.jpg", trackName: "Autódromo José Carlos Pace" },
-            { date: "2025-11-22", event: "Las Vegas", location: "Las Vegas,US", flag: "USFlag.jpg", track: "LasVegasTrack.jpg", trackName: "Las Vegas Street Circuit" },
-            { date: "2025-11-30", event: "Qatar", location: "Lusail,QA", flag: "QatarFlag.jpg", track: "QatarTrack.jpg", trackName: "Lusail International Circuit" },
-            { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE", flag: "AbuDhabiFlag.jpg", track: "AbuDhabiTrack.jpg", trackName: "Yas Marina Circuit" }
+            { date: "2025-03-23", event: "China", location: "Shanghai,CN", flag: "ChinaFlag.jpg", track: "ChinaTrack.jpg", trackName: "Shanghai International Circuit", practice1: "2025-03-21 11:30", sprintQualifying: "2025-03-21 15:30", sprintRace: "2025-03-22 11:00", qualifying: "2025-03-22 15:00", race: "2025-03-23 15:00", timezone: "CST", isSprint: true },
+            { date: "2025-04-06", event: "Japan", location: "Suzuka,JP", flag: "JapanFlag.jpg", track: "JapanTrack.jpg", trackName: "Suzuka International Racing Course", practice1: "2025-04-04 11:30", practice2: "2025-04-04 15:00", practice3: "2025-04-05 12:30", qualifying: "2025-04-05 15:00", race: "2025-04-06 15:00", timezone: "JST" },
+            { date: "2025-04-13", event: "Bahrain", location: "Sakhir,BH", flag: "BahrainFlag.jpg", track: "BahrainTrack.jpg", trackName: "Bahrain International Circuit", practice1: "2025-04-11 13:30", practice2: "2025-04-11 17:00", practice3: "2025-04-12 14:00", qualifying: "2025-04-12 17:00", race: "2025-04-13 17:00", timezone: "AST" },
+            { date: "2025-04-20", event: "Saudi Arabia", location: "Jeddah,SA", flag: "SaudiArabiaFlag.jpg", track: "SaudiArabiaTrack.jpg", trackName: "Jeddah Corniche Circuit", practice1: "2025-04-18 15:30", practice2: "2025-04-18 19:00", practice3: "2025-04-19 15:30", qualifying: "2025-04-19 19:00", race: "2025-04-20 19:00", timezone: "AST" },
+            { date: "2025-05-04", event: "Miami", location: "Miami,US", flag: "USFlag.jpg", track: "MiamiTrack.jpg", trackName: "Miami International Autodrome", practice1: "2025-05-02 12:30", sprintQualifying: "2025-05-02 16:30", sprintRace: "2025-05-03 12:00", qualifying: "2025-05-03 16:00", race: "2025-05-04 15:00", timezone: "EDT", isSprint: true },
+            { date: "2025-05-18", event: "Emilia-Romagna (Italy)", location: "Imola,IT", flag: "ItalyFlag.jpg", track: "EmiliaRomagnaTrack.jpg", trackName: "Autodromo Enzo e Dino Ferrari", practice1: "2025-05-16 13:30", practice2: "2025-05-16 17:00", practice3: "2025-05-17 12:30", qualifying: "2025-05-17 16:00", race: "2025-05-18 15:00", timezone: "CEST" },
+            { date: "2025-05-25", event: "Monaco", location: "Monaco,MC", flag: "MonacoFlag.jpg", track: "MonacoTrack.jpg", trackName: "Circuit de Monaco", practice1: "2025-05-23 13:30", practice2: "2025-05-23 17:00", practice3: "2025-05-24 12:30", qualifying: "2025-05-24 16:00", race: "2025-05-25 15:00", timezone: "CEST" },
+            { date: "2025-06-01", event: "Spain", location: "Barcelona,ES", flag: "SpainFlag.jpg", track: "SpainTrack.jpg", trackName: "Circuit de Barcelona-Catalunya", practice1: "2025-05-30 13:30", practice2: "2025-05-30 17:00", practice3: "2025-05-31 12:30", qualifying: "2025-05-31 16:00", race: "2025-06-01 15:00", timezone: "CEST" },
+            { date: "2025-06-15", event: "Canada", location: "Montreal,CA", flag: "CanadaFlag.jpg", track: "CanadaTrack.jpg", trackName: "Circuit Gilles Villeneuve", practice1: "2025-06-13 13:30", practice2: "2025-06-13 17:00", practice3: "2025-06-14 12:30", qualifying: "2025-06-14 16:00", race: "2025-06-15 14:00", timezone: "EDT" },
+            { date: "2025-06-29", event: "Austria", location: "Spielberg,AT", flag: "AustriaFlag.jpg", track: "AustriaTrack.jpg", trackName: "Red Bull Ring", practice1: "2025-06-27 13:30", practice2: "2025-06-27 17:00", practice3: "2025-06-28 12:30", qualifying: "2025-06-28 16:00", race: "2025-06-29 15:00", timezone: "CEST" },
+            { date: "2025-07-06", event: "Great Britain", location: "Silverstone,GB", flag: "GBFlag.jpg", track: "GreatBritainTrack.jpg", trackName: "Silverstone Circuit", practice1: "2025-07-04 13:30", practice2: "2025-07-04 17:00", practice3: "2025-07-05 12:30", qualifying: "2025-07-05 16:00", race: "2025-07-06 16:00", timezone: "BST" },
+            { date: "2025-07-27", event: "Belgium", location: "Spa,BE", flag: "BelgiumFlag.jpg", track: "BelgiumTrack.jpg", trackName: "Circuit de Spa-Francorchamps", practice1: "2025-07-25 13:30", sprintQualifying: "2025-07-25 17:30", sprintRace: "2025-07-26 11:00", qualifying: "2025-07-26 15:00", race: "2025-07-27 15:00", timezone: "CEST", isSprint: true },
+            { date: "2025-08-03", event: "Hungary", location: "Budapest,HU", flag: "HungaryFlag.jpg", track: "HungaryTrack.jpg", trackName: "Hungaroring", practice1: "2025-08-01 13:30", practice2: "2025-08-01 17:00", practice3: "2025-08-02 12:30", qualifying: "2025-08-02 16:00", race: "2025-08-03 15:00", timezone: "CEST" },
+            { date: "2025-08-31", event: "Netherlands", location: "Zandvoort,NL", flag: "NetherlandsFlag.jpg", track: "NetherlandsTrack.jpg", trackName: "Circuit Zandvoort", practice1: "2025-08-29 13:30", practice2: "2025-08-29 17:00", practice3: "2025-08-30 12:30", qualifying: "2025-08-30 16:00", race: "2025-08-31 15:00", timezone: "CEST" },
+            { date: "2025-09-07", event: "Monza (Italy)", location: "Monza,IT", flag: "ItalyFlag.jpg", track: "MonzaTrack.jpg", trackName: "Autodromo Nazionale Monza", practice1: "2025-09-05 13:30", practice2: "2025-09-05 17:00", practice3: "2025-09-06 12:30", qualifying: "2025-09-06 16:00", race: "2025-09-07 15:00", timezone: "CEST" },
+            { date: "2025-09-21", event: "Azerbaijan", location: "Baku,AZ", flag: "AzerbaijanFlag.jpg", track: "AzerbaijanTrack.jpg", trackName: "Baku City Circuit", practice1: "2025-09-19 13:30", practice2: "2025-09-19 17:00", practice3: "2025-09-20 12:30", qualifying: "2025-09-20 16:00", race: "2025-09-21 15:00", timezone: "AZT" },
+            { date: "2025-10-05", event: "Singapore", location: "Singapore,SG", flag: "SingaporeFlag.jpg", track: "SingaporeTrack.jpg", trackName: "Marina Bay Street Circuit", practice1: "2025-10-03 17:30", practice2: "2025-10-03 21:00", practice3: "2025-10-04 18:00", qualifying: "2025-10-04 21:00", race: "2025-10-05 20:00", timezone: "SGT" },
+            { date: "2025-10-19", event: "United States", location: "Austin,US", flag: "USFlag.jpg", track: "UnitedStatesTrack.jpg", trackName: "Circuit of the Americas", practice1: "2025-10-17 12:30", sprintQualifying: "2025-10-17 16:30", sprintRace: "2025-10-18 13:00", qualifying: "2025-10-18 17:00", race: "2025-10-19 14:00", timezone: "CDT", isSprint: true },
+            { date: "2025-10-26", event: "Mexico", location: "Mexico City,MX", flag: "MexicoFlag.jpg", track: "MexicoTrack.jpg", trackName: "Autódromo Hermanos Rodríguez", practice1: "2025-10-24 12:30", practice2: "2025-10-24 16:00", practice3: "2025-10-25 11:30", qualifying: "2025-10-25 15:00", race: "2025-10-26 14:00", timezone: "CST" },
+            { date: "2025-11-09", event: "Brazil", location: "Sao Paulo,BR", flag: "BrazilFlag.jpg", track: "BrazilTrack.jpg", trackName: "Autódromo José Carlos Pace", practice1: "2025-11-07 11:30", sprintQualifying: "2025-11-07 15:30", sprintRace: "2025-11-08 10:00", qualifying: "2025-11-08 14:00", race: "2025-11-09 13:00", timezone: "BRT", isSprint: true },
+            { date: "2025-11-22", event: "Las Vegas", location: "Las Vegas,US", flag: "USFlag.jpg", track: "LasVegasTrack.jpg", trackName: "Las Vegas Street Circuit", practice1: "2025-11-20 18:00", practice2: "2025-11-20 22:00", practice3: "2025-11-21 18:00", qualifying: "2025-11-21 22:00", race: "2025-11-22 22:00", timezone: "PST" },
+            { date: "2025-11-30", event: "Qatar", location: "Lusail,QA", flag: "QatarFlag.jpg", track: "QatarTrack.jpg", trackName: "Lusail International Circuit", practice1: "2025-11-28 15:30", sprintQualifying: "2025-11-28 19:30", sprintRace: "2025-11-29 14:00", qualifying: "2025-11-29 18:00", race: "2025-11-30 18:00", timezone: "AST", isSprint: true },
+            { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE", flag: "AbuDhabiFlag.jpg", track: "AbuDhabiTrack.jpg", trackName: "Yas Marina Circuit", practice1: "2025-12-05 13:30", practice2: "2025-12-05 17:00", practice3: "2025-12-06 14:30", qualifying: "2025-12-06 18:00", race: "2025-12-07 17:00", timezone: "GST" }
         ]
     };
 
@@ -129,39 +131,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayF1NextRace() {
         const nextRace = getNextF1Race();
-        const city = nextRace.location.split(",")[0]; // Extract city from "City,Country"
+        const city = nextRace.location.split(",")[0];
         document.getElementById("f1-next-race").textContent = `Next Race: ${nextRace.event} (${city})`;
         document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
-        // Display session times in GMT+2 (South Africa)
-        if (nextRace.practice1 && nextRace.practice2 && nextRace.practice3 && nextRace.qualifying && nextRace.race) {
-            const timezoneOffset = nextRace.timezone === "AEDT" ? -9 : nextRace.timezone === "CST" ? -6 : 0; // AEDT (UTC+11) to GMT+2 = -9h, CST (UTC+8) to GMT+2 = -6h
-            const formatTime = (dateStr) => {
-                const date = new Date(dateStr);
-                date.setHours(date.getHours() + timezoneOffset);
-                return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
-            };
-            const p1Time = formatTime(nextRace.practice1);
-            const p2Time = formatTime(nextRace.practice2);
-            const p3Time = formatTime(nextRace.practice3);
-            const qualTime = formatTime(nextRace.qualifying);
-            const raceTime = formatTime(nextRace.race);
-            document.getElementById("f1-session-times").innerHTML = `
-                Practise 1: ${p1Time} (GMT+2)<br>
-                Practise 2: ${p2Time} (GMT+2)<br>
-                Practise 3: ${p3Time} (GMT+2)<br>
-                Qualifying: ${qualTime} (GMT+2)<br>
-                Race: ${raceTime} (GMT+2)
-            `;
-        } else {
-            document.getElementById("f1-session-times").textContent = "Session times TBD";
-        }
+        // Display session times in GMT+2 with strikethrough/italic for completed
+        const timezoneOffsets = {
+            "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2
+        };
+        const offset = timezoneOffsets[nextRace.timezone] || 0;
+        const formatTime = (dateStr) => {
+            const date = new Date(dateStr);
+            date.setHours(date.getHours() + offset);
+            return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+        };
+        
+        let sessionHTML = "";
+        const isSprint = nextRace.isSprint || false;
+        const sessions = [
+            { label: "Practise 1", time: nextRace.practice1 },
+            { label: isSprint ? "Sprint Qualifying" : "Practise 2", time: isSprint ? nextRace.sprintQualifying : nextRace.practice2 },
+            { label: isSprint ? "Sprint Race" : "Practise 3", time: isSprint ? nextRace.sprintRace : nextRace.practice3 },
+            { label: "Qualifying", time: nextRace.qualifying },
+            { label: "Race", time: nextRace.race }
+        ];
+
+        sessions.forEach(session => {
+            if (session.time) {
+                const sessionDate = new Date(session.time);
+                sessionDate.setHours(sessionDate.getHours() + offset);
+                const isCompleted = sessionDate < currentDateTimeGMT2;
+                const timeStr = formatTime(session.time);
+                sessionHTML += `${isCompleted ? "<s><i>" : ""}${session.label}: ${timeStr} (GMT+2)${isCompleted ? "</i></s>" : ""}<br>`;
+            }
+        });
+        
+        document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
     }
 
     function displaySchedules() {
-        const currentDate = new Date("2025-03-14"); // Current date as per system info
+        const currentDate = new Date("2025-03-14");
         const nextRace = getNextF1Race();
 
         function formatDate(dateStr) {
@@ -184,8 +195,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
                     li.textContent = text;
                     if (raceway === "f1" && event.date === nextRace.date) {
-                        li.style.color = "#FFFF00"; // Highlight next race in schedule
-                        li.classList.add("font-bold"); // Bold next race
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
                     }
                     scheduleList.appendChild(li);
                 });
@@ -194,13 +205,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayUpcomingEvents() {
-        const currentDate = new Date("2025-03-14"); // Current date as per system info
+        const currentDate = new Date("2025-03-14");
         const thirtyDaysLater = new Date(currentDate);
-        thirtyDaysLater.setDate(currentDate.getDate() + 30); // March 14 + 30 days = April 13
+        thirtyDaysLater.setDate(currentDate.getDate() + 30);
 
         const upcomingList = document.getElementById("upcoming-schedule");
 
-        // Collect all events from all raceways
         const allEvents = [];
         Object.keys(schedules).forEach(raceway => {
             schedules[raceway].forEach(event => {
@@ -208,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        // Filter events for the next 30 days
         const upcomingEvents = allEvents.filter(event => {
             const eventDate = new Date(event.date);
             return eventDate >= currentDate && eventDate <= thirtyDaysLater;
@@ -217,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (upcomingEvents.length === 0) {
             upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 30 days";
         } else {
-            upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
+            upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
             const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
                 const date = new Date(event.date);
                 const day = date.getDate();
@@ -256,5 +265,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    showTab("motorsport"); // Load default tab
+    showTab("motorsport");
 });
