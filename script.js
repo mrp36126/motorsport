@@ -75,36 +75,26 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function showTab(tabId) {
-        // Hide all tab content
         document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-        // Remove active styling from all tabs
         document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
         
-        // Show the selected tab content
         const activeTab = document.getElementById(tabId);
-        if (activeTab) {
-            activeTab.classList.remove("hidden");
-            console.log(`Showing tab: ${tabId}`); // Debug log
-        } else {
-            console.error(`Tab with ID '${tabId}' not found`);
-        }
+        activeTab.classList.remove("hidden");
+        document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add("active", "bg-blue-500");
 
-        // Highlight the clicked tab
-        const activeButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
-        if (activeButton) {
-            activeButton.classList.add("active", "bg-blue-500");
-        }
-
-        // Tab-specific actions
         if (tabId === "motorsport") {
             fetchWeather();
             displaySchedules();
             displayUpcomingEvents();
             displayF1NextRace();
-        } else if (tabId === "news") {
-            fetchNews();
         } else if (tabId === "sport") {
-            console.log("Sport tab clicked - no dynamic actions yet"); // Placeholder for future rugby logic
+            // Placeholder for sport tab logic (to be expanded with rugby schedules)
+            console.log("Sport tab activated - awaiting schedule data");
+        } else if (tabId === "news") {
+            fetchNews().catch(error => {
+                console.error("News fetch error:", error);
+                document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+            });
         }
     }
 
@@ -271,23 +261,27 @@ document.addEventListener("DOMContentLoaded", function () {
             displayNews(newsData);
         } catch (error) {
             console.error("News fetch error:", error);
-            document.getElementById("news").innerHTML = `<p class="text-red-400">${error.message}</p>`;
+            document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
         }
     }
 
     function displayNews(data) {
         const newsContainer = document.getElementById("news");
         newsContainer.innerHTML = "";
-        data.articles.forEach(article => {
-            const newsHTML = `
-                <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
-                    <h3 class="text-lg font-bold">${article.title}</h3>
-                    <p>${article.description}</p>
-                    <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
-                </div>
-            `;
-            newsContainer.innerHTML += newsHTML;
-        });
+        if (data.articles && data.articles.length > 0) {
+            data.articles.forEach(article => {
+                const newsHTML = `
+                    <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
+                        <h3 class="text-lg font-bold">${article.title}</h3>
+                        <p>${article.description}</p>
+                        <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
+                    </div>
+                `;
+                newsContainer.innerHTML += newsHTML;
+            });
+        } else {
+            newsContainer.innerHTML = `<p class="text-gray-400">No news available.</p>`;
+        }
     }
 
     showTab("motorsport");
