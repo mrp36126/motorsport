@@ -120,12 +120,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayUpcomingEvents() {
         const currentDate = new Date("2025-03-14"); // Current date as per system info
-        const currentMonth = currentDate.getMonth(); // 0-11 (March = 2)
-        const currentYear = currentDate.getFullYear(); // 2025
-        const nextMonthStart = new Date(currentYear, currentMonth + 1, 1); // Start of April
+        const thirtyDaysLater = new Date(currentDate);
+        thirtyDaysLater.setDate(currentDate.getDate() + 30); // March 14 + 30 days = April 13
 
         const upcomingList = document.getElementById("upcoming-schedule");
-        upcomingList.innerHTML = "";
 
         // Collect all events from all raceways
         const allEvents = [];
@@ -135,24 +133,23 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        // Filter events for the next month (April 2025)
+        // Filter events for the next 30 days
         const upcomingEvents = allEvents.filter(event => {
             const eventDate = new Date(event.date);
-            return eventDate >= nextMonthStart && eventDate < new Date(currentYear, currentMonth + 2, 1);
+            return eventDate >= currentDate && eventDate <= thirtyDaysLater;
         });
 
         if (upcomingEvents.length === 0) {
-            upcomingList.innerHTML = "<li>No events this month</li>";
+            upcomingList.textContent = "No events in the next 30 days";
         } else {
             upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
-            upcomingEvents.forEach(event => {
-                const li = document.createElement("li");
+            const eventText = upcomingEvents.map(event => {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
-                li.textContent = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
-                upcomingList.appendChild(li);
-            });
+                return `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
+            }).join("  •  ");
+            upcomingList.textContent = eventText;
         }
     }
 
