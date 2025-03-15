@@ -140,16 +140,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (upcomingEvents.length === 0) {
-            upcomingList.textContent = "Upcoming Events: No events in the next 30 days";
+            upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 30 days";
         } else {
             upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
-            const eventText = "Upcoming Events: " + upcomingEvents.map(event => {
+            const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
                 return `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
-            }).join("    •    ");
-            upcomingList.textContent = eventText;
+            }).join("      •      ");
+            upcomingList.innerHTML = eventText;
         }
     }
 
