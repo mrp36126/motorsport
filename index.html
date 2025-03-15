@@ -9,21 +9,21 @@
     <style>
         /* Custom CSS for marquee effect */
         @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(100vw); } /* Start fully off-screen on the right */
+            100% { transform: translateX(-100%); } /* Scroll to fully off-screen on the left */
         }
         .marquee {
             display: inline-block;
             white-space: nowrap;
             animation: marquee 15s linear infinite;
             position: absolute;
-            will-change: transform; /* Improves performance */
+            will-change: transform;
         }
         .marquee-container {
             overflow: hidden;
             width: 100%;
             position: relative;
-            height: 1.5rem; /* Fixed height to match text size */
+            height: 2rem; /* Increased height for larger text */
         }
     </style>
 </head>
@@ -48,9 +48,9 @@
             <section id="motorsport" class="tab-content active">
                 <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Motorsport & Weather</h2>
                 <!-- Upcoming Events Ticker -->
-                <div id="card-upcoming" class="bg-gray-800 p-2 rounded-lg shadow-md text-white mb-4">
-                    <div class="marquee-container">
-                        <span id="upcoming-schedule" class="marquee text-xs sm:text-sm"></span>
+                <div id="card-upcoming" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
+                    <div class="marquee-container bg-gray-800 bg-opacity-70">
+                        <span id="upcoming-schedule" class="marquee text-sm sm:text-base"></span>
                     </div>
                 </div>
                 <!-- Weather Tiles -->
