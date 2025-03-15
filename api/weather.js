@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
     const apiKey = process.env.WEATHER_API_KEY;
-    const locations = ["Pretoria,ZA", "Vereeniging,ZA", "Brakpan,ZA"]; // Only 3 locations since Pretoria covers both Zwartkops and Mahem
+    const locations = ["Pretoria,ZA", "Vereeniging,ZA", "Brakpan,ZA", "Melbourne,AU"]; // Added Melbourne for F1
 
     try {
         const weatherData = await Promise.all(
