@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="/script.js"></script>
     <style>
+        /* Custom CSS for marquee effect */
         @keyframes marquee {
             0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
@@ -28,25 +29,32 @@
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-4 sm:p-6">
+        <!-- Header -->
         <header class="text-center text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-blue-400">
             Motorsport Weather & News
         </header>
 
+        <!-- Navigation Tabs -->
         <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
             <button class="tab active px-4 py-2 rounded-lg text-base sm:text-lg bg-blue-500 hover:bg-blue-600 transition whitespace-nowrap" onclick="showTab('motorsport')">Motorsport</button>
             <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-700 hover:bg-gray-600 transition whitespace-nowrap" onclick="showTab('sport')">Sport</button>
             <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-700 hover:bg-gray-600 transition whitespace-nowrap" onclick="showTab('news')">News</button>
         </nav>
 
+        <!-- Tab Content -->
         <main class="mt-4 sm:mt-6">
+            <!-- Motorsport Weather -->
             <section id="motorsport" class="tab-content">
                 <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Motorsport & Weather</h2>
+                <!-- Upcoming Events Ticker -->
                 <div id="card-upcoming" class="bg-[url('/images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
                     <div class="marquee-container bg-gray-800 bg-opacity-70">
                         <span id="upcoming-schedule" class="marquee text-sm sm:text-base"></span>
                     </div>
                 </div>
+                <!-- Weather Tiles -->
                 <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+                    <!-- Tile 1: Zwartkops Raceway, Pretoria -->
                     <div id="card-zwartkops" class="weather-card bg-[url('/images/Racing1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Zwartkops Raceway, Pretoria</h3>
@@ -56,6 +64,7 @@
                             <ul id="zwartkops-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
+                    <!-- Tile 2: Ultimate Raceway, Vereeniging -->
                     <div id="card-ultimate" class="weather-card bg-[url('/images/Racing2.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Ultimate Raceway, Vereeniging</h3>
@@ -65,6 +74,7 @@
                             <ul id="ultimate-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
+                    <!-- Tile 3: The Rock Raceway, Brakpan -->
                     <div id="card-rock" class="weather-card bg-[url('/images/Racing3.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">The Rock Raceway, Brakpan</h3>
@@ -74,6 +84,7 @@
                             <ul id="rock-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
+                    <!-- Tile 4: Mahem Raceway, Pretoria -->
                     <div id="card-mahem" class="weather-card bg-[url('/images/Racing4.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Mahem Raceway, Pretoria</h3>
@@ -83,6 +94,7 @@
                             <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
+                    <!-- Tile 5: Formula 1 -->
                     <div id="card-f1" class="weather-card bg-[url('/images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
@@ -105,9 +117,11 @@
                 </div>
             </section>
 
+            <!-- Sport -->
             <section id="sport" class="tab-content hidden">
                 <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Sport News</h2>
                 <div id="rugby" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Card 1: International Rugby -->
                     <div id="card-int-rugby" class="rugby-card bg-[url('/images/Rugby1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">International Rugby</h3>
@@ -117,6 +131,7 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- Card 2: Provincial Rugby -->
                     <div id="card-prov-rugby" class="rugby-card bg-[url('/images/Rugby2.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Provincial Rugby</h3>
@@ -126,6 +141,7 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- Card 3: Local Rugby -->
                     <div id="card-local-rugby" class="rugby-card bg-[url('/images/Rugby3.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Local Rugby</h3>
@@ -138,6 +154,7 @@
                 </div>
             </section>
 
+            <!-- News -->
             <section id="news" class="tab-content hidden">
                 <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Latest News</h2>
                 <p class="text-center text-gray-400">Coming soon...</p>
