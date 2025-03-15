@@ -75,20 +75,37 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function showTab(tabId) {
+        // Hide all tab content
         document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+        // Remove active styling from all tabs
         document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
         
+        // Show the selected tab content
         const activeTab = document.getElementById(tabId);
-        activeTab.classList.remove("hidden");
-        document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add("active", "bg-blue-500");
+        if (activeTab) {
+            activeTab.classList.remove("hidden");
+            console.log(`Showing tab: ${tabId}`); // Debug log
+        } else {
+            console.error(`Tab with ID '${tabId}' not found`);
+        }
 
+        // Highlight the clicked tab
+        const activeButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
+        if (activeButton) {
+            activeButton.classList.add("active", "bg-blue-500");
+        }
+
+        // Tab-specific actions
         if (tabId === "motorsport") {
             fetchWeather();
             displaySchedules();
             displayUpcomingEvents();
             displayF1NextRace();
+        } else if (tabId === "news") {
+            fetchNews();
+        } else if (tabId === "sport") {
+            console.log("Sport tab clicked - no dynamic actions yet"); // Placeholder for future rugby logic
         }
-        if (tabId === "news") fetchNews();
     }
 
     async function fetchWeather() {
