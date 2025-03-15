@@ -9,8 +9,8 @@
     <style>
         /* Custom CSS for marquee effect */
         @keyframes marquee {
-            0% { transform: translateX(100vw); } /* Start fully off-screen on the right */
-            100% { transform: translateX(-100%); } /* Scroll to fully off-screen on the left */
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
         }
         .marquee {
             display: inline-block;
@@ -23,7 +23,7 @@
             overflow: hidden;
             width: 100%;
             position: relative;
-            height: 2rem; /* Increased height for larger text */
+            height: 2rem;
         }
     </style>
 </head>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!-- Weather Tiles -->
-                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
                     <!-- Tile 1: Zwartkops Raceway, Pretoria -->
                     <div id="card-zwartkops" class="weather-card bg-[url('images/Racing1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
@@ -93,6 +93,14 @@
                             <p id="mahem-condition">Condition: Loading...</p>
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
+                        </div>
+                    </div>
+                    <!-- Tile 5: Formula 1 -->
+                    <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
+                            <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
+                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
+                            <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
                 </div>
