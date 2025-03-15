@@ -1,6 +1,34 @@
 export default async function handler(req, res) {
     const apiKey = process.env.WEATHER_API_KEY;
-    const locations = ["Pretoria,ZA", "Vereeniging,ZA", "Brakpan,ZA", "Melbourne,AU"]; // Added Melbourne for F1
+    const locations = [
+        "Pretoria,ZA",
+        "Vereeniging,ZA",
+        "Brakpan,ZA",
+        "Melbourne,AU",
+        "Shanghai,CN",
+        "Suzuka,JP",
+        "Sakhir,BH",
+        "Jeddah,SA",
+        "Miami,US",
+        "Imola,IT",
+        "Monaco,MC",
+        "Barcelona,ES",
+        "Montreal,CA",
+        "Spielberg,AT",
+        "Silverstone,GB",
+        "Spa,BE",
+        "Budapest,HU",
+        "Zandvoort,NL",
+        "Monza,IT",
+        "Baku,AZ",
+        "Singapore,SG",
+        "Austin,US",
+        "Mexico City,MX",
+        "Sao Paulo,BR",
+        "Las Vegas,US",
+        "Lusail,QA",
+        "Yas Marina,AE"
+    ];
 
     try {
         const weatherData = await Promise.all(
