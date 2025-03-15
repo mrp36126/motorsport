@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const weatherContainer = document.getElementById("weather");
-    const currentDateTime = new Date(); // Real-time system date and time
-    const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000)); // Adjust to GMT+2
+    const currentDateTime = new Date();
+    const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000));
 
-    // Schedules data with session times, track records, winners, and poles for all F1 races
     const schedules = {
         zwartkops: [
             { date: "2025-02-01", event: "Passion for Speed" },
@@ -75,27 +74,22 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function showTab(tabId) {
-        // Hide all tab content
         document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-        // Remove active styling from all tabs
         document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
         
-        // Show the selected tab content
         const activeTab = document.getElementById(tabId);
         if (activeTab) {
             activeTab.classList.remove("hidden");
-            console.log(`Showing tab: ${tabId}`); // Debug log
+            console.log(`Showing tab: ${tabId}`);
         } else {
             console.error(`Tab with ID '${tabId}' not found`);
         }
 
-        // Highlight the clicked tab
         const activeButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
         if (activeButton) {
             activeButton.classList.add("active", "bg-blue-500");
         }
 
-        // Tab-specific actions
         if (tabId === "motorsport") {
             fetchWeather();
             displaySchedules();
@@ -104,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (tabId === "news") {
             fetchNews();
         } else if (tabId === "sport") {
-            console.log("Sport tab clicked - no dynamic actions yet"); // Placeholder for future rugby logic
+            console.log("Sport tab clicked - no dynamic actions yet");
         }
     }
 
@@ -143,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getNextF1Race() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+        currentDate.setHours(0, 0, 0, 0);
         return schedules.f1.find(event => new Date(event.date) >= currentDate) || schedules.f1[0];
     }
 
@@ -151,11 +145,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const nextRace = getNextF1Race();
         const city = nextRace.location.split(",")[0];
         document.getElementById("f1-next-race").textContent = `Next Race: ${nextRace.event} (${city})`;
-        document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
+        document.getElementById("f1-flag").src = `/images/${nextRace.flag}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
-        document.getElementById("f1-track").src = `images/${nextRace.track}`;
+        document.getElementById("f1-track").src = `/images/${nextRace.track}`;
 
-        // Display session times in GMT+2 with strikethrough/italic for completed
         const timezoneOffsets = {
             "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2
         };
@@ -187,8 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         
         document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
-
-        // Display track record, last winner, and last pole position
         document.getElementById("f1-track-record").textContent = `Track Record: ${nextRace.trackRecord}`;
         document.getElementById("f1-last-winner").textContent = `Last Year's Winner: ${nextRace.lastWinner}`;
         document.getElementById("f1-last-pole").textContent = `Last Year's Pole Position: ${nextRace.lastPole}`;
@@ -196,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displaySchedules() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+        currentDate.setHours(0, 0, 0, 0);
         const nextRace = getNextF1Race();
 
         function formatDate(dateStr) {
@@ -230,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayUpcomingEvents() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day
+        currentDate.setHours(0, 0, 0, 0);
         const thirtyDaysLater = new Date(currentDate);
         thirtyDaysLater.setDate(currentDate.getDate() + 30);
 
