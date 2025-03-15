@@ -161,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     li.textContent = text;
                     if (raceway === "f1" && event.date === nextRace.date) {
                         li.style.color = "#FFFF00"; // Highlight next race in schedule
+                        li.classList.add("font-bold"); // Bold next race
                     }
                     scheduleList.appendChild(li);
                 });
