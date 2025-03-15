@@ -16,10 +16,14 @@
             display: inline-block;
             white-space: nowrap;
             animation: marquee 15s linear infinite;
+            position: absolute;
+            will-change: transform; /* Improves performance */
         }
         .marquee-container {
             overflow: hidden;
             width: 100%;
+            position: relative;
+            height: 1.5rem; /* Fixed height to match text size */
         }
     </style>
 </head>
