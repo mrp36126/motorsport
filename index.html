@@ -15,7 +15,7 @@
         .marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 20s linear infinite; /* Slowed from 15s to 20s */
+            animation: marquee 20s linear infinite;
             position: absolute;
             will-change: transform;
         }
@@ -99,6 +99,7 @@
                     <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
                             <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
+                            <h4 id="f1-next-race" class="text-sm sm:text-base text-gray-300"></h4>
                             <p id="f1-temp">Temp: Loading...</p>
                             <p id="f1-condition">Condition: Loading...</p>
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
