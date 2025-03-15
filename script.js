@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const weatherContainer = document.getElementById("weather");
 
-    // Schedules data
+    // Schedules data with session times for F1
     const schedules = {
         zwartkops: [
             { date: "2025-02-01", event: "Passion for Speed" },
@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
             { date: "2025-12-06", event: "Fireworks" }
         ],
         f1: [
-            { date: "2025-03-16", event: "Australia", location: "Melbourne,AU", flag: "AustraliaFlag.jpg", track: "AustraliaTrack.jpg", trackName: "Albert Park Grand Prix Circuit" },
-            { date: "2025-03-23", event: "China", location: "Shanghai,CN", flag: "ChinaFlag.jpg", track: "ChinaTrack.jpg", trackName: "Shanghai International Circuit" },
+            { date: "2025-03-16", event: "Australia", location: "Melbourne,AU", flag: "AustraliaFlag.jpg", track: "AustraliaTrack.jpg", trackName: "Albert Park Grand Prix Circuit", practice1: "2025-03-14 12:30", practice2: "2025-03-14 16:00", practice3: "2025-03-15 12:30", qualifying: "2025-03-15 16:00", race: "2025-03-16 15:00", timezone: "AEDT" },
+            { date: "2025-03-23", event: "China", location: "Shanghai,CN", flag: "ChinaFlag.jpg", track: "ChinaTrack.jpg", trackName: "Shanghai International Circuit", practice1: "2025-03-21 11:30", practice2: "2025-03-21 15:30", practice3: "2025-03-22 11:00", qualifying: "2025-03-22 15:00", race: "2025-03-23 15:00", timezone: "CST" },
             { date: "2025-04-06", event: "Japan", location: "Suzuka,JP", flag: "JapanFlag.jpg", track: "JapanTrack.jpg", trackName: "Suzuka International Racing Course" },
             { date: "2025-04-13", event: "Bahrain", location: "Sakhir,BH", flag: "BahrainFlag.jpg", track: "BahrainTrack.jpg", trackName: "Bahrain International Circuit" },
             { date: "2025-04-20", event: "Saudi Arabia", location: "Jeddah,SA", flag: "SaudiArabiaFlag.jpg", track: "SaudiArabiaTrack.jpg", trackName: "Jeddah Corniche Circuit" },
@@ -134,6 +134,24 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
+
+        // Display session times in PDT (assumed user timezone)
+        if (nextRace.practice1 && nextRace.practice2 && nextRace.practice3 && nextRace.qualifying && nextRace.race) {
+            const timezoneOffset = nextRace.timezone === "AEDT" ? -18 : nextRace.timezone === "CST" ? -15 : 0; // AEDT (UTC+11) to PDT (UTC-7) = -18h, CST (UTC+8) to PDT = -15h
+            const formatTime = (dateStr) => {
+                const date = new Date(dateStr);
+                date.setHours(date.getHours() + timezoneOffset);
+                return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+            };
+            const p1Time = formatTime(nextRace.practice1);
+            const p2Time = formatTime(nextRace.practice2);
+            const p3Time = formatTime(nextRace.practice3);
+            const qualTime = formatTime(nextRace.qualifying);
+            const raceTime = formatTime(nextRace.race);
+            document.getElementById("f1-session-times").textContent = `P1: ${p1Time} | P2: ${p2Time} | P3: ${p3Time} | Q: ${qualTime} | R: ${raceTime}`;
+        } else {
+            document.getElementById("f1-session-times").textContent = "Session times TBD";
+        }
     }
 
     function displaySchedules() {
