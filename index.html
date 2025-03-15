@@ -26,8 +26,8 @@
         <main class="mt-4 sm:mt-6">
             <!-- Motorsport Weather -->
             <section id="motorsport" class="tab-content active">
-                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Motorsport Weather</h2>
-                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Motorsport & Weather</h2>
+                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
                     <!-- Tile 1: Zwartkops Raceway, Pretoria -->
                     <div id="card-zwartkops" class="weather-card bg-[url('images/Racing1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
@@ -67,6 +67,11 @@
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
+                    </div>
+                    <!-- Tile 5: Upcoming Events This Month -->
+                    <div id="card-upcoming" class="weather-card bg-gray-800 p-4 rounded-lg shadow-md text-left text-white">
+                        <h3 class="text-base sm:text-lg font-bold">Upcoming Events This Month</h3>
+                        <ul id="upcoming-schedule" class="text-xs sm:text-sm list-disc list-inside mt-2"></ul>
                     </div>
                 </div>
             </section>
