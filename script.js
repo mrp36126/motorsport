@@ -71,25 +71,48 @@ document.addEventListener("DOMContentLoaded", function () {
             { date: "2025-11-22", event: "Las Vegas", location: "Las Vegas,US", flag: "USFlag.jpg", track: "LasVegasTrack.jpg", trackName: "Las Vegas Street Circuit", practice1: "2025-11-20 18:00", practice2: "2025-11-20 22:00", practice3: "2025-11-21 18:00", qualifying: "2025-11-21 22:00", race: "2025-11-22 22:00", timezone: "PST", trackRecord: "1:35.490 (Charles Leclerc, Ferrari, 2023)", lastWinner: "Max Verstappen (Red Bull, 2024)", lastPole: "George Russell (1:31.839, 2024)" },
             { date: "2025-11-30", event: "Qatar", location: "Lusail,QA", flag: "QatarFlag.jpg", track: "QatarTrack.jpg", trackName: "Lusail International Circuit", practice1: "2025-11-28 15:30", sprintQualifying: "2025-11-28 19:30", sprintRace: "2025-11-29 14:00", qualifying: "2025-11-29 18:00", race: "2025-11-30 18:00", timezone: "AST", isSprint: true, trackRecord: "1:24.319 (Max Verstappen, Red Bull, 2021)", lastWinner: "Max Verstappen (Red Bull, 2024)", lastPole: "Max Verstappen (1:20.235, 2024)" },
             { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE", flag: "AbuDhabiFlag.jpg", track: "AbuDhabiTrack.jpg", trackName: "Yas Marina Circuit", practice1: "2025-12-05 13:30", practice2: "2025-12-05 17:00", practice3: "2025-12-06 14:30", qualifying: "2025-12-06 18:00", race: "2025-12-07 17:00", timezone: "GST", trackRecord: "1:26.103 (Lewis Hamilton, Mercedes, 2021)", lastWinner: "Lando Norris (McLaren, 2024)", lastPole: "Lando Norris (1:22.595, 2024)" }
+        ],
+        // Placeholder rugby schedules (to be replaced with your data)
+        intRugby: [
+            { date: "2025-03-01", event: "Six Nations: England vs France" },
+            { date: "2025-06-21", event: "Test Match: South Africa vs New Zealand" },
+            { date: "2025-11-15", event: "Autumn Internationals: Ireland vs Australia" }
+        ],
+        provRugby: [
+            { date: "2025-04-05", event: "Currie Cup: Sharks vs Bulls" },
+            { date: "2025-05-10", event: "Currie Cup: Lions vs Stormers" },
+            { date: "2025-06-14", event: "Currie Cup Final" }
+        ],
+        localRugby: [
+            { date: "2025-03-15", event: "Club Match: Pretoria Harlequins vs Tuks" },
+            { date: "2025-04-12", event: "Club Match: Centurion vs Pirates" },
+            { date: "2025-05-17", event: "Local League Final" }
         ]
     };
 
     function showTab(tabId) {
+        // Hide all tab content and remove active styling from tabs
         document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
         document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
-        
-        const activeTab = document.getElementById(tabId);
-        activeTab.classList.remove("hidden");
-        document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add("active", "bg-blue-500");
 
+        // Show the selected tab and style the active tab button
+        const activeTab = document.getElementById(tabId);
+        if (activeTab) {
+            activeTab.classList.remove("hidden");
+            const activeTabButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
+            if (activeTabButton) {
+                activeTabButton.classList.add("active", "bg-blue-500");
+            }
+        }
+
+        // Tab-specific logic
         if (tabId === "motorsport") {
             fetchWeather();
             displaySchedules();
             displayUpcomingEvents();
             displayF1NextRace();
         } else if (tabId === "sport") {
-            // Placeholder for sport tab logic (to be expanded with rugby schedules)
-            console.log("Sport tab activated - awaiting schedule data");
+            displayRugbySchedules();
         } else if (tabId === "news") {
             fetchNews().catch(error => {
                 console.error("News fetch error:", error);
@@ -198,22 +221,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
         Object.keys(schedules).forEach(raceway => {
             const scheduleList = document.getElementById(`${raceway}-schedule`);
-            scheduleList.innerHTML = "";
+            if (scheduleList) {
+                scheduleList.innerHTML = "";
 
-            const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
-            if (futureEvents.length === 0) {
-                scheduleList.innerHTML = "<li>No upcoming events</li>";
-            } else {
-                futureEvents.forEach(event => {
-                    const li = document.createElement("li");
-                    const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
-                    li.textContent = text;
-                    if (raceway === "f1" && event.date === nextRace.date) {
-                        li.style.color = "#FFFF00";
-                        li.classList.add("font-bold");
-                    }
-                    scheduleList.appendChild(li);
-                });
+                const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
+                if (futureEvents.length === 0) {
+                    scheduleList.innerHTML = "<li>No upcoming events</li>";
+                } else {
+                    futureEvents.forEach(event => {
+                        const li = document.createElement("li");
+                        const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                        li.textContent = text;
+                        if (raceway === "f1" && event.date === nextRace.date) {
+                            li.style.color = "#FFFF00";
+                            li.classList.add("font-bold");
+                        }
+                        scheduleList.appendChild(li);
+                    });
+                }
+            }
+        });
+    }
+
+    function displayRugbySchedules() {
+        const currentDate = new Date(currentDateTime);
+        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const day = date.getDate();
+            const month = date.toLocaleString("default", { month: "long" });
+            return `${day} ${month}`;
+        }
+
+        // Display schedules for rugby categories
+        ["intRugby", "provRugby", "localRugby"].forEach(category => {
+            const scheduleList = document.getElementById(`${category}-schedule`);
+            if (scheduleList) {
+                scheduleList.innerHTML = "";
+
+                const futureEvents = schedules[category].filter(event => new Date(event.date) >= currentDate);
+                if (futureEvents.length === 0) {
+                    scheduleList.innerHTML = "<li>No upcoming events</li>";
+                } else {
+                    futureEvents.forEach(event => {
+                        const li = document.createElement("li");
+                        const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                        li.textContent = text;
+                        scheduleList.appendChild(li);
+                    });
+                }
             }
         });
     }
@@ -261,28 +318,31 @@ document.addEventListener("DOMContentLoaded", function () {
             displayNews(newsData);
         } catch (error) {
             console.error("News fetch error:", error);
-            document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+            throw error; // Re-throw to be caught in showTab
         }
     }
 
     function displayNews(data) {
         const newsContainer = document.getElementById("news");
-        newsContainer.innerHTML = "";
-        if (data.articles && data.articles.length > 0) {
-            data.articles.forEach(article => {
-                const newsHTML = `
-                    <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
-                        <h3 class="text-lg font-bold">${article.title}</h3>
-                        <p>${article.description}</p>
-                        <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
-                    </div>
-                `;
-                newsContainer.innerHTML += newsHTML;
-            });
-        } else {
-            newsContainer.innerHTML = `<p class="text-gray-400">No news available.</p>`;
+        if (newsContainer) {
+            newsContainer.innerHTML = "";
+            if (data && data.articles && data.articles.length > 0) {
+                data.articles.forEach(article => {
+                    const newsHTML = `
+                        <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
+                            <h3 class="text-lg font-bold">${article.title}</h3>
+                            <p>${article.description}</p>
+                            <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
+                        </div>
+                    `;
+                    newsContainer.innerHTML += newsHTML;
+                });
+            } else {
+                newsContainer.innerHTML = `<p class="text-gray-400">No news available.</p>`;
+            }
         }
     }
 
+    // Initial tab display
     showTab("motorsport");
 });
