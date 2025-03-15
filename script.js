@@ -45,30 +45,30 @@ document.addEventListener("DOMContentLoaded", function () {
             { date: "2025-12-06", event: "Fireworks" }
         ],
         f1: [
-            { date: "2025-03-16", event: "Australia" },
-            { date: "2025-03-23", event: "China" },
-            { date: "2025-04-06", event: "Japan" },
-            { date: "2025-04-13", event: "Bahrain" },
-            { date: "2025-04-20", event: "Saudi Arabia" },
-            { date: "2025-05-04", event: "Miami" },
-            { date: "2025-05-18", event: "Emilia-Romagna (Italy)" },
-            { date: "2025-05-25", event: "Monaco" },
-            { date: "2025-06-01", event: "Spain" },
-            { date: "2025-06-15", event: "Canada" },
-            { date: "2025-06-29", event: "Austria" },
-            { date: "2025-07-06", event: "Great Britain" },
-            { date: "2025-07-27", event: "Belgium" },
-            { date: "2025-08-03", event: "Hungary" },
-            { date: "2025-08-31", event: "Netherlands" },
-            { date: "2025-09-07", event: "Monza (Italy)" },
-            { date: "2025-09-21", event: "Azerbaijan" },
-            { date: "2025-10-05", event: "Singapore" },
-            { date: "2025-10-19", event: "United States" },
-            { date: "2025-10-26", event: "Mexico" },
-            { date: "2025-11-09", event: "Brazil" },
-            { date: "2025-11-22", event: "Las Vegas" },
-            { date: "2025-11-30", event: "Qatar" },
-            { date: "2025-12-07", event: "Abu Dhabi" }
+            { date: "2025-03-16", event: "Australia", location: "Melbourne,AU" },
+            { date: "2025-03-23", event: "China", location: "Shanghai,CN" },
+            { date: "2025-04-06", event: "Japan", location: "Suzuka,JP" },
+            { date: "2025-04-13", event: "Bahrain", location: "Sakhir,BH" },
+            { date: "2025-04-20", event: "Saudi Arabia", location: "Jeddah,SA" },
+            { date: "2025-05-04", event: "Miami", location: "Miami,US" },
+            { date: "2025-05-18", event: "Emilia-Romagna (Italy)", location: "Imola,IT" },
+            { date: "2025-05-25", event: "Monaco", location: "Monaco,MC" },
+            { date: "2025-06-01", event: "Spain", location: "Barcelona,ES" },
+            { date: "2025-06-15", event: "Canada", location: "Montreal,CA" },
+            { date: "2025-06-29", event: "Austria", location: "Spielberg,AT" },
+            { date: "2025-07-06", event: "Great Britain", location: "Silverstone,GB" },
+            { date: "2025-07-27", event: "Belgium", location: "Spa,BE" },
+            { date: "2025-08-03", event: "Hungary", location: "Budapest,HU" },
+            { date: "2025-08-31", event: "Netherlands", location: "Zandvoort,NL" },
+            { date: "2025-09-07", event: "Monza (Italy)", location: "Monza,IT" },
+            { date: "2025-09-21", event: "Azerbaijan", location: "Baku,AZ" },
+            { date: "2025-10-05", event: "Singapore", location: "Singapore,SG" },
+            { date: "2025-10-19", event: "United States", location: "Austin,US" },
+            { date: "2025-10-26", event: "Mexico", location: "Mexico City,MX" },
+            { date: "2025-11-09", event: "Brazil", location: "Sao Paulo,BR" },
+            { date: "2025-11-22", event: "Las Vegas", location: "Las Vegas,US" },
+            { date: "2025-11-30", event: "Qatar", location: "Lusail,QA" },
+            { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE" }
         ]
     };
 
@@ -113,8 +113,17 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (location.location === "Brakpan,ZA") {
                 document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
+            } else if (location.location === getNextF1RaceLocation()) {
+                document.getElementById("f1-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("f1-condition").textContent = `Condition: ${location.description}`;
             }
         });
+    }
+
+    function getNextF1RaceLocation() {
+        const currentDate = new Date("2025-03-14");
+        const nextRace = schedules.f1.find(event => new Date(event.date) >= currentDate);
+        return nextRace ? nextRace.location : null;
     }
 
     function displaySchedules() {
