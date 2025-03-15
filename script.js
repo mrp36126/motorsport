@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchWeather();
             displaySchedules();
             displayUpcomingEvents();
+            displayF1NextRace();
         }
         if (tabId === "news") fetchNews();
     }
@@ -101,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayWeather(data) {
+        const nextF1Location = getNextF1Race().location;
         data.forEach(location => {
             if (location.location === "Pretoria,ZA") {
                 document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
@@ -113,17 +115,22 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (location.location === "Brakpan,ZA") {
                 document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
-            } else if (location.location === getNextF1RaceLocation()) {
+            } else if (location.location === nextF1Location) {
                 document.getElementById("f1-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("f1-condition").textContent = `Condition: ${location.description}`;
             }
         });
     }
 
-    function getNextF1RaceLocation() {
+    function getNextF1Race() {
         const currentDate = new Date("2025-03-14");
-        const nextRace = schedules.f1.find(event => new Date(event.date) >= currentDate);
-        return nextRace ? nextRace.location : null;
+        return schedules.f1.find(event => new Date(event.date) >= currentDate) || schedules.f1[0];
+    }
+
+    function displayF1NextRace() {
+        const nextRace = getNextF1Race();
+        const city = nextRace.location.split(",")[0]; // Extract city from "City,Country"
+        document.getElementById("f1-next-race").textContent = `Next Race: ${nextRace.event} (${city})`;
     }
 
     function displaySchedules() {
