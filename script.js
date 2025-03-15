@@ -135,9 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
-        // Display session times in PDT (assumed user timezone)
+        // Display session times in GMT+2 (South Africa)
         if (nextRace.practice1 && nextRace.practice2 && nextRace.practice3 && nextRace.qualifying && nextRace.race) {
-            const timezoneOffset = nextRace.timezone === "AEDT" ? -18 : nextRace.timezone === "CST" ? -15 : 0; // AEDT (UTC+11) to PDT (UTC-7) = -18h, CST (UTC+8) to PDT = -15h
+            const timezoneOffset = nextRace.timezone === "AEDT" ? -9 : nextRace.timezone === "CST" ? -6 : 0; // AEDT (UTC+11) to GMT+2 = -9h, CST (UTC+8) to GMT+2 = -6h
             const formatTime = (dateStr) => {
                 const date = new Date(dateStr);
                 date.setHours(date.getHours() + timezoneOffset);
@@ -148,7 +148,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const p3Time = formatTime(nextRace.practice3);
             const qualTime = formatTime(nextRace.qualifying);
             const raceTime = formatTime(nextRace.race);
-            document.getElementById("f1-session-times").textContent = `P1: ${p1Time} | P2: ${p2Time} | P3: ${p3Time} | Q: ${qualTime} | R: ${raceTime}`;
+            document.getElementById("f1-session-times").innerHTML = `
+                Practise 1: ${p1Time} (GMT+2)<br>
+                Practise 2: ${p2Time} (GMT+2)<br>
+                Practise 3: ${p3Time} (GMT+2)<br>
+                Qualifying: ${qualTime} (GMT+2)<br>
+                Race: ${raceTime} (GMT+2)
+            `;
         } else {
             document.getElementById("f1-session-times").textContent = "Session times TBD";
         }
