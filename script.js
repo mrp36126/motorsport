@@ -1,39 +1,3 @@
-// Define showTab globally so it can be called from HTML onclick
-window.showTab = function(tabId) {
-    // Hide all tab content
-    document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-    // Remove active styling from all tabs
-    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
-    
-    // Show the selected tab content
-    const activeTab = document.getElementById(tabId);
-    if (activeTab) {
-        activeTab.classList.remove("hidden");
-        console.log(`Showing tab: ${tabId}`); // Debug log
-    } else {
-        console.error(`Tab with ID '${tabId}' not found`);
-    }
-
-    // Highlight the clicked tab
-    const activeButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
-    if (activeButton) {
-        activeButton.classList.add("active", "bg-blue-500");
-    }
-
-    // Tab-specific actions
-    if (tabId === "motorsport") {
-        fetchWeather();
-        displaySchedules();
-        displayUpcomingEvents();
-        displayF1NextRace();
-    } else if (tabId === "news") {
-        fetchNews();
-    } else if (tabId === "sport") {
-        console.log("Sport tab clicked - no dynamic actions yet"); // Placeholder for future rugby logic
-    }
-};
-
-// All other logic inside DOMContentLoaded to ensure DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
     const weatherContainer = document.getElementById("weather");
     const currentDateTime = new Date(); // Real-time system date and time
@@ -110,6 +74,40 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
+    function showTab(tabId) {
+        // Hide all tab content
+        document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
+        // Remove active styling from all tabs
+        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
+        
+        // Show the selected tab content
+        const activeTab = document.getElementById(tabId);
+        if (activeTab) {
+            activeTab.classList.remove("hidden");
+            console.log(`Showing tab: ${tabId}`); // Debug log
+        } else {
+            console.error(`Tab with ID '${tabId}' not found`);
+        }
+
+        // Highlight the clicked tab
+        const activeButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
+        if (activeButton) {
+            activeButton.classList.add("active", "bg-blue-500");
+        }
+
+        // Tab-specific actions
+        if (tabId === "motorsport") {
+            fetchWeather();
+            displaySchedules();
+            displayUpcomingEvents();
+            displayF1NextRace();
+        } else if (tabId === "news") {
+            fetchNews();
+        } else if (tabId === "sport") {
+            console.log("Sport tab clicked - no dynamic actions yet"); // Placeholder for future rugby logic
+        }
+    }
+
     async function fetchWeather() {
         try {
             const response = await fetch("/api/weather");
@@ -153,9 +151,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const nextRace = getNextF1Race();
         const city = nextRace.location.split(",")[0];
         document.getElementById("f1-next-race").textContent = `Next Race: ${nextRace.event} (${city})`;
-        document.getElementById("f1-flag").src = `/images/${nextRace.flag}`;
+        document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
-        document.getElementById("f1-track").src = `/images/${nextRace.track}`;
+        document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
         // Display session times in GMT+2 with strikethrough/italic for completed
         const timezoneOffsets = {
@@ -292,6 +290,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Initialize the Motorsport tab on page load
-    window.showTab("motorsport");
+    showTab("motorsport");
 });
