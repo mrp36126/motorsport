@@ -43,6 +43,32 @@ document.addEventListener("DOMContentLoaded", function () {
             { date: "2025-10-04", event: "Hot Rods" },
             { date: "2025-11-15", event: "" },
             { date: "2025-12-06", event: "Fireworks" }
+        ],
+        f1: [
+            { date: "2025-03-16", event: "Australia" },
+            { date: "2025-03-23", event: "China" },
+            { date: "2025-04-06", event: "Japan" },
+            { date: "2025-04-13", event: "Bahrain" },
+            { date: "2025-04-20", event: "Saudi Arabia" },
+            { date: "2025-05-04", event: "Miami" },
+            { date: "2025-05-18", event: "Emilia-Romagna (Italy)" },
+            { date: "2025-05-25", event: "Monaco" },
+            { date: "2025-06-01", event: "Spain" },
+            { date: "2025-06-15", event: "Canada" },
+            { date: "2025-06-29", event: "Austria" },
+            { date: "2025-07-06", event: "Great Britain" },
+            { date: "2025-07-27", event: "Belgium" },
+            { date: "2025-08-03", event: "Hungary" },
+            { date: "2025-08-31", event: "Netherlands" },
+            { date: "2025-09-07", event: "Monza (Italy)" },
+            { date: "2025-09-21", event: "Azerbaijan" },
+            { date: "2025-10-05", event: "Singapore" },
+            { date: "2025-10-19", event: "United States" },
+            { date: "2025-10-26", event: "Mexico" },
+            { date: "2025-11-09", event: "Brazil" },
+            { date: "2025-11-22", event: "Las Vegas" },
+            { date: "2025-11-30", event: "Qatar" },
+            { date: "2025-12-07", event: "Abu Dhabi" }
         ]
     };
 
