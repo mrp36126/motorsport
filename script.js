@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const weatherContainer = document.getElementById("weather");
-    const currentDateTime = new Date("2025-03-15T03:52:00-07:00"); // March 15, 2025, 03:52 AM PDT
-    const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (9 * 60 * 60 * 1000)); // Convert to GMT+2 (9h ahead)
+    const currentDateTime = new Date(); // Real-time system date and time
+    const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000)); // Adjust to GMT+2
 
     // Schedules data with session times, track records, winners, and poles for all F1 races
     const schedules = {
@@ -125,7 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getNextF1Race() {
-        const currentDate = new Date("2025-03-15");
+        const currentDate = new Date(currentDateTime);
+        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
         return schedules.f1.find(event => new Date(event.date) >= currentDate) || schedules.f1[0];
     }
 
@@ -177,7 +178,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displaySchedules() {
-        const currentDate = new Date("2025-03-15");
+        const currentDate = new Date(currentDateTime);
+        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
         const nextRace = getNextF1Race();
 
         function formatDate(dateStr) {
@@ -210,7 +212,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayUpcomingEvents() {
-        const currentDate = new Date("2025-03-15");
+        const currentDate = new Date(currentDateTime);
+        currentDate.setHours(0, 0, 0, 0); // Reset to start of day
         const thirtyDaysLater = new Date(currentDate);
         thirtyDaysLater.setDate(currentDate.getDate() + 30);
 
