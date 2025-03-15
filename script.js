@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
                 document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
             } else if (location.location === nextF1Location) {
-                document.getElementById("f1-temp").textContent = `Temp: ${location.temp}°C`;
-                document.getElementById("f1-condition").textContent = `Condition: ${location.description}`;
+                document.querySelector("#f1-temp .temp-value").textContent = `${location.temp}°C`;
+                document.querySelector("#f1-condition .condition-value").textContent = location.description;
             }
         });
     }
@@ -138,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displaySchedules() {
         const currentDate = new Date("2025-03-14"); // Current date as per system info
+        const nextRace = getNextF1Race();
 
         function formatDate(dateStr) {
             const date = new Date(dateStr);
@@ -156,7 +157,11 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 futureEvents.forEach(event => {
                     const li = document.createElement("li");
-                    li.textContent = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    li.textContent = text;
+                    if (raceway === "f1" && event.date === nextRace.date) {
+                        li.style.color = "#FFFF00"; // Highlight next race in schedule
+                    }
                     scheduleList.appendChild(li);
                 });
             }
