@@ -286,7 +286,25 @@ function displayF1NextRace() {
 function displaySchedules() {
     const currentDate = new Date(currentDateTime);
     currentDate.setHours(0, 0, 0, 0);
+    const now = new Date(currentDateTimeGMT2);
     const nextRace = getNextF1Race();
+
+    // Timezone offsets for F1 races (hours to add to local time to get GMT+2)
+    const timezoneOffsets = {
+        "AEDT": -9,
+        "CST": -6,
+        "JST": -7,
+        "AST": -1,
+        "EDT": 6,
+        "CEST": 0,
+        "BST": 1,
+        "AZT": -2,
+        "SGT": -6,
+        "CDT": 7,
+        "BRT": 5,
+        "PST": 10,
+        "GST": -2
+    };
 
     function formatDate(dateStr) {
         const date = new Date(dateStr);
@@ -299,7 +317,21 @@ function displaySchedules() {
         const scheduleList = document.getElementById(`${raceway}-schedule`);
         if (scheduleList) {
             scheduleList.innerHTML = "";
-            const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
+            let futureEvents;
+
+            if (raceway === "f1") {
+                // For F1, filter based on race date and time
+                futureEvents = schedules[raceway].filter(event => {
+                    const raceDateTime = new Date(event.race);
+                    const offset = timezoneOffsets[event.timezone] || 0;
+                    raceDateTime.setHours(raceDateTime.getHours() + offset);
+                    return raceDateTime >= now;
+                });
+            } else {
+                // For other raceways, filter based on date only
+                futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
+            }
+
             if (futureEvents.length === 0) {
                 scheduleList.innerHTML = "<li>No upcoming events</li>";
             } else {
