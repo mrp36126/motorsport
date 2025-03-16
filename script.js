@@ -126,65 +126,43 @@ const schedules = {
         { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE", flag: "AbuDhabiFlag.jpg", track: "AbuDhabiTrack.jpg", trackName: "Yas Marina Circuit", practice1: "2025-12-05 13:30", practice2: "2025-12-05 17:00", practice3: "2025-12-06 14:30", qualifying: "2025-12-06 18:00", race: "2025-12-07 17:00", timezone: "GST", trackRecord: "1:26.103 (Lewis Hamilton, Mercedes, 2021)", lastWinner: "Lando Norris (McLaren, 2024)", lastPole: "Lando Norris (1:22.595, 2024)" }
     ],
     intRugby: [
-        // Six Nations
-        { date: "2025-01-31", event: "Six Nations: France vs Wales (Stade de France, Paris, 21:15 GMT+2)" },
-        { date: "2025-02-01", event: "Six Nations: Scotland vs Italy (Murrayfield, Edinburgh, 15:15 GMT+2)" },
-        { date: "2025-02-01", event: "Six Nations: Ireland vs England (Aviva Stadium, Dublin, 17:45 GMT+2)" },
-        { date: "2025-02-08", event: "Six Nations: Italy vs Wales (Stadio Olimpico, Rome, 15:15 GMT+2)" },
-        { date: "2025-02-08", event: "Six Nations: England vs France (Allianz Stadium, Twickenham, 17:45 GMT+2)" },
-        { date: "2025-02-09", event: "Six Nations: Scotland vs Ireland (Murrayfield, Edinburgh, 16:00 GMT+2)" },
-        { date: "2025-02-22", event: "Six Nations: Wales vs Ireland (Principality Stadium, Cardiff, 15:15 GMT+2)" },
-        { date: "2025-02-22", event: "Six Nations: England vs Scotland (Allianz Stadium, Twickenham, 17:45 GMT+2)" },
-        { date: "2025-02-23", event: "Six Nations: Italy vs France (Stadio Olimpico, Rome, 16:00 GMT+2)" },
-        { date: "2025-03-08", event: "Six Nations: Ireland vs France (Aviva Stadium, Dublin, 15:15 GMT+2)" },
-        { date: "2025-03-08", event: "Six Nations: Scotland vs Wales (Murrayfield, Edinburgh, 17:45 GMT+2)" },
-        { date: "2025-03-09", event: "Six Nations: England vs Italy (Allianz Stadium, Twickenham, 16:00 GMT+2)" },
-        { date: "2025-03-15", event: "Six Nations: Italy vs Ireland (Stadio Olimpico, Rome, 15:15 GMT+2)" },
-        { date: "2025-03-15", event: "Six Nations: Wales vs England (Principality Stadium, Cardiff, 18:45 GMT+2)" },
-        { date: "2025-03-15", event: "Six Nations: France vs Scotland (Stade de France, Paris, 21:00 GMT+2)" },
-
-        // British & Irish Lions Tour and Other Internationals
-        { date: "2025-06-20", event: "British & Irish Lions vs Argentina (Aviva Stadium, Dublin, 20:00 GMT+2)" },
-        { date: "2025-06-28", event: "Western Force vs British & Irish Lions (Optus Stadium, Perth, 12:45 GMT+2)" },
-        { date: "2025-07-01", event: "Queensland Reds vs British & Irish Lions (Suncorp Stadium, Brisbane, 12:45 GMT+2)" },
-        { date: "2025-07-05", event: "South Africa vs Italy (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-07-05", event: "New South Wales Waratahs vs British & Irish Lions (Allianz Stadium, Sydney, 12:45 GMT+2)" },
-        { date: "2025-07-09", event: "ACT Brumbies vs British & Irish Lions (GIO Stadium, Canberra, 12:45 GMT+2)" },
-        { date: "2025-07-12", event: "South Africa vs Italy (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-07-12", event: "Australia & New Zealand Invitational vs British & Irish Lions (Adelaide Oval, Adelaide, 12:45 GMT+2)" },
-        { date: "2025-07-19", event: "South Africa vs Georgia (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-07-19", event: "Australia vs British & Irish Lions (Suncorp Stadium, Brisbane, 12:45 GMT+2)" },
-        { date: "2025-07-22", event: "TBC vs British & Irish Lions (Marvel Stadium, Melbourne, 12:45 GMT+2)" },
-        { date: "2025-07-26", event: "Australia vs British & Irish Lions (Melbourne Cricket Ground, Melbourne, 12:45 GMT+2)" },
-        { date: "2025-08-02", event: "Australia vs British & Irish Lions (ANZ Stadium, Sydney, 12:45 GMT+2)" },
-
-        // Rugby Championship
-        { date: "2025-08-16", event: "Rugby Championship: South Africa vs Australia (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-08-23", event: "Rugby Championship: South Africa vs Australia (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-09-06", event: "Rugby Championship: New Zealand vs South Africa (Venue TBC, 07:05 GMT+2)" },
-        { date: "2025-09-13", event: "Rugby Championship: New Zealand vs South Africa (Venue TBC, 07:05 GMT+2)" },
-        { date: "2025-09-27", event: "Rugby Championship: South Africa vs Argentina (Venue TBC, 17:00 GMT+2)" },
-        { date: "2025-10-04", event: "Rugby Championship: Argentina vs South Africa (London, 16:00 GMT+2)" },
-        { date: "2025-10-04", event: "Rugby Championship: Australia vs New Zealand (Venue TBC, 12:45 GMT+2)" },
-
-        // Autumn Nations Series
-        { date: "2025-11-01", event: "Autumn Nations: England vs Australia (Allianz Stadium, Twickenham, 16:00 GMT+2)" },
-        { date: "2025-11-09", event: "Autumn Nations: Wales vs Argentina (Principality Stadium, Cardiff, 16:10 GMT+2)" },
-        { date: "2025-11-15", event: "Autumn Nations: England vs New Zealand (Allianz Stadium, Twickenham, 16:00 GMT+2)" },
-        { date: "2025-11-15", event: "Autumn Nations: Wales vs Japan (Principality Stadium, Cardiff, 18:40 GMT+2)" },
-        { date: "2025-11-22", event: "Autumn Nations: Wales vs New Zealand (Principality Stadium, Cardiff, 16:10 GMT+2)" },
-        { date: "2025-11-22", event: "Autumn Nations: Ireland vs South Africa (Aviva Stadium, Dublin, 19:40 GMT+2)" },
-        { date: "2025-11-29", event: "Autumn Nations: Wales vs South Africa (Principality Stadium, Cardiff, 16:10 GMT+2)" }
-    ],
-    provRugby: [
-        { date: "2025-04-05", event: "Currie Cup: Sharks vs Bulls" },
-        { date: "2025-05-10", event: "Currie Cup: Lions vs Stormers" },
-        { date: "2025-06-14", event: "Currie Cup Final" }
-    ],
-    localRugby: [
-        { date: "2025-03-15", event: "Club Match: Pretoria Harlequins vs Tuks" },
-        { date: "2025-04-12", event: "Club Match: Centurion vs Pirates" },
-        { date: "2025-05-17", event: "Local League Final" }
+        { date: "2025-01-31", event: "Six Nations: France vs Wales", venue: "Stade de France, Paris", time: "22:15 GMT+2" },
+        { date: "2025-02-01", event: "Six Nations: Scotland vs Italy", venue: "Murrayfield, Edinburgh", time: "16:15 GMT+2" },
+        { date: "2025-02-01", event: "Six Nations: Ireland vs England", venue: "Aviva Stadium, Dublin", time: "18:45 GMT+2" },
+        { date: "2025-02-08", event: "Six Nations: Italy vs Wales", venue: "Stadio Olimpico, Rome", time: "16:15 GMT+2" },
+        { date: "2025-02-08", event: "Six Nations: England vs France", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
+        { date: "2025-02-09", event: "Six Nations: Scotland vs Ireland", venue: "Murrayfield, Edinburgh", time: "17:00 GMT+2" },
+        { date: "2025-02-22", event: "Six Nations: Wales vs Ireland", venue: "Principality Stadium, Cardiff", time: "16:15 GMT+2" },
+        { date: "2025-02-22", event: "Six Nations: England vs Scotland", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
+        { date: "2025-02-23", event: "Six Nations: Italy vs France", venue: "Stadio Olimpico, Rome", time: "17:00 GMT+2" },
+        { date: "2025-03-08", event: "Six Nations: Ireland vs France", venue: "Aviva Stadium, Dublin", time: "16:15 GMT+2" },
+        { date: "2025-03-08", event: "Six Nations: Scotland vs Wales", venue: "Murrayfield, Edinburgh", time: "18:45 GMT+2" },
+        { date: "2025-03-09", event: "Six Nations: England vs Italy", venue: "Allianz Stadium, Twickenham, London", time: "17:00 GMT+2" },
+        { date: "2025-03-15", event: "Six Nations: Italy vs Ireland", venue: "Stadio Olimpico, Rome", time: "15:15 GMT+2" },
+        { date: "2025-03-15", event: "Six Nations: Wales vs England", venue: "Principality Stadium, Cardiff", time: "19:45 GMT+2" },
+        { date: "2025-03-15", event: "Six Nations: France vs Scotland", venue: "Stade de France, Paris", time: "22:00 GMT+2" },
+        { date: "2025-06-20", event: "British & Irish Lions vs Argentina", venue: "Aviva Stadium, Dublin", time: "21:00 GMT+2" },
+        { date: "2025-07-05", event: "South Africa vs Italy", venue: "TBC", time: "15:00 GMT+2" },
+        { date: "2025-07-12", event: "South Africa vs Italy", venue: "TBC", time: "15:00 GMT+2" },
+        { date: "2025-07-19", event: "Australia vs British & Irish Lions", venue: "Suncorp Stadium, Brisbane", time: "11:45 GMT+2" },
+        { date: "2025-07-26", event: "Australia vs British & Irish Lions", venue: "Melbourne Cricket Ground, Melbourne", time: "11:45 GMT+2" },
+        { date: "2025-08-02", event: "Australia vs British & Irish Lions", venue: "Stadium Australia, Sydney", time: "11:45 GMT+2" },
+        { date: "2025-08-16", event: "Rugby Championship: South Africa vs Australia", venue: "TBC", time: "15:00 GMT+2" },
+        { date: "2025-08-23", event: "Rugby Championship: South Africa vs Australia", venue: "TBC", time: "15:00 GMT+2" },
+        { date: "2025-09-06", event: "Rugby Championship: New Zealand vs South Africa", venue: "TBC", time: "09:00 GMT+2" },
+        { date: "2025-09-13", event: "Rugby Championship: New Zealand vs South Africa", venue: "TBC", time: "09:00 GMT+2" },
+        { date: "2025-09-27", event: "Rugby Championship: South Africa vs Argentina", venue: "TBC", time: "15:00 GMT+2" },
+        { date: "2025-10-04", event: "Rugby Championship: Australia vs New Zealand", venue: "TBC", time: "11:00 GMT+2" },
+        { date: "2025-10-04", event: "Rugby Championship: Argentina vs South Africa", venue: "London (stadium TBC)", time: "15:00 GMT+2" },
+        { date: "2025-11-01", event: "Autumn Nations: England vs Australia", venue: "Allianz Stadium, Twickenham, London", time: "17:00 GMT+2" },
+        { date: "2025-11-09", event: "Autumn Nations: Wales vs Argentina", venue: "Principality Stadium, Cardiff", time: "17:10 GMT+2" },
+        { date: "2025-11-15", event: "Autumn Nations: England vs New Zealand", venue: "Allianz Stadium, Twickenham, London", time: "17:00 GMT+2" },
+        { date: "2025-11-15", event: "Autumn Nations: Ireland vs Australia", venue: "Aviva Stadium, Dublin", time: "19:40 GMT+2" },
+        { date: "2025-11-15", event: "Autumn Nations: Scotland vs South Africa", venue: "Murrayfield, Edinburgh", time: "17:10 GMT+2" },
+        { date: "2025-11-22", event: "Autumn Nations: Ireland vs South Africa", venue: "Aviva Stadium, Dublin", time: "20:40 GMT+2" },
+        { date: "2025-11-22", event: "Autumn Nations: Wales vs New Zealand", venue: "Principality Stadium, Cardiff", time: "17:10 GMT+2" },
+        { date: "2025-11-29", event: "Autumn Nations: Wales vs South Africa", venue: "Principality Stadium, Cardiff", time: "17:10 GMT+2" },
+        { date: "2025-11-30", event: "Autumn Nations: England vs Argentina", venue: "Allianz Stadium, Twickenham, London", time: "17:00 GMT+2" }
     ]
 };
 
@@ -295,7 +273,9 @@ function displaySchedules() {
             } else {
                 futureEvents.forEach(event => {
                     const li = document.createElement("li");
-                    const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    if (event.venue) text += ` at ${event.venue}`;
+                    if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
                     if (raceway === "f1" && event.date === nextRace.date) {
                         li.style.color = "#FFFF00";
@@ -320,7 +300,7 @@ function displayRugbySchedules() {
         return `${day} ${month}`;
     }
 
-    ["intRugby", "provRugby", "localRugby"].forEach(category => {
+    ["intRugby"].forEach(category => {
         const scheduleList = document.getElementById(`${category}-schedule`);
         console.log(`Looking for schedule list: ${category}-schedule, found: ${scheduleList ? "yes" : "no"}`);
         if (scheduleList) {
@@ -331,7 +311,9 @@ function displayRugbySchedules() {
             } else {
                 futureEvents.forEach(event => {
                     const li = document.createElement("li");
-                    const text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                    if (event.venue) text += ` at ${event.venue}`;
+                    if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
                     scheduleList.appendChild(li);
                 });
@@ -370,7 +352,11 @@ function displayUpcomingEvents() {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
-                return `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
+                let text = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)}`;
+                if (event.event) text += ` (${event.event})`;
+                if (event.venue) text += ` at ${event.venue}`;
+                if (event.time) text += `, ${event.time}`;
+                return text;
             }).join("      •      ");
             upcomingList.innerHTML = eventText;
         }
