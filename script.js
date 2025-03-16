@@ -44,7 +44,10 @@ window.showTab = function(tabId) {
         console.log("Executing news logic");
         fetchNews().catch(error => {
             console.error("News fetch error:", error);
-            document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+            const newsContainer = document.getElementById("news-content");
+            if (newsContainer) {
+                newsContainer.innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
+            }
         });
     } else {
         console.warn(`No specific logic defined for tab: ${tabId}`);
@@ -133,6 +136,7 @@ const schedules = {
         { date: "2025-02-08", event: "Six Nations: England vs France", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
         { date: "2025-02-09", event: "Six Nations: Scotland vs Ireland", venue: "Murrayfield, Edinburgh", time: "17:00 GMT+2" },
         { date: "2025-02-22", event: "Six Nations: Wales vs Ireland", venue: "Principality Stadium, Cardiff", time: "16:15 GMT+2" },
+        { date: "2025-02-22", event: "Six Nations: England vs Scotland", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
         { date: "2025-02-23", event: "Six Nations: Italy vs France", venue: "Stadio Olimpico, Rome", time: "17:00 GMT+2" },
         { date: "2025-03-08", event: "Six Nations: Ireland vs France", venue: "Aviva Stadium, Dublin", time: "16:15 GMT+2" },
         { date: "2025-03-08", event: "Six Nations: Scotland vs Wales", venue: "Murrayfield, Edinburgh", time: "18:45 GMT+2" },
@@ -184,7 +188,6 @@ function fetchWeather() {
 function displayWeather(data) {
     const nextF1Location = getNextF1Race().location;
     data.forEach(location => {
-        // Construct the icon URL using OpenWeatherMap's icon endpoint
         const iconUrl = location.icon ? `http://openweathermap.org/img/wn/${location.icon}@2x.png` : '';
         const iconHtml = iconUrl ? `<img src="${iconUrl}" alt="Weather Icon" class="weather-icon-inline">` : '';
 
@@ -207,12 +210,9 @@ function displayWeather(data) {
 }
 
 function getNextF1Race() {
-    // Use current date and time in GMT+2
     const now = new Date(currentDateTimeGMT2);
-
-    // Timezone offsets (hours to add to local time to get GMT+2)
     const timezoneOffsets = {
-        "AEDT": -9, // e.g., 15:00 AEDT -> 06:00 GMT+2
+        "AEDT": -9,
         "CST": -6,
         "JST": -7,
         "AST": -1,
@@ -226,18 +226,12 @@ function getNextF1Race() {
         "PST": 10,
         "GST": -2
     };
-
-    // Find the next race by comparing race date and time with current time
     return schedules.f1.find(event => {
-        // Combine race date and time into a single Date object
         const raceDateTime = new Date(event.race);
-        // Apply timezone offset to convert race time to GMT+2
         const offset = timezoneOffsets[event.timezone] || 0;
         raceDateTime.setHours(raceDateTime.getHours() + offset);
-
-        // Compare with current date and time
         return raceDateTime >= now;
-    }) || schedules.f1[0]; // Fallback to first race if none are upcoming
+    }) || schedules.f1[0];
 }
 
 function getNextZwartkopsRace() {
@@ -332,7 +326,6 @@ function displaySchedules() {
     const nextRockRace = getNextRockRace();
     const nextMahemRace = getNextMahemRace();
 
-    // Timezone offsets for F1 races (hours to add to local time to get GMT+2)
     const timezoneOffsets = {
         "AEDT": -9,
         "CST": -6,
@@ -363,7 +356,6 @@ function displaySchedules() {
             let futureEvents;
 
             if (raceway === "f1") {
-                // For F1, filter based on race date and time
                 futureEvents = schedules[raceway].filter(event => {
                     const raceDateTime = new Date(event.race);
                     const offset = timezoneOffsets[event.timezone] || 0;
@@ -371,7 +363,6 @@ function displaySchedules() {
                     return raceDateTime >= now;
                 });
             } else {
-                // For other raceways, filter based on date only
                 futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
             }
 
@@ -385,7 +376,6 @@ function displaySchedules() {
                     if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
 
-                    // Apply bold and yellow styling to the first line and next race date
                     if (raceway === "f1" && event.date === nextF1Race.date) {
                         li.style.color = "#FFFF00";
                         li.classList.add("font-bold");
@@ -407,7 +397,6 @@ function displaySchedules() {
             }
         }
 
-        // Display next race for each raceway
         if (raceway === "zwartkops") {
             const nextRace = getNextZwartkopsRace();
             document.getElementById("zwartkops-next-race").textContent = `Next Race: ${formatDate(nextRace.date)} (${nextRace.event})`;
@@ -439,7 +428,7 @@ function displayRugbySchedules() {
         return `${day} ${month}`;
     }
 
-    const category = "intRugby"; // Only displaying international rugby
+    const category = "intRugby";
     const scheduleList = document.getElementById(`${category}-schedule`);
     console.log(`Looking for schedule list: ${category}-schedule, found: ${scheduleList ? "yes" : "no"}`);
     if (scheduleList) {
@@ -455,10 +444,9 @@ function displayRugbySchedules() {
                 if (event.time) text += `, ${event.time}`;
                 li.textContent = text;
 
-                // Highlight South Africa matches
                 if (event.event.includes("South Africa")) {
                     li.style.fontWeight = "bold";
-                    li.style.color = "#00FF00"; // Bright green
+                    li.style.color = "#00FF00";
                 }
 
                 scheduleList.appendChild(li);
@@ -508,7 +496,6 @@ function displayUpcomingEvents() {
     }
 }
 
-// Fetch news function
 function fetchNews() {
     return fetch("/api/news")
         .then(response => {
@@ -523,21 +510,19 @@ function fetchNews() {
         })
         .catch(error => {
             console.error("News fetch error:", error);
-            const newsContainer = document.getElementById("news");
+            const newsContainer = document.getElementById("news-content");
             if (newsContainer) {
                 newsContainer.innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
             }
         });
 }
 
-// Display news function
 function displayNews(data) {
-    const newsContainer = document.getElementById("news");
+    const newsContainer = document.getElementById("news-content");
     if (newsContainer) {
         newsContainer.innerHTML = "";
         if (data && data.articles && data.articles.length > 0) {
             data.articles.forEach(article => {
-                // Ensure all fields exist to avoid undefined errors
                 const title = article.title || "No title available";
                 const description = article.description || "No description available";
                 const url = article.url || "#";
