@@ -508,35 +508,51 @@ function displayUpcomingEvents() {
     }
 }
 
+// Fetch news function
 function fetchNews() {
     return fetch("/api/news")
         .then(response => {
-            if (!response.ok) throw new Error("News API error");
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             return response.json();
         })
         .then(newsData => {
             if (newsData.error) throw new Error(newsData.error);
             displayNews(newsData);
+        })
+        .catch(error => {
+            console.error("News fetch error:", error);
+            const newsContainer = document.getElementById("news");
+            if (newsContainer) {
+                newsContainer.innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
+            }
         });
 }
 
+// Display news function
 function displayNews(data) {
     const newsContainer = document.getElementById("news");
     if (newsContainer) {
         newsContainer.innerHTML = "";
         if (data && data.articles && data.articles.length > 0) {
             data.articles.forEach(article => {
+                // Ensure all fields exist to avoid undefined errors
+                const title = article.title || "No title available";
+                const description = article.description || "No description available";
+                const url = article.url || "#";
+
                 const newsHTML = `
-                    <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left">
-                        <h3 class="text-lg font-bold">${article.title}</h3>
-                        <p>${article.description}</p>
-                        <a href="${article.url}" target="_blank" class="text-blue-400 hover:underline">Read more</a>
+                    <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left mb-4">
+                        <h3 class="text-lg font-bold">${title}</h3>
+                        <p class="text-sm">${description}</p>
+                        <a href="${url}" target="_blank" class="text-blue-400 hover:underline text-sm">Read more</a>
                     </div>
                 `;
                 newsContainer.innerHTML += newsHTML;
             });
         } else {
-            newsContainer.innerHTML = `<p class="text-gray-400">No news available.</p>`;
+            newsContainer.innerHTML = `<p class="text-gray-400">No news articles available.</p>`;
         }
     }
 }
