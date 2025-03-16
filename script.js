@@ -500,7 +500,7 @@ function displayUpcomingEvents() {
 }
 
 function fetchNews() {
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=${NEWS_API_KEY}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${NEWS_API_KEY}`;
     return fetch(url)
         .then(response => {
             if (!response.ok) {
