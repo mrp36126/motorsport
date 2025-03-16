@@ -315,6 +315,14 @@ function displayRugbySchedules() {
                 if (event.venue) text += ` at ${event.venue}`;
                 if (event.time) text += `, ${event.time}`;
                 li.textContent = text;
+
+                // Highlight South Africa matches
+                if (event.event.includes("South Africa")) {
+                    li.style.fontWeight = "bold";
+                    li.style.fontSize = "1.125rem"; // Increases font size (one step up from text-sm, which is ~0.875rem)
+                    li.style.color = "#00FF00"; // Bright green
+                }
+
                 scheduleList.appendChild(li);
             });
         }
