@@ -185,20 +185,48 @@ function fetchWeather() {
 function displayWeather(data) {
     const nextF1Location = getNextF1Race().location;
     data.forEach(location => {
+        // Construct the icon URL using OpenWeatherMap's icon endpoint
+        const iconUrl = location.icon ? `http://openweathermap.org/img/wn/${location.icon}@2x.png` : '';
+
         if (location.location === "Pretoria,ZA") {
             document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
             document.getElementById("zwartkops-condition").textContent = `Condition: ${location.description}`;
+            const zwartkopsIcon = document.getElementById("zwartkops-icon");
+            if (iconUrl) {
+                zwartkopsIcon.src = iconUrl;
+                zwartkopsIcon.style.display = "block";
+            }
             document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
             document.getElementById("mahem-condition").textContent = `Condition: ${location.description}`;
+            const mahemIcon = document.getElementById("mahem-icon");
+            if (iconUrl) {
+                mahemIcon.src = iconUrl;
+                mahemIcon.style.display = "block";
+            }
         } else if (location.location === "Vereeniging,ZA") {
             document.getElementById("ultimate-temp").textContent = `Temp: ${location.temp}°C`;
             document.getElementById("ultimate-condition").textContent = `Condition: ${location.description}`;
+            const ultimateIcon = document.getElementById("ultimate-icon");
+            if (iconUrl) {
+                ultimateIcon.src = iconUrl;
+                ultimateIcon.style.display = "block";
+            }
         } else if (location.location === "Brakpan,ZA") {
             document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
             document.getElementById("rock-condition").textContent = `Condition: ${location.description}`;
+            const rockIcon = document.getElementById("rock-icon");
+            if (iconUrl) {
+                rockIcon.src = iconUrl;
+                rockIcon.style.display = "block";
+            }
         } else if (location.location === nextF1Location) {
             document.querySelector("#f1-temp .temp-value").textContent = `${location.temp}°C`;
             document.querySelector("#f1-condition .condition-value").textContent = location.description;
+            const f1Icon = document.getElementById("f1-icon");
+            if (iconUrl) {
+                f1Icon.src = iconUrl;
+                f1Icon.style.display = "block";
+            }
         }
     });
 }
