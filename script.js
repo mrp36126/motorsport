@@ -287,7 +287,7 @@ function displaySchedules() {
     const currentDate = new Date(currentDateTime);
     currentDate.setHours(0, 0, 0, 0);
     const now = new Date(currentDateTimeGMT2);
-    const nextRace = getNextF1Race();
+    const nextF1Race = getNextF1Race();
 
     // Timezone offsets for F1 races (hours to add to local time to get GMT+2)
     const timezoneOffsets = {
@@ -332,19 +332,40 @@ function displaySchedules() {
                 futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
             }
 
+            // For Zwartkops, find the next race and display it in the "Next Race" line
+            if (raceway === "zwartkops") {
+                const nextZwartkopsRace = futureEvents[0];
+                const nextRaceElement = document.getElementById("zwartkops-next-race");
+                if (nextZwartkopsRace) {
+                    const raceText = `${formatDate(nextZwartkopsRace.date)}${nextZwartkopsRace.event ? ` (${nextZwartkopsRace.event})` : ""}`;
+                    nextRaceElement.textContent = `Next Race: ${raceText}`;
+                } else {
+                    nextRaceElement.textContent = "Next Race: None scheduled";
+                }
+            }
+
             if (futureEvents.length === 0) {
                 scheduleList.innerHTML = "<li>No upcoming events</li>";
             } else {
-                futureEvents.forEach(event => {
+                futureEvents.forEach((event, index) => {
                     const li = document.createElement("li");
                     let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
                     if (event.venue) text += ` at ${event.venue}`;
                     if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
-                    if (raceway === "f1" && event.date === nextRace.date) {
+
+                    // Highlight the first event for Zwartkops
+                    if (raceway === "zwartkops" && index === 0) {
                         li.style.color = "#FFFF00";
                         li.classList.add("font-bold");
                     }
+
+                    // Highlight the next F1 race
+                    if (raceway === "f1" && event.date === nextF1Race.date) {
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
+                    }
+
                     scheduleList.appendChild(li);
                 });
             }
