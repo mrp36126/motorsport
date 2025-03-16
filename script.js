@@ -241,6 +241,19 @@ function getNextF1Race() {
     }) || schedules.f1[0]; // Fallback to first race if none are upcoming
 }
 
+function getNextZwartkopsRace() {
+    // Use current date in GMT+2
+    const now = new Date(currentDateTimeGMT2);
+    now.setHours(0, 0, 0, 0); // Set to midnight for date-only comparison
+
+    // Find the next Zwartkops event by comparing date only
+    return schedules.zwartkops.find(event => {
+        const eventDate = new Date(event.date);
+        eventDate.setHours(0, 0, 0, 0); // Set to midnight for date-only comparison
+        return eventDate >= now;
+    }) || schedules.zwartkops[0]; // Fallback to first event if none are upcoming
+}
+
 function displayF1NextRace() {
     const nextRace = getNextF1Race();
     const city = nextRace.location.split(",")[0];
@@ -287,7 +300,8 @@ function displaySchedules() {
     const currentDate = new Date(currentDateTime);
     currentDate.setHours(0, 0, 0, 0);
     const now = new Date(currentDateTimeGMT2);
-    const nextRace = getNextF1Race();
+    const nextF1Race = getNextF1Race();
+    const nextZwartkopsRace = getNextZwartkopsRace();
 
     // Timezone offsets for F1 races (hours to add to local time to get GMT+2)
     const timezoneOffsets = {
@@ -335,19 +349,30 @@ function displaySchedules() {
             if (futureEvents.length === 0) {
                 scheduleList.innerHTML = "<li>No upcoming events</li>";
             } else {
-                futureEvents.forEach(event => {
+                futureEvents.forEach((event, index) => {
                     const li = document.createElement("li");
                     let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
                     if (event.venue) text += ` at ${event.venue}`;
                     if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
-                    if (raceway === "f1" && event.date === nextRace.date) {
+
+                    // Apply bold and yellow styling to the first line and next race date
+                    if (raceway === "f1" && event.date === nextF1Race.date) {
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
+                    } else if (raceway === "zwartkops" && event.date === nextZwartkopsRace.date && index === 0) {
                         li.style.color = "#FFFF00";
                         li.classList.add("font-bold");
                     }
                     scheduleList.appendChild(li);
                 });
             }
+        }
+
+        // Display next race for Zwartkops
+        if (raceway === "zwartkops") {
+            const nextRace = getNextZwartkopsRace();
+            document.getElementById("zwartkops-next-race").textContent = `Next Race: ${formatDate(nextRace.date)} (${nextRace.event})`;
         }
     });
 }
