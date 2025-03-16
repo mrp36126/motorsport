@@ -43,7 +43,7 @@ window.showTab = function(tabId) {
     } else if (tabId === "news") {
         console.log("Executing news logic");
         fetchNews().catch(error => {
-            console.error("News fetch error in showTab:", error);
+            console.error("News fetch error:", error);
             const newsContainer = document.getElementById("news-content");
             if (newsContainer) {
                 newsContainer.innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
@@ -223,7 +223,7 @@ function getNextF1Race() {
         "SGT": -6,
         "CDT": 7,
         "BRT": 5,
-        "PST":  Ascendant: true,
+        "PST": 10,
         "GST": -2
     };
     return schedules.f1.find(event => {
@@ -497,34 +497,27 @@ function displayUpcomingEvents() {
 }
 
 function fetchNews() {
-    console.log("Fetching news from /api/news");
     return fetch("/api/news")
         .then(response => {
-            console.log("Received response from /api/news with status:", response.status);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
         .then(newsData => {
-            console.log("News data received:", newsData);
-            if (newsData.error) {
-                throw new Error(newsData.error);
-            }
+            if (newsData.error) throw new Error(newsData.error);
             displayNews(newsData);
         })
         .catch(error => {
-            console.error("News fetch error in fetchNews:", error);
+            console.error("News fetch error:", error);
             const newsContainer = document.getElementById("news-content");
             if (newsContainer) {
                 newsContainer.innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
             }
-            throw error; // Re-throw to ensure the error is caught in showTab
         });
 }
 
 function displayNews(data) {
-    console.log("Displaying news data:", data);
     const newsContainer = document.getElementById("news-content");
     if (newsContainer) {
         newsContainer.innerHTML = "";
@@ -546,8 +539,6 @@ function displayNews(data) {
         } else {
             newsContainer.innerHTML = `<p class="text-gray-400">No news articles available.</p>`;
         }
-    } else {
-        console.error("News container not found in DOM");
     }
 }
 
