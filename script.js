@@ -59,6 +59,9 @@ const weatherContainer = document.getElementById("weather");
 const currentDateTime = new Date();
 const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000));
 
+// API Keys (For testing only - move to .env or server-side in production)
+const NEWS_API_KEY = "your_newsapi_key_here"; // Replace with your actual NewsAPI key
+
 // Schedules data
 const schedules = {
     zwartkops: [
@@ -497,16 +500,17 @@ function displayUpcomingEvents() {
 }
 
 function fetchNews() {
-    return fetch("/api/news")
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=${NEWS_API_KEY}`;
+    return fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
-        .then(newsData => {
-            if (newsData.error) throw new Error(newsData.error);
-            displayNews(newsData);
+        .then(data => {
+            if (data.status !== "ok") throw new Error(`NewsAPI error: ${data.message || "Unknown error"}`);
+            displayNews(data);
         })
         .catch(error => {
             console.error("News fetch error:", error);
