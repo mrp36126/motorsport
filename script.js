@@ -60,7 +60,7 @@ const currentDateTime = new Date();
 const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000));
 
 // API Keys (For testing only - move to .env or server-side in production)
-const NEWS_API_KEY = "your_newsapi_key_here"; // Replace with your actual NewsAPI key
+const NEWS_API_KEY = "00f830d4d3ab417f86dc71daea685c34"; // Replace with your actual NewsAPI key
 
 // Schedules data
 const schedules = {
