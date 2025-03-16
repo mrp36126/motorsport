@@ -42,6 +42,7 @@ export default async function handler(req, res) {
                         location: location,
                         temp: data.main.temp,
                         description: data.weather[0].description,
+                        icon: data.weather[0].icon // Add the icon field from the API response
                     };
                 } catch (error) {
                     console.error(`Error fetching ${location}:`, error);
