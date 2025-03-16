@@ -208,9 +208,37 @@ function displayWeather(data) {
 }
 
 function getNextF1Race() {
-    const currentDate = new Date(currentDateTime);
-    currentDate.setHours(0, 0, 0, 0);
-    return schedules.f1.find(event => new Date(event.date) >= currentDate) || schedules.f1[0];
+    // Use current date and time in GMT+2
+    const now = new Date(currentDateTimeGMT2);
+
+    // Timezone offsets (hours to add to local time to get GMT+2)
+    const timezoneOffsets = {
+        "AEDT": -9, // e.g., 15:00 AEDT -> 06:00 GMT+2
+        "CST": -6,
+        "JST": -7,
+        "AST": -1,
+        "EDT": 6,
+        "CEST": 0,
+        "BST": 1,
+        "AZT": -2,
+        "SGT": -6,
+        "CDT": 7,
+        "BRT": 5,
+        "PST": 10,
+        "GST": -2
+    };
+
+    // Find the next race by comparing race date and time with current time
+    return schedules.f1.find(event => {
+        // Combine race date and time into a single Date object
+        const raceDateTime = new Date(event.race);
+        // Apply timezone offset to convert race time to GMT+2
+        const offset = timezoneOffsets[event.timezone] || 0;
+        raceDateTime.setHours(raceDateTime.getHours() + offset);
+
+        // Compare with current date and time
+        return raceDateTime >= now;
+    }) || schedules.f1[0]; // Fallback to first race if none are upcoming
 }
 
 function displayF1NextRace() {
