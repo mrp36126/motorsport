@@ -1,9 +1,65 @@
+// Define showTab in the global scope so onclick handlers can access it
+window.showTab = function(tabId) {
+    console.log(`Switching to tab: ${tabId}`); // Debug log
+
+    // Hide all tab content and remove active styling from tabs
+    document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.add("hidden");
+        console.log(`Hiding tab: ${tab.id}`);
+    });
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active", "bg-blue-500");
+        console.log(`Removing active class from tab button`);
+    });
+
+    // Show the selected tab and style the active tab button
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        console.log(`Showing tab: ${tabId}`);
+        activeTab.classList.remove("hidden");
+        const activeTabButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
+        if (activeTabButton) {
+            console.log(`Activating button for tab: ${tabId}`);
+            activeTabButton.classList.add("active", "bg-blue-500");
+        } else {
+            console.error(`Button for tab ${tabId} not found`);
+        }
+    } else {
+        console.error(`Tab ${tabId} not found in DOM`);
+    }
+
+    // Tab-specific logic
+    if (tabId === "motorsport") {
+        console.log("Executing motorsport logic");
+        fetchWeather();
+        displaySchedules();
+        displayUpcomingEvents();
+        displayF1NextRace();
+    } else if (tabId === "sport") {
+        console.log("Executing sport logic");
+        displayRugbySchedules();
+    } else if (tabId === "news") {
+        console.log("Executing news logic");
+        fetchNews().catch(error => {
+            console.error("News fetch error:", error);
+            document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+        });
+    } else {
+        console.warn(`No specific logic defined for tab: ${tabId}`);
+    }
+};
+
+// Expose displayRugbySchedules for debugging (temporary)
+window.displayRugbySchedules = displayRugbySchedules;
+
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM fully loaded and parsed");
+
     const weatherContainer = document.getElementById("weather");
     const currentDateTime = new Date(); // Real-time system date and time
     const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000)); // Adjust to GMT+2
 
-    // Schedules data with session times, track records, winners, and poles for all F1 races
+    // Schedules data
     const schedules = {
         zwartkops: [
             { date: "2025-02-01", event: "Passion for Speed" },
@@ -72,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
             { date: "2025-11-30", event: "Qatar", location: "Lusail,QA", flag: "QatarFlag.jpg", track: "QatarTrack.jpg", trackName: "Lusail International Circuit", practice1: "2025-11-28 15:30", sprintQualifying: "2025-11-28 19:30", sprintRace: "2025-11-29 14:00", qualifying: "2025-11-29 18:00", race: "2025-11-30 18:00", timezone: "AST", isSprint: true, trackRecord: "1:24.319 (Max Verstappen, Red Bull, 2021)", lastWinner: "Max Verstappen (Red Bull, 2024)", lastPole: "Max Verstappen (1:20.235, 2024)" },
             { date: "2025-12-07", event: "Abu Dhabi", location: "Yas Marina,AE", flag: "AbuDhabiFlag.jpg", track: "AbuDhabiTrack.jpg", trackName: "Yas Marina Circuit", practice1: "2025-12-05 13:30", practice2: "2025-12-05 17:00", practice3: "2025-12-06 14:30", qualifying: "2025-12-06 18:00", race: "2025-12-07 17:00", timezone: "GST", trackRecord: "1:26.103 (Lewis Hamilton, Mercedes, 2021)", lastWinner: "Lando Norris (McLaren, 2024)", lastPole: "Lando Norris (1:22.595, 2024)" }
         ],
-        // Placeholder rugby schedules (to be replaced with your data)
         intRugby: [
             { date: "2025-03-01", event: "Six Nations: England vs France" },
             { date: "2025-06-21", event: "Test Match: South Africa vs New Zealand" },
@@ -90,47 +145,17 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
-    function showTab(tabId) {
-        // Hide all tab content and remove active styling from tabs
-        document.querySelectorAll(".tab-content").forEach(tab => tab.classList.add("hidden"));
-        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active", "bg-blue-500"));
-
-        // Show the selected tab and style the active tab button
-        const activeTab = document.getElementById(tabId);
-        if (activeTab) {
-            activeTab.classList.remove("hidden");
-            const activeTabButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
-            if (activeTabButton) {
-                activeTabButton.classList.add("active", "bg-blue-500");
-            }
-        }
-
-        // Tab-specific logic
-        if (tabId === "motorsport") {
-            fetchWeather();
-            displaySchedules();
-            displayUpcomingEvents();
-            displayF1NextRace();
-        } else if (tabId === "sport") {
-            displayRugbySchedules();
-        } else if (tabId === "news") {
-            fetchNews().catch(error => {
-                console.error("News fetch error:", error);
-                document.getElementById("news").innerHTML = `<p class="text-red-400">Failed to load news.</p>`;
+    function fetchWeather() {
+        fetch("/api/weather")
+            .then(response => {
+                if (!response.ok) throw new Error("Weather API error");
+                return response.json();
+            })
+            .then(weatherData => displayWeather(weatherData))
+            .catch(error => {
+                console.error("Weather fetch error:", error);
+                weatherContainer.innerHTML = `<p class="text-red-400">Failed to load weather data.</p>`;
             });
-        }
-    }
-
-    async function fetchWeather() {
-        try {
-            const response = await fetch("/api/weather");
-            if (!response.ok) throw new Error("Weather API error");
-            const weatherData = await response.json();
-            displayWeather(weatherData);
-        } catch (error) {
-            console.error("Weather fetch error:", error);
-            weatherContainer.innerHTML = `<p class="text-red-400">Failed to load weather data.</p>`;
-        }
     }
 
     function displayWeather(data) {
@@ -156,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getNextF1Race() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+        currentDate.setHours(0, 0, 0, 0);
         return schedules.f1.find(event => new Date(event.date) >= currentDate) || schedules.f1[0];
     }
 
@@ -168,17 +193,14 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
-        // Display session times in GMT+2 with strikethrough/italic for completed
-        const timezoneOffsets = {
-            "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2
-        };
+        const timezoneOffsets = { "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2 };
         const offset = timezoneOffsets[nextRace.timezone] || 0;
         const formatTime = (dateStr) => {
             const date = new Date(dateStr);
             date.setHours(date.getHours() + offset);
             return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
         };
-        
+
         let sessionHTML = "";
         const isSprint = nextRace.isSprint || false;
         const sessions = [
@@ -198,10 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 sessionHTML += `${isCompleted ? "<s><i>" : ""}${session.label}: ${timeStr} (GMT+2)${isCompleted ? "</i></s>" : ""}<br>`;
             }
         });
-        
-        document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
 
-        // Display track record, last winner, and last pole position
+        document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
         document.getElementById("f1-track-record").textContent = `Track Record: ${nextRace.trackRecord}`;
         document.getElementById("f1-last-winner").textContent = `Last Year's Winner: ${nextRace.lastWinner}`;
         document.getElementById("f1-last-pole").textContent = `Last Year's Pole Position: ${nextRace.lastPole}`;
@@ -209,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displaySchedules() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+        currentDate.setHours(0, 0, 0, 0);
         const nextRace = getNextF1Race();
 
         function formatDate(dateStr) {
@@ -223,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const scheduleList = document.getElementById(`${raceway}-schedule`);
             if (scheduleList) {
                 scheduleList.innerHTML = "";
-
                 const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
                 if (futureEvents.length === 0) {
                     scheduleList.innerHTML = "<li>No upcoming events</li>";
@@ -244,8 +263,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayRugbySchedules() {
+        console.log("Displaying rugby schedules");
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day for date comparison
+        currentDate.setHours(0, 0, 0, 0);
 
         function formatDate(dateStr) {
             const date = new Date(dateStr);
@@ -254,12 +274,11 @@ document.addEventListener("DOMContentLoaded", function () {
             return `${day} ${month}`;
         }
 
-        // Display schedules for rugby categories
         ["intRugby", "provRugby", "localRugby"].forEach(category => {
             const scheduleList = document.getElementById(`${category}-schedule`);
+            console.log(`Looking for schedule list: ${category}-schedule, found: ${scheduleList ? "yes" : "no"}`);
             if (scheduleList) {
                 scheduleList.innerHTML = "";
-
                 const futureEvents = schedules[category].filter(event => new Date(event.date) >= currentDate);
                 if (futureEvents.length === 0) {
                     scheduleList.innerHTML = "<li>No upcoming events</li>";
@@ -271,18 +290,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         scheduleList.appendChild(li);
                     });
                 }
+            } else {
+                console.error(`Schedule list for ${category} not found`);
             }
         });
     }
 
     function displayUpcomingEvents() {
         const currentDate = new Date(currentDateTime);
-        currentDate.setHours(0, 0, 0, 0); // Reset to start of day
+        currentDate.setHours(0, 0, 0, 0);
         const thirtyDaysLater = new Date(currentDate);
         thirtyDaysLater.setDate(currentDate.getDate() + 30);
 
         const upcomingList = document.getElementById("upcoming-schedule");
-
         const allEvents = [];
         Object.keys(schedules).forEach(raceway => {
             schedules[raceway].forEach(event => {
@@ -295,31 +315,32 @@ document.addEventListener("DOMContentLoaded", function () {
             return eventDate >= currentDate && eventDate <= thirtyDaysLater;
         });
 
-        if (upcomingEvents.length === 0) {
-            upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 30 days";
-        } else {
-            upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
-                const date = new Date(event.date);
-                const day = date.getDate();
-                const month = date.toLocaleString("default", { month: "long" });
-                return `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
-            }).join("      •      ");
-            upcomingList.innerHTML = eventText;
+        if (upcomingList) {
+            if (upcomingEvents.length === 0) {
+                upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 30 days";
+            } else {
+                upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+                const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
+                    const date = new Date(event.date);
+                    const day = date.getDate();
+                    const month = date.toLocaleString("default", { month: "long" });
+                    return `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)} ${event.event ? `(${event.event})` : ""}`;
+                }).join("      •      ");
+                upcomingList.innerHTML = eventText;
+            }
         }
     }
 
-    async function fetchNews() {
-        try {
-            const response = await fetch("/api/news");
-            if (!response.ok) throw new Error("News API error");
-            const newsData = await response.json();
-            if (newsData.error) throw new Error(newsData.error);
-            displayNews(newsData);
-        } catch (error) {
-            console.error("News fetch error:", error);
-            throw error; // Re-throw to be caught in showTab
-        }
+    function fetchNews() {
+        return fetch("/api/news")
+            .then(response => {
+                if (!response.ok) throw new Error("News API error");
+                return response.json();
+            })
+            .then(newsData => {
+                if (newsData.error) throw new Error(newsData.error);
+                displayNews(newsData);
+            });
     }
 
     function displayNews(data) {
@@ -344,5 +365,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Initial tab display
-    showTab("motorsport");
+    window.showTab("motorsport");
 });
