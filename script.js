@@ -133,7 +133,6 @@ const schedules = {
         { date: "2025-02-08", event: "Six Nations: England vs France", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
         { date: "2025-02-09", event: "Six Nations: Scotland vs Ireland", venue: "Murrayfield, Edinburgh", time: "17:00 GMT+2" },
         { date: "2025-02-22", event: "Six Nations: Wales vs Ireland", venue: "Principality Stadium, Cardiff", time: "16:15 GMT+2" },
-        { date: "2025-02-22", event: "Six Nations: England vs Scotland", venue: "Allianz Stadium, Twickenham, London", time: "18:45 GMT+2" },
         { date: "2025-02-23", event: "Six Nations: Italy vs France", venue: "Stadio Olimpico, Rome", time: "17:00 GMT+2" },
         { date: "2025-03-08", event: "Six Nations: Ireland vs France", venue: "Aviva Stadium, Dublin", time: "16:15 GMT+2" },
         { date: "2025-03-08", event: "Six Nations: Scotland vs Wales", venue: "Murrayfield, Edinburgh", time: "18:45 GMT+2" },
@@ -242,16 +241,43 @@ function getNextF1Race() {
 }
 
 function getNextZwartkopsRace() {
-    // Use current date in GMT+2
     const now = new Date(currentDateTimeGMT2);
-    now.setHours(0, 0, 0, 0); // Set to midnight for date-only comparison
-
-    // Find the next Zwartkops event by comparing date only
+    now.setHours(0, 0, 0, 0);
     return schedules.zwartkops.find(event => {
         const eventDate = new Date(event.date);
-        eventDate.setHours(0, 0, 0, 0); // Set to midnight for date-only comparison
+        eventDate.setHours(0, 0, 0, 0);
         return eventDate >= now;
-    }) || schedules.zwartkops[0]; // Fallback to first event if none are upcoming
+    }) || schedules.zwartkops[0];
+}
+
+function getNextUltimateRace() {
+    const now = new Date(currentDateTimeGMT2);
+    now.setHours(0, 0, 0, 0);
+    return schedules.ultimate.find(event => {
+        const eventDate = new Date(event.date);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate >= now;
+    }) || schedules.ultimate[0];
+}
+
+function getNextRockRace() {
+    const now = new Date(currentDateTimeGMT2);
+    now.setHours(0, 0, 0, 0);
+    return schedules.rock.find(event => {
+        const eventDate = new Date(event.date);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate >= now;
+    }) || schedules.rock[0];
+}
+
+function getNextMahemRace() {
+    const now = new Date(currentDateTimeGMT2);
+    now.setHours(0, 0, 0, 0);
+    return schedules.mahem.find(event => {
+        const eventDate = new Date(event.date);
+        eventDate.setHours(0, 0, 0, 0);
+        return eventDate >= now;
+    }) || schedules.mahem[0];
 }
 
 function displayF1NextRace() {
@@ -302,6 +328,9 @@ function displaySchedules() {
     const now = new Date(currentDateTimeGMT2);
     const nextF1Race = getNextF1Race();
     const nextZwartkopsRace = getNextZwartkopsRace();
+    const nextUltimateRace = getNextUltimateRace();
+    const nextRockRace = getNextRockRace();
+    const nextMahemRace = getNextMahemRace();
 
     // Timezone offsets for F1 races (hours to add to local time to get GMT+2)
     const timezoneOffsets = {
@@ -363,16 +392,37 @@ function displaySchedules() {
                     } else if (raceway === "zwartkops" && event.date === nextZwartkopsRace.date && index === 0) {
                         li.style.color = "#FFFF00";
                         li.classList.add("font-bold");
+                    } else if (raceway === "ultimate" && event.date === nextUltimateRace.date && index === 0) {
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
+                    } else if (raceway === "rock" && event.date === nextRockRace.date && index === 0) {
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
+                    } else if (raceway === "mahem" && event.date === nextMahemRace.date && index === 0) {
+                        li.style.color = "#FFFF00";
+                        li.classList.add("font-bold");
                     }
                     scheduleList.appendChild(li);
                 });
             }
         }
 
-        // Display next race for Zwartkops
+        // Display next race for each raceway
         if (raceway === "zwartkops") {
             const nextRace = getNextZwartkopsRace();
             document.getElementById("zwartkops-next-race").textContent = `Next Race: ${formatDate(nextRace.date)} (${nextRace.event})`;
+        } else if (raceway === "ultimate") {
+            const nextRace = getNextUltimateRace();
+            const eventText = nextRace.event ? ` (${nextRace.event})` : "";
+            document.getElementById("ultimate-next-race").textContent = `Next Race: ${formatDate(nextRace.date)}${eventText}`;
+        } else if (raceway === "rock") {
+            const nextRace = getNextRockRace();
+            const eventText = nextRace.event ? ` (${nextRace.event})` : "";
+            document.getElementById("rock-next-race").textContent = `Next Race: ${formatDate(nextRace.date)}${eventText}`;
+        } else if (raceway === "mahem") {
+            const nextRace = getNextMahemRace();
+            const eventText = nextRace.event ? ` (${nextRace.event})` : "";
+            document.getElementById("mahem-next-race").textContent = `Next Race: ${formatDate(nextRace.date)}${eventText}`;
         }
     });
 }
