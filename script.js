@@ -300,28 +300,27 @@ function displayRugbySchedules() {
         return `${day} ${month}`;
     }
 
-    ["intRugby"].forEach(category => {
-        const scheduleList = document.getElementById(`${category}-schedule`);
-        console.log(`Looking for schedule list: ${category}-schedule, found: ${scheduleList ? "yes" : "no"}`);
-        if (scheduleList) {
-            scheduleList.innerHTML = "";
-            const futureEvents = schedules[category].filter(event => new Date(event.date) >= currentDate);
-            if (futureEvents.length === 0) {
-                scheduleList.innerHTML = "<li>No upcoming events</li>";
-            } else {
-                futureEvents.forEach(event => {
-                    const li = document.createElement("li");
-                    let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
-                    if (event.venue) text += ` at ${event.venue}`;
-                    if (event.time) text += `, ${event.time}`;
-                    li.textContent = text;
-                    scheduleList.appendChild(li);
-                });
-            }
+    const category = "intRugby"; // Only displaying international rugby
+    const scheduleList = document.getElementById(`${category}-schedule`);
+    console.log(`Looking for schedule list: ${category}-schedule, found: ${scheduleList ? "yes" : "no"}`);
+    if (scheduleList) {
+        scheduleList.innerHTML = "";
+        const futureEvents = schedules[category].filter(event => new Date(event.date) >= currentDate);
+        if (futureEvents.length === 0) {
+            scheduleList.innerHTML = "<li>No upcoming events</li>";
         } else {
-            console.error(`Schedule list for ${category} not found`);
+            futureEvents.forEach(event => {
+                const li = document.createElement("li");
+                let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                if (event.venue) text += ` at ${event.venue}`;
+                if (event.time) text += `, ${event.time}`;
+                li.textContent = text;
+                scheduleList.appendChild(li);
+            });
         }
-    });
+    } else {
+        console.error(`Schedule list for ${category} not found`);
+    }
 }
 
 function displayUpcomingEvents() {
