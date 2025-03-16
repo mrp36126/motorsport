@@ -29,11 +29,12 @@
         #intRugby-schedule li {
             line-height: 2; /* Doubles the line spacing */
         }
-        /* Style for weather icons */
-        .weather-icon {
-            width: 40px; /* Adjust size as needed */
-            height: 40px;
-            margin-top: 4px;
+        /* Style for inline weather icons */
+        .weather-icon-inline {
+            width: 24px; /* Smaller size for inline display */
+            height: 24px;
+            vertical-align: middle; /* Aligns the icon with the text */
+            margin: 0 4px; /* Small margin on either side of the icon */
         }
     </style>
 </head>
@@ -70,7 +71,6 @@
                             <h3 class="text-base sm:text-lg font-bold">Zwartkops Raceway, Pretoria</h3>
                             <p id="zwartkops-temp">Temp: Loading...</p>
                             <p id="zwartkops-condition">Condition: Loading...</p>
-                            <img id="zwartkops-icon" class="weather-icon" src="" alt="Weather Icon" style="display: none;">
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="zwartkops-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
@@ -81,7 +81,6 @@
                             <h3 class="text-base sm:text-lg font-bold">Ultimate Raceway, Vereeniging</h3>
                             <p id="ultimate-temp">Temp: Loading...</p>
                             <p id="ultimate-condition">Condition: Loading...</p>
-                            <img id="ultimate-icon" class="weather-icon" src="" alt="Weather Icon" style="display: none;">
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="ultimate-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
@@ -92,7 +91,6 @@
                             <h3 class="text-base sm:text-lg font-bold">The Rock Raceway, Brakpan</h3>
                             <p id="rock-temp">Temp: Loading...</p>
                             <p id="rock-condition">Condition: Loading...</p>
-                            <img id="rock-icon" class="weather-icon" src="" alt="Weather Icon" style="display: none;">
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="rock-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
@@ -103,7 +101,6 @@
                             <h3 class="text-base sm:text-lg font-bold">Mahem Raceway, Pretoria</h3>
                             <p id="mahem-temp">Temp: Loading...</p>
                             <p id="mahem-condition">Condition: Loading...</p>
-                            <img id="mahem-icon" class="weather-icon" src="" alt="Weather Icon" style="display: none;">
                             <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
                             <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
@@ -124,7 +121,6 @@
                             <p id="f1-last-pole" class="text-xs sm:text-sm" style="color: #FFFFFF">Last Year's Pole Position: Loading...</p>
                             <p id="f1-temp" class="temp-label font-bold" style="color: #FFFF00">Temp: <span class="temp-value" style="color: white">Loading...</span></p>
                             <p id="f1-condition" class="condition-label font-bold" style="color: #FFFF00">Condition: <span class="condition-value" style="color: white">Loading...</span></p>
-                            <img id="f1-icon" class="weather-icon" src="" alt="Weather Icon" style="display: none;">
                             <p class="text-xs sm:text-sm mt-2"><strong class="underline">2025 Schedule:</strong></p>
                             <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
