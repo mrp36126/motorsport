@@ -11,7 +11,8 @@ window.showTab = function(tabId) {
     });
     document.querySelectorAll(".tab").forEach(tab => {
         tab.classList.remove("active", "bg-blue-500");
-        console.log(`Removing active class from tab button`);
+        tab.classList.add("bg-gray-600"); // Apply default background to inactive tabs
+        console.log(`Removing active class and applying default background to tab button`);
     });
 
     // Show the selected tab and style the active tab button
@@ -488,11 +489,11 @@ function displayUpcomingEvents() {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
-                let text = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)}`;
-                if (event.event) text += ` (${event.event})`;
-                if (event.venue) text += ` at ${event.venue}`;
-                if (event.time) text += `, ${event.time}`;
-                return text;
+                let test = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)}`;
+                if (event.event) test += ` (${event.event})`;
+                if (event.venue) test += ` at ${event.venue}`;
+                if (event.time) test += `, ${event.time}`;
+                return test;
             }).join("      •      ");
             upcomingList.innerHTML = eventText;
         }
