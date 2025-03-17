@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "API key is missing or not configured" });
     }
 
-    const url = `https://api.mediastack.com/v1/news?access_key=${apiKey}&countries=us&categories=sports&limit=20`;
+    const url = `https://api.mediastack.com/v1/news?access_key=${apiKey}&countries=za&categories=general&limit=20`;
 
     try {
         const response = await fetch(url);
