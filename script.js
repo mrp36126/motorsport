@@ -60,7 +60,7 @@ const currentDateTime = new Date();
 const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000));
 
 // API Keys (For testing only - move to .env or server-side in production)
-const MEDIASTACK_API_KEY = "c0faaab46bd6f478b4ec9c8aa212d2ba"; // Your Mediastack API key
+// Removed MEDIASTACK_API_KEY since we're now using the /api/news proxy
 
 // Schedules data
 const schedules = {
@@ -500,8 +500,8 @@ function displayUpcomingEvents() {
 }
 
 function fetchNews() {
-    const url = `http://api.mediastack.com/v1/news?access_key=${MEDIASTACK_API_KEY}&countries=us&categories=sports&limit=20`;
-    console.log("Fetching news from URL:", url); // Log the URL for debugging
+    const url = "/api/news"; // Proxy through the serverless function
+    console.log("Fetching news from proxy URL:", url); // Log the URL for debugging
     return fetch(url, {
         method: "GET",
         headers: {
@@ -518,8 +518,8 @@ function fetchNews() {
             return response.json();
         })
         .then(data => {
-            console.log("Mediastack response data:", data); // Log the response data
-            // Mediastack doesn't have a "status" field like NewsAPI; check for "data" array
+            console.log("Proxy response data:", data); // Log the response data
+            // Check for Mediastack response structure
             if (!data.data || !Array.isArray(data.data)) {
                 throw new Error("Mediastack API error: Invalid response format");
             }
