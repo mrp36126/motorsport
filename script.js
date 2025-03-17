@@ -10,7 +10,8 @@ window.showTab = function(tabId) {
         console.log(`Hiding tab: ${tab.id}`);
     });
     document.querySelectorAll(".tab").forEach(tab => {
-        tab.classList.remove("active", "bg-blue-500"); // Remove active and blue background
+        // Remove all possible background classes to avoid conflicts
+        tab.classList.remove("active", "bg-blue-500", "bg-gray-600", "bg-gray-700");
         tab.classList.add("bg-gray-600"); // Apply default gray background to all tabs
         console.log(`Setting default background for tab button: ${tab.textContent}`);
     });
