@@ -36,9 +36,13 @@ window.showTab = function(tabId) {
     // Tab-specific logic
     if (tabId === "motorsport") {
         console.log("Executing motorsport logic");
-        fetchWeather();
+        fetchWeather("motorsport");
         displaySchedules();
         displayUpcomingEvents();
+    } else if (tabId === "f1") {
+        console.log("Executing F1 logic");
+        fetchWeather("f1");
+        displayF1Schedule();
         displayF1NextRace();
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
@@ -176,39 +180,48 @@ const schedules = {
 };
 
 // Helper functions
-function fetchWeather() {
+function fetchWeather(tab) {
     fetch("/api/weather")
         .then(response => {
             if (!response.ok) throw new Error("Weather API error");
             return response.json();
         })
-        .then(weatherData => displayWeather(weatherData))
+        .then(weatherData => displayWeather(weatherData, tab))
         .catch(error => {
             console.error("Weather fetch error:", error);
-            if (weatherContainer) {
+            if (tab === "motorsport" && weatherContainer) {
                 weatherContainer.innerHTML = `<p class="text-red-400">Failed to load weather data.</p>`;
+            } else if (tab === "f1") {
+                const f1Temp = document.querySelector("#f1-temp .temp-value");
+                const f1Condition = document.querySelector("#f1-condition .condition-value");
+                if (f1Temp && f1Condition) {
+                    f1Temp.textContent = "Failed to load";
+                    f1Condition.textContent = "Failed to load";
+                }
             }
         });
 }
 
-function displayWeather(data) {
+function displayWeather(data, tab) {
     const nextF1Location = getNextF1Race().location;
     data.forEach(location => {
         const iconUrl = location.icon ? `http://openweathermap.org/img/wn/${location.icon}@2x.png` : '';
         const iconHtml = iconUrl ? `<img src="${iconUrl}" alt="Weather Icon" class="weather-icon-inline">` : '';
 
-        if (location.location === "Pretoria,ZA") {
-            document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
-            document.getElementById("zwartkops-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
-            document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
-            document.getElementById("mahem-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
-        } else if (location.location === "Vereeniging,ZA") {
-            document.getElementById("ultimate-temp").textContent = `Temp: ${location.temp}°C`;
-            document.getElementById("ultimate-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
-        } else if (location.location === "Brakpan,ZA") {
-            document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
-            document.getElementById("rock-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
-        } else if (location.location === nextF1Location) {
+        if (tab === "motorsport") {
+            if (location.location === "Pretoria,ZA") {
+                document.getElementById("zwartkops-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("zwartkops-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
+                document.getElementById("mahem-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("mahem-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
+            } else if (location.location === "Vereeniging,ZA") {
+                document.getElementById("ultimate-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("ultimate-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
+            } else if (location.location === "Brakpan,ZA") {
+                document.getElementById("rock-temp").textContent = `Temp: ${location.temp}°C`;
+                document.getElementById("rock-condition").innerHTML = `Condition: ${iconHtml} ${location.description}`;
+            }
+        } else if (tab === "f1" && location.location === nextF1Location) {
             document.querySelector("#f1-temp .temp-value").textContent = `${location.temp}°C`;
             document.querySelector("#f1-condition .condition-value").innerHTML = `${iconHtml} ${location.description}`;
         }
@@ -326,27 +339,10 @@ function displaySchedules() {
     const currentDate = new Date(currentDateTime);
     currentDate.setHours(0, 0, 0, 0);
     const now = new Date(currentDateTimeGMT2);
-    const nextF1Race = getNextF1Race();
     const nextZwartkopsRace = getNextZwartkopsRace();
     const nextUltimateRace = getNextUltimateRace();
     const nextRockRace = getNextRockRace();
     const nextMahemRace = getNextMahemRace();
-
-    const timezoneOffsets = {
-        "AEDT": -9,
-        "CST": -6,
-        "JST": -7,
-        "AST": -1,
-        "EDT": 6,
-        "CEST": 0,
-        "BST": 1,
-        "AZT": -2,
-        "SGT": -6,
-        "CDT": 7,
-        "BRT": 5,
-        "PST": 10,
-        "GST": -2
-    };
 
     function formatDate(dateStr) {
         const date = new Date(dateStr);
@@ -355,22 +351,13 @@ function displaySchedules() {
         return `${day} ${month}`;
     }
 
-    Object.keys(schedules).forEach(raceway => {
+    // Exclude F1 from this function since it's handled in the F1 tab
+    const raceways = ["zwartkops", "ultimate", "rock", "mahem"];
+    raceways.forEach(raceway => {
         const scheduleList = document.getElementById(`${raceway}-schedule`);
         if (scheduleList) {
             scheduleList.innerHTML = "";
-            let futureEvents;
-
-            if (raceway === "f1") {
-                futureEvents = schedules[raceway].filter(event => {
-                    const raceDateTime = new Date(event.race);
-                    const offset = timezoneOffsets[event.timezone] || 0;
-                    raceDateTime.setHours(raceDateTime.getHours() + offset);
-                    return raceDateTime >= now;
-                });
-            } else {
-                futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
-            }
+            const futureEvents = schedules[raceway].filter(event => new Date(event.date) >= currentDate);
 
             if (futureEvents.length === 0) {
                 scheduleList.innerHTML = "<li>No upcoming events</li>";
@@ -382,10 +369,7 @@ function displaySchedules() {
                     if (event.time) text += `, ${event.time}`;
                     li.textContent = text;
 
-                    if (raceway === "f1" && event.date === nextF1Race.date) {
-                        li.style.color = "#FFFF00";
-                        li.classList.add("font-bold");
-                    } else if (raceway === "zwartkops" && event.date === nextZwartkopsRace.date && index === 0) {
+                    if (raceway === "zwartkops" && event.date === nextZwartkopsRace.date && index === 0) {
                         li.style.color = "#FFFF00";
                         li.classList.add("font-bold");
                     } else if (raceway === "ultimate" && event.date === nextUltimateRace.date && index === 0) {
@@ -420,6 +404,65 @@ function displaySchedules() {
             document.getElementById("mahem-next-race").textContent = `Next Race: ${formatDate(nextRace.date)}${eventText}`;
         }
     });
+}
+
+function displayF1Schedule() {
+    const currentDate = new Date(currentDateTime);
+    currentDate.setHours(0, 0, 0, 0);
+    const now = new Date(currentDateTimeGMT2);
+    const nextF1Race = getNextF1Race();
+
+    const timezoneOffsets = {
+        "AEDT": -9,
+        "CST": -6,
+        "JST": -7,
+        "AST": -1,
+        "EDT": 6,
+        "CEST": 0,
+        "BST": 1,
+        "AZT": -2,
+        "SGT": -6,
+        "CDT": 7,
+        "BRT": 5,
+        "PST": 10,
+        "GST": -2
+    };
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const day = date.getDate();
+        const month = date.toLocaleString("default", { month: "long" });
+        return `${day} ${month}`;
+    }
+
+    const scheduleList = document.getElementById("f1-schedule");
+    if (scheduleList) {
+        scheduleList.innerHTML = "";
+        const futureEvents = schedules.f1.filter(event => {
+            const raceDateTime = new Date(event.race);
+            const offset = timezoneOffsets[event.timezone] || 0;
+            raceDateTime.setHours(raceDateTime.getHours() + offset);
+            return raceDateTime >= now;
+        });
+
+        if (futureEvents.length === 0) {
+            scheduleList.innerHTML = "<li>No upcoming events</li>";
+        } else {
+            futureEvents.forEach((event, index) => {
+                const li = document.createElement("li");
+                let text = event.event ? `${formatDate(event.date)} (${event.event})` : formatDate(event.date);
+                if (event.venue) text += ` at ${event.venue}`;
+                if (event.time) text += `, ${event.time}`;
+                li.textContent = text;
+
+                if (event.date === nextF1Race.date) {
+                    li.style.color = "#FFFF00";
+                    li.classList.add("font-bold");
+                }
+                scheduleList.appendChild(li);
+            });
+        }
+    }
 }
 
 function displayRugbySchedules() {
