@@ -60,7 +60,7 @@ const currentDateTime = new Date();
 const currentDateTimeGMT2 = new Date(currentDateTime.getTime() + (2 * 60 * 60 * 1000) - (currentDateTime.getTimezoneOffset() * 60 * 1000));
 
 // API Keys (For testing only - move to .env or server-side in production)
-const NEWS_API_KEY = "00f830d4d3ab417f86dc71daea685c34"; // Replace with your actual NewsAPI key
+const MEDIASTACK_API_KEY = "c0faaab46bd6f478b4ec9c8aa212d2ba"; // Your Mediastack API key
 
 // Schedules data
 const schedules = {
@@ -500,16 +500,29 @@ function displayUpcomingEvents() {
 }
 
 function fetchNews() {
-    const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${NEWS_API_KEY}`;
-    return fetch(url)
+    const url = `http://api.mediastack.com/v1/news?access_key=${MEDIASTACK_API_KEY}&countries=us&categories=sports&limit=20`;
+    console.log("Fetching news from URL:", url); // Log the URL for debugging
+    return fetch(url, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "User-Agent": navigator.userAgent // Mimic the browser's User-Agent
+        }
+    })
         .then(response => {
+            console.log("Response status:", response.status); // Log the status
+            console.log("Response headers:", Object.fromEntries(response.headers.entries())); // Log all headers
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            if (data.status !== "ok") throw new Error(`NewsAPI error: ${data.message || "Unknown error"}`);
+            console.log("Mediastack response data:", data); // Log the response data
+            // Mediastack doesn't have a "status" field like NewsAPI; check for "data" array
+            if (!data.data || !Array.isArray(data.data)) {
+                throw new Error("Mediastack API error: Invalid response format");
+            }
             displayNews(data);
         })
         .catch(error => {
@@ -525,15 +538,18 @@ function displayNews(data) {
     const newsContainer = document.getElementById("news-content");
     if (newsContainer) {
         newsContainer.innerHTML = "";
-        if (data && data.articles && data.articles.length > 0) {
-            data.articles.forEach(article => {
+        // Use data.data for Mediastack (instead of data.articles for NewsAPI)
+        if (data && data.data && data.data.length > 0) {
+            data.data.forEach(article => {
                 const title = article.title || "No title available";
                 const description = article.description || "No description available";
                 const url = article.url || "#";
+                const source = article.source || "Unknown source";
 
                 const newsHTML = `
                     <div class="news-card bg-gray-800 p-4 rounded-lg shadow-md text-left mb-4">
                         <h3 class="text-lg font-bold">${title}</h3>
+                        <p class="text-sm text-gray-400">Source: ${source}</p>
                         <p class="text-sm">${description}</p>
                         <a href="${url}" target="_blank" class="text-blue-400 hover:underline text-sm">Read more</a>
                     </div>
