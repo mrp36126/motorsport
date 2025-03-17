@@ -4,15 +4,15 @@
 window.showTab = function(tabId) {
     console.log(`Switching to tab: ${tabId}`);
 
-    // Hide all tab content and remove active styling from tabs
+    // Hide all tab content and set default styling for all tabs
     document.querySelectorAll(".tab-content").forEach(tab => {
         tab.classList.add("hidden");
         console.log(`Hiding tab: ${tab.id}`);
     });
     document.querySelectorAll(".tab").forEach(tab => {
-        tab.classList.remove("active", "bg-blue-500");
-        tab.classList.add("bg-gray-600"); // Apply default background to inactive tabs
-        console.log(`Removing active class and applying default background to tab button`);
+        tab.classList.remove("active", "bg-blue-500"); // Remove active and blue background
+        tab.classList.add("bg-gray-600"); // Apply default gray background to all tabs
+        console.log(`Setting default background for tab button: ${tab.textContent}`);
     });
 
     // Show the selected tab and style the active tab button
@@ -23,7 +23,8 @@ window.showTab = function(tabId) {
         const activeTabButton = document.querySelector(`button[onclick="showTab('${tabId}')"]`);
         if (activeTabButton) {
             console.log(`Activating button for tab: ${tabId}`);
-            activeTabButton.classList.add("active", "bg-blue-500");
+            activeTabButton.classList.remove("bg-gray-600"); // Remove default gray from active tab
+            activeTabButton.classList.add("active", "bg-blue-500"); // Apply active and blue background
         } else {
             console.error(`Button for tab ${tabId} not found`);
         }
@@ -489,11 +490,11 @@ function displayUpcomingEvents() {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
-                let test = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)}`;
-                if (event.event) test += ` (${event.event})`;
-                if (event.venue) test += ` at ${event.venue}`;
-                if (event.time) test += `, ${event.time}`;
-                return test;
+                let text = `${day} ${month} - ${event.raceway.charAt(0).toUpperCase() + event.raceway.slice(1)}`;
+                if (event.event) text += ` (${event.event})`;
+                if (event.venue) text += ` at ${event.venue}`;
+                if (event.time) text += `, ${event.time}`;
+                return text;
             }).join("      •      ");
             upcomingList.innerHTML = eventText;
         }
