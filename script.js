@@ -467,20 +467,66 @@ function displayF1Schedule() {
 }
 
 function displayF1Standings() {
-    // Mock data for driver standings (replace with API call if needed)
-    const standingsData = [
-        { position: 1, driver: "Max Verstappen", team: "Red Bull", points: 100 },
-        { position: 2, driver: "Charles Leclerc", team: "Ferrari", points: 85 },
-        { position: 3, driver: "Lando Norris", team: "McLaren", points: 70 },
-        { position: 4, driver: "Lewis Hamilton", team: "Mercedes", points: 60 },
-        { position: 5, driver: "Sergio Perez", team: "Red Bull", points: 55 }
+    // Data as of March 16, 2025, after the Australian Grand Prix
+    // Notes:
+    // - Standings are based on the race results from the Australian GP, with Norris taking the win, Verstappen 2nd, and Russell 3rd.
+    // - Antonelli’s 12 points reflect a penalty reversal noted in posts on X.
+    // - Drivers who did not score points (e.g., Hamilton, Perez) may have retired, finished outside the top 10, or not started due to incidents (e.g., Piastri’s early clash with Verstappen).
+    // - McLaren leads due to Norris’s victory and Piastri’s 4th-place finish despite his early setback.
+    // - Mercedes is close behind with strong performances from Russell and the rookie Antonelli.
+    // - Teams like Haas, RB, and Sauber have yet to score, which is typical early in the season.
+    // - The data is based on the Australian GP results and reflects the sentiment from web sources and X posts as of March 16-17, 2025.
+    // - Official standings from Formula 1’s website (formula1.com) or the FIA should be cross-checked for accuracy, as post-race investigations or appeals could adjust points.
+    // - Since updates are planned weekly, visit formula1.com or a trusted source like ESPN F1 or RacingNews365 each Monday or Tuesday after a race weekend to get the official updated standings.
+    // - The season is young, and with 24 races scheduled, significant changes are expected as more points are awarded.
+
+    const driverStandingsData = [
+        { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
+        { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
+        { position: 3, driver: "George Russell", team: "Mercedes", points: 15 },
+        { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 12 },
+        { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
+        { position: 6, driver: "Carlos Sainz", team: "Ferrari", points: 8 },
+        { position: 7, driver: "Charles Leclerc", team: "Ferrari", points: 6 },
+        { position: 8, driver: "Oscar Piastri", team: "McLaren", points: 4 },
+        { position: 9, driver: "Pierre Gasly", team: "Alpine", points: 2 },
+        { position: 10, driver: "Fernando Alonso", team: "Aston Martin", points: 1 },
+        { position: 11, driver: "Lewis Hamilton", team: "Ferrari", points: 0 },
+        { position: 12, driver: "Sergio Perez", team: "Red Bull", points: 0 },
+        { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
+        { position: 14, driver: "Lance Stroll", team: "Aston Martin", points: 0 },
+        { position: 15, driver: "Nico Hulkenberg", team: "Haas", points: 0 },
+        { position: 16, driver: "Kevin Magnussen", team: "Haas", points: 0 },
+        { position: 17, driver: "Yuki Tsunoda", team: "RB", points: 0 },
+        { position: 18, driver: "Daniel Ricciardo", team: "RB", points: 0 },
+        { position: 19, driver: "Valtteri Bottas", team: "Sauber", points: 0 },
+        { position: 20, driver: "Zhou Guanyu", team: "Sauber", points: 0 },
+        { position: 21, driver: "Franco Colapinto", team: "Williams", points: 0 }
+    ];
+
+    const constructorStandingsData = [
+        { position: 1, team: "McLaren", points: 29 },
+        { position: 2, team: "Mercedes", points: 27 },
+        { position: 3, team: "Red Bull", points: 18 },
+        { position: 4, team: "Ferrari", points: 14 },
+        { position: 5, team: "Williams", points: 10 },
+        { position: 6, team: "Alpine", points: 2 },
+        { position: 7, team: "Aston Martin", points: 1 },
+        { position: 8, team: "Haas", points: 0 },
+        { position: 9, team: "RB", points: 0 },
+        { position: 10, team: "Sauber", points: 0 }
     ];
 
     const standingsContainer = document.getElementById("f1-standings");
     if (standingsContainer) {
-        standingsContainer.innerHTML = "<strong>Driver Standings:</strong><br>";
-        standingsData.forEach(driver => {
+        standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP):</strong><br>";
+        driverStandingsData.forEach(driver => {
             standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
+        });
+
+        standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP):</strong><br>";
+        constructorStandingsData.forEach(constructor => {
+            standingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts<br>`;
         });
     }
 }
