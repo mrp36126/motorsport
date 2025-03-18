@@ -467,7 +467,7 @@ function displayF1Schedule() {
 }
 
 function displayF1Standings() {
-    fetch("http://ergast.com/api/f1/current/driverStandings.json")
+    fetch("https://ergast.com/api/f1/current/driverStandings.json")  // Changed to HTTPS
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
