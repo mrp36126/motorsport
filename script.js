@@ -44,6 +44,7 @@ window.showTab = function(tabId) {
         fetchWeather("f1");
         displayF1Schedule();
         displayF1NextRace();
+        displayF1Standings(); // Added to display standings
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
         displayRugbySchedules();
@@ -462,6 +463,25 @@ function displayF1Schedule() {
                 scheduleList.appendChild(li);
             });
         }
+    }
+}
+
+function displayF1Standings() {
+    // Mock data for driver standings (replace with API call if needed)
+    const standingsData = [
+        { position: 1, driver: "Max Verstappen", team: "Red Bull", points: 100 },
+        { position: 2, driver: "Charles Leclerc", team: "Ferrari", points: 85 },
+        { position: 3, driver: "Lando Norris", team: "McLaren", points: 70 },
+        { position: 4, driver: "Lewis Hamilton", team: "Mercedes", points: 60 },
+        { position: 5, driver: "Sergio Perez", team: "Red Bull", points: 55 }
+    ];
+
+    const standingsContainer = document.getElementById("f1-standings");
+    if (standingsContainer) {
+        standingsContainer.innerHTML = "<strong>Driver Standings:</strong><br>";
+        standingsData.forEach(driver => {
+            standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
+        });
     }
 }
 
