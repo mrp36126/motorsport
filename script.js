@@ -530,13 +530,13 @@ function displayF1Standings() {
 
         standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP):</strong><br>";
         constructorStandingsData.forEach(constructor => {
-            standingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts<br>`;
+            const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
+            standingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
         });
     }
 }
 
 // [Remaining code remains unchanged]
-
 
 function displayRugbySchedules() {
     console.log("Displaying rugby schedules");
