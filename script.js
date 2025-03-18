@@ -304,18 +304,26 @@ function displayF1NextRace() {
 
     const timezoneOffsets = { "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2 };
     const offset = timezoneOffsets[nextRace.timezone] || 0;
-    const formatTime = (dateStr) => {
+    const currentDateTimeGMT2 = new Date(); // Use current date/time adjusted to GMT+2
+    currentDateTimeGMT2.setHours(currentDateTimeGMT2.getHours() + 2 - (currentDateTimeGMT2.getTimezoneOffset() / 60));
+
+    // Function to format date with day, full date, and time in GMT+2
+    const formatSessionTime = (dateStr) => {
+        if (!dateStr) return "";
         const date = new Date(dateStr);
-        date.setHours(date.getHours() + offset);
-        return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+        date.setHours(date.getHours() + offset); // Adjust to race timezone
+        const day = date.toLocaleDateString("en-US", { weekday: "long" });
+        const fullDate = date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+        return `${time} (GMT+2) on ${day}, ${fullDate}`;
     };
 
     let sessionHTML = "";
     const isSprint = nextRace.isSprint || false;
     const sessions = [
-        { label: "Practise 1", time: nextRace.practice1 },
-        { label: isSprint ? "Sprint Qualifying" : "Practise 2", time: isSprint ? nextRace.sprintQualifying : nextRace.practice2 },
-        { label: isSprint ? "Sprint Race" : "Practise 3", time: isSprint ? nextRace.sprintRace : nextRace.practice3 },
+        { label: "Practice 1", time: nextRace.practice1 },
+        { label: isSprint ? "Sprint Qualifying" : "Practice 2", time: isSprint ? nextRace.sprintQualifying : nextRace.practice2 },
+        { label: isSprint ? "Sprint Race" : "Practice 3", time: isSprint ? nextRace.sprintRace : nextRace.practice3 },
         { label: "Qualifying", time: nextRace.qualifying },
         { label: "Race", time: nextRace.race }
     ];
@@ -323,10 +331,10 @@ function displayF1NextRace() {
     sessions.forEach(session => {
         if (session.time) {
             const sessionDate = new Date(session.time);
-            sessionDate.setHours(sessionDate.getHours() + offset);
+            sessionDate.setHours(sessionDate.getHours() + offset); // Adjust to race timezone
             const isCompleted = sessionDate < currentDateTimeGMT2;
-            const timeStr = formatTime(session.time);
-            sessionHTML += `${isCompleted ? "<s><i>" : ""}${session.label}: ${timeStr} (GMT+2)${isCompleted ? "</i></s>" : ""}<br>`;
+            const formattedTime = formatSessionTime(session.time);
+            sessionHTML += `${session.label}: ${formattedTime}${isCompleted ? " <s>(Completed)</s>" : ""}<br>`;
         }
     });
 
@@ -466,10 +474,6 @@ function displayF1Schedule() {
     }
 }
 
-// [Previous code remains unchanged until displayF1Standings function]
-
-// ... (All previous functions and data structures remain the same until displayF1Standings)
-
 function displayF1Standings() {
     // Data as of March 16, 2025, after the Australian Grand Prix
     // Notes:
@@ -535,8 +539,6 @@ function displayF1Standings() {
         });
     }
 }
-
-// [Remaining code remains unchanged]
 
 function displayRugbySchedules() {
     console.log("Displaying rugby schedules");
