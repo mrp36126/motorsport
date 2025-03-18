@@ -470,6 +470,10 @@ function displayF1Schedule() {
 
 // ... (All previous functions and data structures remain the same until displayF1Standings)
 
+// [Previous code remains unchanged until displayF1Standings function]
+
+// ... (All previous functions and data structures remain the same until displayF1Standings)
+
 function displayF1Standings() {
     // Data as of March 16, 2025, after the Australian Grand Prix
     // Notes:
@@ -523,7 +527,7 @@ function displayF1Standings() {
     if (standingsContainer) {
         standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP):</strong><br>";
         driverStandingsData.forEach(driver => {
-            const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.jpg" alt="${driver.driver}" class="driver-image">`;
+            const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             standingsContainer.innerHTML += `${driver.position}. ${imgTag} ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
         });
 
@@ -535,6 +539,7 @@ function displayF1Standings() {
 }
 
 // [Remaining code remains unchanged]
+
 
 function displayRugbySchedules() {
     console.log("Displaying rugby schedules");
