@@ -467,22 +467,22 @@ function displayF1Schedule() {
 }
 
 function displayF1Standings() {
-    // Mock data for driver standings (replace with API call if needed)
-    const standingsData = [
-        { position: 1, driver: "Max Verstappen", team: "Red Bull", points: 100 },
-        { position: 2, driver: "Charles Leclerc", team: "Ferrari", points: 85 },
-        { position: 3, driver: "Lando Norris", team: "McLaren", points: 70 },
-        { position: 4, driver: "Lewis Hamilton", team: "Mercedes", points: 60 },
-        { position: 5, driver: "Sergio Perez", team: "Red Bull", points: 55 }
-    ];
-
-    const standingsContainer = document.getElementById("f1-standings");
-    if (standingsContainer) {
-        standingsContainer.innerHTML = "<strong>Driver Standings:</strong><br>";
-        standingsData.forEach(driver => {
-            standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
+    fetch("http://ergast.com/api/f1/current/driverStandings.json")
+        .then(response => response.json())
+        .then(data => {
+            const standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+            const standingsContainer = document.getElementById("f1-standings");
+            if (standingsContainer) {
+                standingsContainer.innerHTML = "<strong>Driver Standings:</strong><br>";
+                standings.forEach(driver => {
+                    standingsContainer.innerHTML += `${driver.position}. ${driver.Driver.givenName} ${driver.Driver.familyName} (${driver.Constructors[0].name}) - ${driver.points} pts<br>`;
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Standings fetch error:", error);
+            document.getElementById("f1-standings").innerHTML = "<p class='text-red-400'>Failed to load standings.</p>";
         });
-    }
 }
 
 function displayRugbySchedules() {
