@@ -470,10 +470,6 @@ function displayF1Schedule() {
 
 // ... (All previous functions and data structures remain the same until displayF1Standings)
 
-// [Previous code remains unchanged until displayF1Standings function]
-
-// ... (All previous functions and data structures remain the same until displayF1Standings)
-
 function displayF1Standings() {
     // Data as of March 16, 2025, after the Australian Grand Prix
     // Notes:
@@ -486,6 +482,7 @@ function displayF1Standings() {
     // - Williams benefits from Albon and Sainz, while Ferrari struggles early with Hamilton’s issues.
     // - Official standings from formula1.com or the FIA should be cross-checked, as post-race investigations could adjust points.
     // - Update weekly by visiting formula1.com or ESPN F1 each Monday/Tuesday after a race.
+    // - Note: Gabriel.png and Carlos.png should be resized to match other driver images (e.g., 100x100px). Alternatively, add CSS: .driver-image { width: 50px; height: 50px; object-fit: cover; } to standardize display.
 
     const driverStandingsData = [
         { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
@@ -528,7 +525,7 @@ function displayF1Standings() {
         standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP):</strong><br>";
         driverStandingsData.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
-            standingsContainer.innerHTML += `${driver.position}. ${imgTag} ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
+            standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
         });
 
         standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP):</strong><br>";
