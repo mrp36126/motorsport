@@ -466,19 +466,22 @@ function displayF1Schedule() {
     }
 }
 
+// [Previous code remains unchanged until displayF1Standings function]
+
+// ... (All previous functions and data structures remain the same until displayF1Standings)
+
 function displayF1Standings() {
     // Data as of March 16, 2025, after the Australian Grand Prix
     // Notes:
-    // - Standings are based on the race results from the Australian GP, with Norris taking the win, Verstappen 2nd, and Russell 3rd.
-    // - Antonelli’s 12 points reflect a penalty reversal noted in posts on X.
-    // - Drivers who did not score points (e.g., Hamilton, Perez) may have retired, finished outside the top 10, or not started due to incidents (e.g., Piastri’s early clash with Verstappen).
-    // - McLaren leads due to Norris’s victory and Piastri’s 4th-place finish despite his early setback.
-    // - Mercedes is close behind with strong performances from Russell and the rookie Antonelli.
-    // - Teams like Haas, RB, and Sauber have yet to score, which is typical early in the season.
-    // - The data is based on the Australian GP results and reflects the sentiment from web sources and X posts as of March 16-17, 2025.
-    // - Official standings from Formula 1’s website (formula1.com) or the FIA should be cross-checked for accuracy, as post-race investigations or appeals could adjust points.
-    // - Since updates are planned weekly, visit formula1.com or a trusted source like ESPN F1 or RacingNews365 each Monday or Tuesday after a race weekend to get the official updated standings.
-    // - The season is young, and with 24 races scheduled, significant changes are expected as more points are awarded.
+    // - Lando Norris won the Australian GP, leading the championship for the first time, ending Max Verstappen’s 63-race streak at the top.
+    // - Kimi Antonelli’s 4th place was restored after a Mercedes protest, moving Alexander Albon to 5th.
+    // - New drivers for 2025 include Kimi Antonelli (Mercedes), Oliver Bearman (Haas), Gabriel Bortoleto (Sauber), Jack Doohan (Alpine), and Isack Hadjar (RB), replacing retirees or mid-season changes from 2024 (e.g., Daniel Ricciardo, Logan Sargeant).
+    // - Some drivers (e.g., Lewis Hamilton) scored 0 points due to retirements or finishing outside the top 10 (e.g., Hamilton’s Ferrari debut was troubled).
+    // - McLaren leads due to Norris’s win and Piastri’s recovery to 8th.
+    // - Mercedes tied with McLaren initially but Antonelli’s penalty reversal solidified their 27 points.
+    // - Williams benefits from Albon and Sainz, while Ferrari struggles early with Hamilton’s issues.
+    // - Official standings from formula1.com or the FIA should be cross-checked, as post-race investigations could adjust points.
+    // - Update weekly by visiting formula1.com or ESPN F1 each Monday/Tuesday after a race.
 
     const driverStandingsData = [
         { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
@@ -486,30 +489,29 @@ function displayF1Standings() {
         { position: 3, driver: "George Russell", team: "Mercedes", points: 15 },
         { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 12 },
         { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
-        { position: 6, driver: "Carlos Sainz", team: "Ferrari", points: 8 },
+        { position: 6, driver: "Carlos Sainz", team: "Williams", points: 8 },
         { position: 7, driver: "Charles Leclerc", team: "Ferrari", points: 6 },
         { position: 8, driver: "Oscar Piastri", team: "McLaren", points: 4 },
         { position: 9, driver: "Pierre Gasly", team: "Alpine", points: 2 },
         { position: 10, driver: "Fernando Alonso", team: "Aston Martin", points: 1 },
         { position: 11, driver: "Lewis Hamilton", team: "Ferrari", points: 0 },
-        { position: 12, driver: "Sergio Perez", team: "Red Bull", points: 0 },
+        { position: 12, driver: "Liam Lawson", team: "Red Bull", points: 0 },
         { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
         { position: 14, driver: "Lance Stroll", team: "Aston Martin", points: 0 },
         { position: 15, driver: "Nico Hulkenberg", team: "Haas", points: 0 },
-        { position: 16, driver: "Kevin Magnussen", team: "Haas", points: 0 },
+        { position: 16, driver: "Oliver Bearman", team: "Haas", points: 0 },
         { position: 17, driver: "Yuki Tsunoda", team: "RB", points: 0 },
-        { position: 18, driver: "Daniel Ricciardo", team: "RB", points: 0 },
-        { position: 19, driver: "Valtteri Bottas", team: "Sauber", points: 0 },
-        { position: 20, driver: "Zhou Guanyu", team: "Sauber", points: 0 },
-        { position: 21, driver: "Franco Colapinto", team: "Williams", points: 0 }
+        { position: 18, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
+        { position: 19, driver: "Jack Doohan", team: "Alpine", points: 0 },
+        { position: 20, driver: "Isack Hadjar", team: "RB", points: 0 }
     ];
 
     const constructorStandingsData = [
         { position: 1, team: "McLaren", points: 29 },
         { position: 2, team: "Mercedes", points: 27 },
         { position: 3, team: "Red Bull", points: 18 },
-        { position: 4, team: "Ferrari", points: 14 },
-        { position: 5, team: "Williams", points: 10 },
+        { position: 4, team: "Williams", points: 18 },
+        { position: 5, team: "Ferrari", points: 6 },
         { position: 6, team: "Alpine", points: 2 },
         { position: 7, team: "Aston Martin", points: 1 },
         { position: 8, team: "Haas", points: 0 },
@@ -521,7 +523,8 @@ function displayF1Standings() {
     if (standingsContainer) {
         standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP):</strong><br>";
         driverStandingsData.forEach(driver => {
-            standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
+            const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.jpg" alt="${driver.driver}" class="driver-image">`;
+            standingsContainer.innerHTML += `${driver.position}. ${imgTag} ${driver.driver} (${driver.team}) - ${driver.points} pts<br>`;
         });
 
         standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP):</strong><br>";
@@ -530,6 +533,8 @@ function displayF1Standings() {
         });
     }
 }
+
+// [Remaining code remains unchanged]
 
 function displayRugbySchedules() {
     console.log("Displaying rugby schedules");
