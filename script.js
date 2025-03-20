@@ -475,64 +475,53 @@ function displayF1Schedule() {
 }
 
 function displayF1Standings() {
-    // Data as of March 16, 2025, after the Australian Grand Prix
-    // Notes:
-    // - Lando Norris won the Australian GP, leading the championship for the first time, ending Max Verstappen’s 63-race streak at the top.
-    // - Kimi Antonelli’s 4th place was restored after a Mercedes protest, moving Alexander Albon to 5th.
-    // - New drivers for 2025 include Kimi Antonelli (Mercedes), Oliver Bearman (Haas), Gabriel Bortoleto (Sauber), Jack Doohan (Alpine), and Isack Hadjar (RB), replacing retirees or mid-season changes from 2024 (e.g., Daniel Ricciardo, Logan Sargeant).
-    // - Some drivers (e.g., Lewis Hamilton) scored 0 points due to retirements or finishing outside the top 10 (e.g., Hamilton’s Ferrari debut was troubled).
-    // - McLaren leads due to Norris’s win and Piastri’s recovery to 8th.
-    // - Mercedes tied with McLaren initially but Antonelli’s penalty reversal solidified their 27 points.
-    // - Williams benefits from Albon and Sainz, while Ferrari struggles early with Hamilton’s issues.
-    // - Official standings from formula1.com or the FIA should be cross-checked, as post-race investigations could adjust points.
-    // - Update weekly by visiting formula1.com or ESPN F1 each Monday/Tuesday after a race.
-    // - Note: Gabriel.png and Carlos.png should be resized to match other driver images (e.g., 100x100px). Alternatively, add CSS: .driver-image { width: 50px; height: 50px; object-fit: cover; } to standardize display.
-
+    // Data as of March 20, 2025, after the Australian Grand Prix
+   
     const driverStandingsData = [
         { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
         { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
         { position: 3, driver: "George Russell", team: "Mercedes", points: 15 },
         { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 12 },
         { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
-        { position: 6, driver: "Carlos Sainz", team: "Williams", points: 8 },
-        { position: 7, driver: "Charles Leclerc", team: "Ferrari", points: 6 },
-        { position: 8, driver: "Oscar Piastri", team: "McLaren", points: 4 },
-        { position: 9, driver: "Pierre Gasly", team: "Alpine", points: 2 },
-        { position: 10, driver: "Fernando Alonso", team: "Aston Martin", points: 1 },
-        { position: 11, driver: "Lewis Hamilton", team: "Ferrari", points: 0 },
-        { position: 12, driver: "Liam Lawson", team: "Red Bull", points: 0 },
+        { position: 6, driver: "Lance Stroll", team: "Aston Martin", points: 8 },
+        { position: 7, driver: "Nico Hulkenberg", team: "Haas", points: 6 },
+        { position: 8, driver: "Charles Leclerc", team: "Ferrari", points: 4 },
+        { position: 9, driver: "Oscar Piastri", team: "McLaren", points: 2 },
+        { position: 10, driver: "Lewis Hamilton", team: "Ferrari", points: 1 },
+        { position: 11, driver: "Pierre Gasly", team: "Alpine", points: 0 },
+        { position: 12, driver: "Yuki Tsunoda", team: "RB", points: 0 },
         { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
-        { position: 14, driver: "Lance Stroll", team: "Aston Martin", points: 0 },
-        { position: 15, driver: "Nico Hulkenberg", team: "Haas", points: 0 },
-        { position: 16, driver: "Oliver Bearman", team: "Haas", points: 0 },
-        { position: 17, driver: "Yuki Tsunoda", team: "RB", points: 0 },
-        { position: 18, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
-        { position: 19, driver: "Jack Doohan", team: "Alpine", points: 0 },
-        { position: 20, driver: "Isack Hadjar", team: "RB", points: 0 }
+        { position: 14, driver: "Oliver Bearman", team: "Haas", points: 0 },
+        { position: 15, driver: "Jack Doohan", team: "Alpine", points: 0 },
+        { position: 16, driver: "Fernando Alonso", team: "Aston Martin", points: 0 },
+        { position: 17, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
+        { position: 18, driver: "Isack Hadjar", team: "RB", points: 0 },
+        { position: 19, driver: "Liam Lawson", team: "Red Bull", points: 0 },
+        { position: 20, driver: "Carlos Sainz", team: "Williams", points: 0 }
     ];
 
     const constructorStandingsData = [
-        { position: 1, team: "McLaren", points: 29 },
+        { position: 1, team: "McLaren", points: 27 },
         { position: 2, team: "Mercedes", points: 27 },
         { position: 3, team: "Red Bull", points: 18 },
-        { position: 4, team: "Williams", points: 18 },
-        { position: 5, team: "Ferrari", points: 6 },
-        { position: 6, team: "Alpine", points: 2 },
-        { position: 7, team: "Aston Martin", points: 1 },
-        { position: 8, team: "Haas", points: 0 },
+        { position: 4, team: "Williams", points: 10 },
+        { position: 5, team: "Aston Martin", points: 8 },
+        { position: 6, team: "Sauber", points: 6 },
+        { position: 7, team: "Ferrari", points: 5 },
+        { position: 8, team: "Alpine", points: 0 },
         { position: 9, team: "RB", points: 0 },
-        { position: 10, team: "Sauber", points: 0 }
+        { position: 10, team: "Haas", points: 0 }
     ];
 
     const standingsContainer = document.getElementById("f1-standings");
     if (standingsContainer) {
-        standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP):</strong><br>";
+        standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP, March 16, 2025):</strong><br>";
         driverStandingsData.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
         });
 
-        standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP):</strong><br>";
+        standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP, March 16, 2025):</strong><br>";
         constructorStandingsData.forEach(constructor => {
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
             standingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
