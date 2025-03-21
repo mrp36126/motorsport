@@ -601,7 +601,7 @@ function displayUpcomingEvents() {
             upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 7 days";
         } else {
             upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
+            const eventText = "<strong>Upcoming Events in the next 7 days:</strong> " + upcomingEvents.map(event => {
                 const date = new Date(event.date);
                 const day = date.getDate();
                 const month = date.toLocaleString("default", { month: "long" });
