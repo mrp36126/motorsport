@@ -43,7 +43,7 @@ window.showTab = function(tabId) {
         console.log("Executing F1 logic");
         fetchWeather("f1");
         displayF1Schedule();
-        displayF1NextRace();
+        ();
         displayF1StandingsTicker(); // Already correctly called here
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
@@ -302,21 +302,23 @@ function displayF1NextRace() {
     document.getElementById("f1-track-name").textContent = nextRace.trackName;
     document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
+    // Define timezone offsets for display purposes (not used for countdown)
     const timezoneOffsets = { "AEDT": -9, "CST": -6, "JST": -7, "AST": -1, "EDT": 6, "CEST": 0, "BST": 1, "AZT": -2, "SGT": -6, "CDT": 7, "BRT": 5, "PST": 10, "GST": -2 };
     const offset = timezoneOffsets[nextRace.timezone] || 0;
-    const currentDateTimeGMT2 = new Date(); // Use current date/time adjusted to GMT+2
-    currentDateTimeGMT2.setHours(currentDateTimeGMT2.getHours() + 2 - (currentDateTimeGMT2.getTimezoneOffset() / 60));
 
     // Function to format date with day, full date, and time in GMT+2
     const formatSessionTime = (dateStr) => {
         if (!dateStr) return "";
         const date = new Date(dateStr);
-        date.setHours(date.getHours() + offset); // Adjust to race timezone
+        date.setHours(date.getHours() + offset); // Adjust to race timezone for display
         const day = date.toLocaleDateString("en-US", { weekday: "long" });
         const fullDate = date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
         const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
         return `${time} (GMT+2) on ${day}, ${fullDate}`;
     };
+
+    // For countdown, use the explicitly given GMT+2 time for the Sprint Race
+    const sprintRaceTimeGMT2 = new Date("2025-03-22T05:00:00+02:00"); // 05:00 AM GMT+2 on March 22, 2025
 
     let sessionHTML = "";
     const isSprint = nextRace.isSprint || false;
@@ -328,20 +330,13 @@ function displayF1NextRace() {
         { label: "Race", time: nextRace.race }
     ];
 
+    // Current time in GMT+2
+    const now = new Date();
+    const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" })); // GMT+2 timezone (e.g., Johannesburg)
+
     // Find the next session for the countdown
-    let nextSessionTime = null;
-    let nextSessionLabel = "";
-    for (const session of sessions) {
-        if (session.time) {
-            const sessionDate = new Date(session.time);
-            sessionDate.setHours(sessionDate.getHours() + offset);
-            if (sessionDate > currentDateTimeGMT2) {
-                nextSessionTime = sessionDate;
-                nextSessionLabel = session.label.toUpperCase();
-                break;
-            }
-        }
-    }
+    let nextSessionTime = sprintRaceTimeGMT2; // Use the explicitly set Sprint Race time
+    let nextSessionLabel = "SPRINT RACE";
 
     // Update session times display
     sessions.forEach(session => {
@@ -359,7 +354,7 @@ function displayF1NextRace() {
     // Countdown logic
     const countdownContainer = document.getElementById("f1-countdown");
     if (countdownContainer && nextSessionTime) {
-        // Set the "SPRINT" label (or other session label)
+        // Set the session label
         const countdownTitle = countdownContainer.querySelector(".countdown-title");
         if (countdownTitle) {
             countdownTitle.textContent = nextSessionLabel;
@@ -367,8 +362,8 @@ function displayF1NextRace() {
 
         const updateCountdown = () => {
             const now = new Date();
-            now.setHours(now.getHours() + 2 - (now.getTimezoneOffset() / 60)); // Adjust to GMT+2
-            const timeDiff = nextSessionTime - now;
+            const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
+            const timeDiff = nextSessionTime - currentDateTimeGMT2;
 
             if (timeDiff <= 0) {
                 // Session has started or passed
