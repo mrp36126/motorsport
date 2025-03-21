@@ -580,8 +580,8 @@ function displayRugbySchedules() {
 function displayUpcomingEvents() {
     const currentDate = new Date(currentDateTime);
     currentDate.setHours(0, 0, 0, 0);
-    const thirtyDaysLater = new Date(currentDate);
-    thirtyDaysLater.setDate(currentDate.getDate() + 30);
+    const sevenDaysLater = new Date(currentDate);
+    sevenDaysLater.setDate(currentDate.getDate() + 7);
 
     const upcomingList = document.getElementById("upcoming-schedule");
     const allEvents = [];
@@ -593,12 +593,12 @@ function displayUpcomingEvents() {
 
     const upcomingEvents = allEvents.filter(event => {
         const eventDate = new Date(event.date);
-        return eventDate >= currentDate && eventDate <= thirtyDaysLater;
+        return eventDate >= currentDate && eventDate <= sevenDaysLater;
     });
 
     if (upcomingList) {
         if (upcomingEvents.length === 0) {
-            upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 30 days";
+            upcomingList.innerHTML = "<strong>Upcoming Events:</strong> No events in the next 7 days";
         } else {
             upcomingEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
             const eventText = "<strong>Upcoming Events:</strong> " + upcomingEvents.map(event => {
