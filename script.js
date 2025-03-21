@@ -328,10 +328,26 @@ function displayF1NextRace() {
         { label: "Race", time: nextRace.race }
     ];
 
+    // Find the next session for the countdown
+    let nextSessionTime = null;
+    let nextSessionLabel = "";
+    for (const session of sessions) {
+        if (session.time) {
+            const sessionDate = new Date(session.time);
+            sessionDate.setHours(sessionDate.getHours() + offset);
+            if (sessionDate > currentDateTimeGMT2) {
+                nextSessionTime = sessionDate;
+                nextSessionLabel = session.label.toUpperCase();
+                break;
+            }
+        }
+    }
+
+    // Update session times display
     sessions.forEach(session => {
         if (session.time) {
             const sessionDate = new Date(session.time);
-            sessionDate.setHours(sessionDate.getHours() + offset); // Adjust to race timezone
+            sessionDate.setHours(sessionDate.getHours() + offset);
             const isCompleted = sessionDate < currentDateTimeGMT2;
             const formattedTime = formatSessionTime(session.time);
             sessionHTML += `${session.label}: ${formattedTime}${isCompleted ? " <s>(Completed)</s>" : ""}<br>`;
@@ -339,6 +355,46 @@ function displayF1NextRace() {
     });
 
     document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
+
+    // Countdown logic
+    const countdownContainer = document.getElementById("f1-countdown");
+    if (countdownContainer && nextSessionTime) {
+        // Set the "SPRINT" label (or other session label)
+        const countdownTitle = countdownContainer.querySelector(".countdown-title");
+        if (countdownTitle) {
+            countdownTitle.textContent = nextSessionLabel;
+        }
+
+        const updateCountdown = () => {
+            const now = new Date();
+            now.setHours(now.getHours() + 2 - (now.getTimezoneOffset() / 60)); // Adjust to GMT+2
+            const timeDiff = nextSessionTime - now;
+
+            if (timeDiff <= 0) {
+                // Session has started or passed
+                document.getElementById("f1-countdown-hours").textContent = "00";
+                document.getElementById("f1-countdown-minutes").textContent = "00";
+                document.getElementById("f1-countdown-seconds").textContent = "00";
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById("f1-countdown-hours").textContent = String(hours).padStart(2, "0");
+            document.getElementById("f1-countdown-minutes").textContent = String(minutes).padStart(2, "0");
+            document.getElementById("f1-countdown-seconds").textContent = String(seconds).padStart(2, "0");
+        };
+
+        // Initial update
+        updateCountdown();
+        // Update every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    } else {
+        console.error("Countdown container or next session time not found!");
+    }
 }
 
 function displaySchedules() {
