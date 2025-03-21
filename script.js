@@ -44,7 +44,7 @@ window.showTab = function(tabId) {
         fetchWeather("f1");
         displayF1Schedule();
         displayF1NextRace();
-        displayF1Standings(); // Already correctly called here
+        displayF1StandingsTicker(); // Already correctly called here
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
         displayRugbySchedules();
@@ -536,13 +536,15 @@ function displayF1Standings() {
     }
 }
 function displayF1StandingsTicker() {
+    console.log("Entering displayF1StandingsTicker"); // Debug log
     const ticker = document.getElementById("f1-standings-ticker");
     if (!ticker) {
-        console.error("F1 standings ticker element not found!");
+        console.error("F1 standings ticker element not found! Check if #f1-standings-ticker exists in the DOM.");
         return;
     }
+    console.log("Ticker element found:", ticker); // Debug log
 
-    // Data as of March 20, 2025, after the Australian Grand Prix (same as displayF1Standings)
+    // Data as of March 20, 2025, after the Australian Grand Prix
     const driverStandingsData = [
         { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
         { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
@@ -564,7 +566,9 @@ function displayF1StandingsTicker() {
         `${constructor.position}. ${constructor.team} - ${constructor.points} pts`
     ).join("      •      ");
 
-    ticker.innerHTML = `<strong>Top 3 Drivers:</strong> ${driverText}      •      <strong>Top 3 Constructors:</strong> ${constructorText}`;
+    const tickerContent = `<strong>Top 3 Drivers:</strong> ${driverText}      •      <strong>Top 3 Constructors:</strong> ${constructorText}`;
+    ticker.innerHTML = tickerContent;
+    console.log("Ticker content set to:", tickerContent); // Debug log
 }
 
 function displayRugbySchedules() {
