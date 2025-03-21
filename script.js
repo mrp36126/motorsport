@@ -557,18 +557,29 @@ function displayF1StandingsTicker() {
         { position: 3, team: "Red Bull", points: 18, icon: "RedBullIcon.png" }
     ];
 
-    // Construct ticker text
+    // Construct driver text
     const driverText = driverStandingsData.map(driver => 
         `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts`
     ).join("      •      ");
 
-    const constructorText = constructorStandingsData.map(constructor => 
-        `${constructor.position}. <img src="images/${constructor.icon}" alt="${constructor.team} Icon" class="ticker-icon"> ${constructor.team} - ${constructor.points} pts`
-    ).join("      •      ");
+    // Construct constructor text with inline icons
+    const constructorText = constructorStandingsData.map(constructor => {
+        const imgTag = `<img src="images/${constructor.icon}" alt="${constructor.team} Icon" class="ticker-icon" style="display:inline; vertical-align:middle;" onerror="console.error('Failed to load icon: images/${constructor.icon}')">`;
+        return `${constructor.position}. ${imgTag} ${constructor.team} - ${constructor.points} pts`;
+    }).join("      •      ");
 
+    // Combine into ticker content
     const tickerContent = `<strong>Top 3 Drivers:</strong> ${driverText}      •      <strong>Top 3 Constructors:</strong> ${constructorText}`;
     ticker.innerHTML = tickerContent;
     console.log("Ticker content set to:", tickerContent);
+
+    // Verify image loading
+    constructorStandingsData.forEach(constructor => {
+        const img = new Image();
+        img.src = `images/${constructor.icon}`;
+        img.onload = () => console.log(`Successfully loaded ${constructor.icon}`);
+        img.onerror = () => console.error(`Failed to load ${constructor.icon} - check file path or name`);
+    });
 }
 
 function displayRugbySchedules() {
