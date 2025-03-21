@@ -519,7 +519,7 @@ function displayF1Standings() {
         driverStandingsData.forEach(driver => {
             // Ensure no inline styles for size are applied; rely on CSS
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
-            driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
+            driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - <strong>${driver.points} pts</strong> ${imgTag}<br>`;
         });
     } else {
         console.error("Driver Standings container not found!");
