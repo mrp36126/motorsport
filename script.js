@@ -44,7 +44,7 @@ window.showTab = function(tabId) {
         fetchWeather("f1");
         displayF1Schedule();
         displayF1NextRace();
-        displayF1Standings(); // Added to display standings
+        displayF1Standings(); // Already correctly called here
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
         displayRugbySchedules();
@@ -476,7 +476,6 @@ function displayF1Schedule() {
 
 function displayF1Standings() {
     // Data as of March 20, 2025, after the Australian Grand Prix
-   
     const driverStandingsData = [
         { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
         { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
@@ -513,19 +512,28 @@ function displayF1Standings() {
         { position: 10, team: "Haas", points: 0 }
     ];
 
-    const standingsContainer = document.getElementById("f1-standings");
-    if (standingsContainer) {
-        standingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP, March 16, 2025):</strong><br>";
+    // Populate Driver Standings
+    const driverStandingsContainer = document.getElementById("f1-driver-standings");
+    if (driverStandingsContainer) {
+        driverStandingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP, March 16, 2025):</strong><br>";
         driverStandingsData.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
-            standingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
+            driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
         });
+    } else {
+        console.error("Driver Standings container not found!");
+    }
 
-        standingsContainer.innerHTML += "<br><strong>Constructor Standings (After Australian GP, March 16, 2025):</strong><br>";
+    // Populate Constructor Standings
+    const constructorStandingsContainer = document.getElementById("f1-constructor-standings");
+    if (constructorStandingsContainer) {
+        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After Australian GP, March 16, 2025):</strong><br>";
         constructorStandingsData.forEach(constructor => {
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
-            standingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
+            constructorStandingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
         });
+    } else {
+        console.error("Constructor Standings container not found!");
     }
 }
 
@@ -676,4 +684,6 @@ function displayNews(data) {
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded and parsed");
     window.showTab("motorsport");
+    // Call displayF1Standings to ensure standings are populated if F1 tab is default or on refresh
+    displayF1Standings();
 });
