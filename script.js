@@ -229,19 +229,19 @@ function displayWeather(data, tab) {
 function getNextF1Race() {
     const now = new Date(currentDateTimeGMT2);
     const timezoneOffsets = {
-        "AEDT": -11,
-        "CST": -8,
-        "JST": -9,
-        "AST": -3,
-        "EDT": 4,
-        "CEST": -2,
-        "BST": -1,
-        "AZT": -4,
-        "SGT": -8,
-        "CDT": 5,
-        "BRT": 3,
-        "PST": 8,
-        "GST": -4
+        "AEDT": 11,
+        "CST": 8,
+        "JST": 9,
+        "AST": 3,
+        "EDT": -4,
+        "CEST": 2,
+        "BST": 1,
+        "AZT": 4,
+        "SGT": 8,
+        "CDT": -5,
+        "BRT": -3,
+        "PST": -8,
+        "GST": 4
     };
     return schedules.f1.find(event => {
         const raceDateTime = new Date(event.race);
@@ -299,36 +299,44 @@ function displayF1NextRace() {
     document.getElementById("f1-track-name").textContent = nextRace.trackName;
     document.getElementById("f1-track").src = `images/${nextRace.track}`;
 
-    // Timezone offsets (hours to subtract to convert local time to GMT)
+    // Timezone offsets (hours to add to GMT to get local time)
     const timezoneOffsets = {
-        "AEDT": -11,
-        "CST": -8,
-        "JST": -9,
-        "AST": -3,
-        "EDT": 4,
-        "CEST": -2,
-        "BST": -1,
-        "AZT": -4,
-        "SGT": -8,
-        "CDT": 5,
-        "BRT": 3,
-        "PST": 8,
-        "GST": -4
+        "AEDT": 11,  // GMT+11
+        "CST": 8,    // GMT+8
+        "JST": 9,    // GMT+9
+        "AST": 3,    // GMT+3
+        "EDT": -4,   // GMT-4
+        "CEST": 2,   // GMT+2
+        "BST": 1,    // GMT+1
+        "AZT": 4,    // GMT+4
+        "SGT": 8,    // GMT+8
+        "CDT": -5,   // GMT-5
+        "BRT": -3,   // GMT-3
+        "PST": -8,   // GMT-8
+        "GST": 4     // GMT+4
     };
-    const offset = timezoneOffsets[nextRace.timezone] || 0;
 
     // Current time in GMT+2
     const now = new Date();
     const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
 
     // Function to format date with day, full date, and time in GMT+2
-    const formatSessionTime = (dateStr) => {
+    const formatSessionTime = (dateStr, timezone) => {
         if (!dateStr) return "";
+        
+        // Parse the date string as-is (it's already in the local timezone, e.g., CST)
         const date = new Date(dateStr);
+        
+        // Get the offset (hours to add to GMT to get local time)
+        const offset = timezoneOffsets[timezone] || 0;
+        
         // Convert local time to GMT by subtracting the offset
         date.setHours(date.getHours() - offset);
-        // Convert GMT to GMT+2
+        
+        // Convert GMT to GMT+2 (SAST)
         date.setHours(date.getHours() + 2);
+        
+        // Format the date and time
         const day = date.toLocaleDateString("en-US", { weekday: "long" });
         const fullDate = date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
         const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
@@ -356,8 +364,8 @@ function displayF1NextRace() {
         for (const session of sessions) {
             if (session.time) {
                 const sessionDate = new Date(session.time);
-                // Convert local time to GMT+2: first to GMT, then to GMT+2
-                sessionDate.setHours(sessionDate.getHours() - offset + 2);
+                const offset = timezoneOffsets[nextRace.timezone] || 0;
+                sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2
                 if (sessionDate > currentDateTimeGMT2) {
                     nextSessionTime = sessionDate;
                     nextSessionLabel = session.label.toUpperCase();
@@ -371,9 +379,10 @@ function displayF1NextRace() {
     sessions.forEach(session => {
         if (session.time) {
             const sessionDate = new Date(session.time);
-            sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2
+            const offset = timezoneOffsets[nextRace.timezone] || 0;
+            sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2 for comparison
             const isCompleted = sessionDate < currentDateTimeGMT2;
-            const formattedTime = formatSessionTime(session.time);
+            const formattedTime = formatSessionTime(session.time, nextRace.timezone);
             sessionHTML += `${session.label}: ${formattedTime}${isCompleted ? " <s>(Completed)</s>" : ""}<br>`;
         }
     });
@@ -499,19 +508,19 @@ function displayF1Schedule() {
     const nextF1Race = getNextF1Race();
 
     const timezoneOffsets = {
-        "AEDT": -11,
-        "CST": -8,
-        "JST": -9,
-        "AST": -3,
-        "EDT": 4,
-        "CEST": -2,
-        "BST": -1,
-        "AZT": -4,
-        "SGT": -8,
-        "CDT": 5,
-        "BRT": 3,
-        "PST": 8,
-        "GST": -4
+        "AEDT": 11,
+        "CST": 8,
+        "JST": 9,
+        "AST": 3,
+        "EDT": -4,
+        "CEST": 2,
+        "BST": 1,
+        "AZT": 4,
+        "SGT": 8,
+        "CDT": -5,
+        "BRT": -3,
+        "PST": -8,
+        "GST": 4
     };
 
     function formatDate(dateStr) {
