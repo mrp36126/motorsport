@@ -715,9 +715,13 @@ function displayNews(data) {
 }
 
 // Initialize the page
+// Replace the existing DOMContentLoaded listener with this:
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded and parsed");
-    window.showTab("motorsport");
-    // Call displayF1Standings to ensure standings are populated if F1 tab is default or on refresh
-    displayF1Standings();
+    window.showTab("motorsport"); // Default tab remains motorsport
+    displayF1Standings(); // Ensure standings are populated
+    if (document.getElementById("f1").classList.contains("active")) {
+        console.log("F1 tab is active on load, initializing ticker");
+        displayF1StandingsTicker();
+    }
 });
