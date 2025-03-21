@@ -536,13 +536,13 @@ function displayF1Standings() {
     }
 }
 function displayF1StandingsTicker() {
-    console.log("Entering displayF1StandingsTicker"); // Debug log
+    console.log("Entering displayF1StandingsTicker");
     const ticker = document.getElementById("f1-standings-ticker");
     if (!ticker) {
         console.error("F1 standings ticker element not found! Check if #f1-standings-ticker exists in the DOM.");
         return;
     }
-    console.log("Ticker element found:", ticker); // Debug log
+    console.log("Ticker element found:", ticker);
 
     // Data as of March 20, 2025, after the Australian Grand Prix
     const driverStandingsData = [
@@ -552,9 +552,9 @@ function displayF1StandingsTicker() {
     ];
 
     const constructorStandingsData = [
-        { position: 1, team: "McLaren", points: 27 },
-        { position: 2, team: "Mercedes", points: 27 },
-        { position: 3, team: "Red Bull", points: 18 }
+        { position: 1, team: "McLaren", points: 27, icon: "McLarenIcon.png" },
+        { position: 2, team: "Mercedes", points: 27, icon: "MercedesIcon.png" },
+        { position: 3, team: "Red Bull", points: 18, icon: "RedBullIcon.png" }
     ];
 
     // Construct ticker text
@@ -563,12 +563,12 @@ function displayF1StandingsTicker() {
     ).join("      •      ");
 
     const constructorText = constructorStandingsData.map(constructor => 
-        `${constructor.position}. ${constructor.team} - ${constructor.points} pts`
+        `${constructor.position}. <img src="images/${constructor.icon}" alt="${constructor.team} Icon" class="ticker-icon"> ${constructor.team} - ${constructor.points} pts`
     ).join("      •      ");
 
     const tickerContent = `<strong>Top 3 Drivers:</strong> ${driverText}      •      <strong>Top 3 Constructors:</strong> ${constructorText}`;
     ticker.innerHTML = tickerContent;
-    console.log("Ticker content set to:", tickerContent); // Debug log
+    console.log("Ticker content set to:", tickerContent);
 }
 
 function displayRugbySchedules() {
