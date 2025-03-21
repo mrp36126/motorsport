@@ -517,6 +517,7 @@ function displayF1Standings() {
     if (driverStandingsContainer) {
         driverStandingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP, March 16, 2025):</strong><br>";
         driverStandingsData.forEach(driver => {
+            // Ensure no inline styles for size are applied; rely on CSS
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts ${imgTag}<br>`;
         });
@@ -529,6 +530,7 @@ function displayF1Standings() {
     if (constructorStandingsContainer) {
         constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After Australian GP, March 16, 2025):</strong><br>";
         constructorStandingsData.forEach(constructor => {
+            // Ensure no inline styles for size are applied; rely on CSS
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
             constructorStandingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
         });
