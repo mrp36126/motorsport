@@ -43,7 +43,6 @@ window.showTab = function(tabId) {
         console.log("Executing F1 logic");
         fetchWeather("f1");
         displayF1Schedule();
-        ();
         displayF1StandingsTicker(); // Already correctly called here
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
