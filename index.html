@@ -116,7 +116,7 @@
             <!-- F1 Tab -->
             <section id="f1" class="tab-content hidden">
                 <img src="images/F1.png" alt="Formula 1 Logo" class="mx-auto mb-4 h-12 sm:h-14">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     <!-- Tile: Formula 1 -->
                     <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
@@ -138,12 +138,21 @@
                             <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
                     </div>
-                    <!-- Tile: Standings -->
-                    <div id="card-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                    <!-- Tile: Driver Standings -->
+                    <div id="card-driver-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Standings</h3>
-                            <div id="f1-standings" class="text-xs sm:text-sm mt-2">
-                                <!-- Standings will be populated by script.js -->
+                            <h3 class="text-base sm:text-lg font-bold">Driver Standings</h3>
+                            <div id="f1-driver-standings" class="text-xs sm:text-sm mt-2">
+                                <!-- Driver Standings will be populated by script.js -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tile: Constructor Standings -->
+                    <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                        <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
+                            <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
+                            <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
+                                <!-- Constructor Standings will be populated by script.js -->
                             </div>
                         </div>
                     </div>
