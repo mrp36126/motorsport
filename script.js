@@ -535,6 +535,37 @@ function displayF1Standings() {
         console.error("Constructor Standings container not found!");
     }
 }
+function displayF1StandingsTicker() {
+    const ticker = document.getElementById("f1-standings-ticker");
+    if (!ticker) {
+        console.error("F1 standings ticker element not found!");
+        return;
+    }
+
+    // Data as of March 20, 2025, after the Australian Grand Prix (same as displayF1Standings)
+    const driverStandingsData = [
+        { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
+        { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
+        { position: 3, driver: "George Russell", team: "Mercedes", points: 15 }
+    ];
+
+    const constructorStandingsData = [
+        { position: 1, team: "McLaren", points: 27 },
+        { position: 2, team: "Mercedes", points: 27 },
+        { position: 3, team: "Red Bull", points: 18 }
+    ];
+
+    // Construct ticker text
+    const driverText = driverStandingsData.map(driver => 
+        `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts`
+    ).join("      •      ");
+
+    const constructorText = constructorStandingsData.map(constructor => 
+        `${constructor.position}. ${constructor.team} - ${constructor.points} pts`
+    ).join("      •      ");
+
+    ticker.innerHTML = `<strong>Top 3 Drivers:</strong> ${driverText}      •      <strong>Top 3 Constructors:</strong> ${constructorText}`;
+}
 
 function displayRugbySchedules() {
     console.log("Displaying rugby schedules");
