@@ -301,133 +301,136 @@ function displayF1NextRace() {
 
     // Timezone offsets (hours to add to GMT to get local time)
     const timezoneOffsets = {
-        "AEDT": 11,  // GMT+11
-        "CST": 8,    // GMT+8
-        "JST": 9,    // GMT+9
-        "AST": 3,    // GMT+3
-        "EDT": -4,   // GMT-4
-        "CEST": 2,   // GMT+2
-        "BST": 1,    // GMT+1
-        "AZT": 4,    // GMT+4
-        "SGT": 8,    // GMT+8
-        "CDT": -5,   // GMT-5
-        "BRT": -3,   // GMT-3
-        "PST": -8,   // GMT-8
-        "GST": 4     // GMT+4
+        "AEDT": 11, "CST": 8, "JST": 9, "AST": 3, "EDT": -4, "CEST": 2, 
+        "BST": 1, "AZT": 4, "SGT": 8, "CDT": -5, "BRT": -3, "PST": -8, "GST": 4
     };
 
-    // Current time in GMT+2
+    // Current time in GMT+2 (SAST)
     const now = new Date();
     const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
 
     // Function to format date with day, full date, and time in GMT+2
     const formatSessionTime = (dateStr, timezone) => {
         if (!dateStr) return "";
-        
-        // Parse the date string as-is (it's already in the local timezone, e.g., CST)
         const date = new Date(dateStr);
-        
-        // Get the offset (hours to add to GMT to get local time)
         const offset = timezoneOffsets[timezone] || 0;
-        
-        // Convert local time to GMT by subtracting the offset
-        date.setHours(date.getHours() - offset);
-        
-        // Convert GMT to GMT+2 (SAST)
-        date.setHours(date.getHours() + 2);
-        
-        // Format the date and time
+        date.setHours(date.getHours() - offset + 2); // Convert to GMT+2
         const day = date.toLocaleDateString("en-US", { weekday: "long" });
         const fullDate = date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
         const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
         return `${time} (GMT+2) on ${day}, ${fullDate}`;
     };
 
-    let sessionHTML = "";
+    // Define all sessions for the race
     const isSprint = nextRace.isSprint || false;
     const sessions = [
         { label: "Practice 1", time: nextRace.practice1 },
         { label: isSprint ? "Sprint Qualifying" : "Practice 2", time: isSprint ? nextRace.sprintQualifying : nextRace.practice2 },
-        { label: isSprint ? "Sprint Race" : "Practice 3", time: isSprint ? nextRace.sprintRace : nextRace.practice3 },
+        { label: isSprint ? "Sprint" : "Practice 3", time: isSprint ? nextRace.sprintRace : nextRace.practice3 },
         { label: "Qualifying", time: nextRace.qualifying },
         { label: "Race", time: nextRace.race }
     ];
 
-    // Find the next session for the countdown
-    let nextSessionTime = null;
-    let nextSessionLabel = "";
-    // For the China race, use the explicitly given GMT+2 time for the Sprint Race
-    if (nextRace.event === "China") {
-        nextSessionTime = new Date("2025-03-22T05:00:00+02:00"); // 05:00 AM GMT+2 on March 22, 2025
-        nextSessionLabel = "SPRINT RACE";
-    } else {
-        for (const session of sessions) {
-            if (session.time) {
-                const sessionDate = new Date(session.time);
-                const offset = timezoneOffsets[nextRace.timezone] || 0;
-                sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2
-                if (sessionDate > currentDateTimeGMT2) {
-                    nextSessionTime = sessionDate;
-                    nextSessionLabel = session.label.toUpperCase();
-                    break;
-                }
-            }
-        }
-    }
-
     // Update session times display
+    let sessionHTML = "";
     sessions.forEach(session => {
         if (session.time) {
             const sessionDate = new Date(session.time);
             const offset = timezoneOffsets[nextRace.timezone] || 0;
-            sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2 for comparison
+            sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2
             const isCompleted = sessionDate < currentDateTimeGMT2;
             const formattedTime = formatSessionTime(session.time, nextRace.timezone);
             sessionHTML += `${session.label}: ${formattedTime}${isCompleted ? " <s>(Completed)</s>" : ""}<br>`;
         }
     });
-
     document.getElementById("f1-session-times").innerHTML = sessionHTML || "Session times TBD";
 
     // Countdown logic
     const countdownContainer = document.getElementById("f1-countdown");
-    if (countdownContainer && nextSessionTime) {
-        // Set the session label
-        const countdownTitle = countdownContainer.querySelector(".countdown-title");
-        if (countdownTitle) {
-            countdownTitle.textContent = nextSessionLabel;
+    if (!countdownContainer) {
+        console.error("Countdown container not found!");
+        return;
+    }
+
+    const countdownTitle = countdownContainer.querySelector(".countdown-title");
+    const hoursElement = document.getElementById("f1-countdown-hours");
+    const minutesElement = document.getElementById("f1-countdown-minutes");
+    const secondsElement = document.getElementById("f1-countdown-seconds");
+
+    if (!countdownTitle || !hoursElement || !minutesElement || !secondsElement) {
+        console.error("Countdown elements not found!");
+        return;
+    }
+
+    let currentSessionIndex = -1;
+    let countdownInterval = null;
+
+    const updateCountdown = () => {
+        const now = new Date();
+        const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
+
+        // Find the next uncompleted session
+        let nextSession = null;
+        for (let i = 0; i < sessions.length; i++) {
+            if (sessions[i].time) {
+                const sessionDate = new Date(sessions[i].time);
+                const offset = timezoneOffsets[nextRace.timezone] || 0;
+                sessionDate.setHours(sessionDate.getHours() - offset + 2); // Convert to GMT+2
+                if (sessionDate > currentDateTimeGMT2) {
+                    nextSession = sessions[i];
+                    if (i !== currentSessionIndex) {
+                        currentSessionIndex = i;
+                        countdownTitle.textContent = nextSession.label.toUpperCase();
+                    }
+                    break;
+                }
+            }
         }
 
-        const updateCountdown = () => {
-            const now = new Date();
-            const currentDateTimeGMT2 = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Johannesburg" }));
-            const timeDiff = nextSessionTime - currentDateTimeGMT2;
-
-            if (timeDiff <= 0) {
-                // Session has started or passed
-                document.getElementById("f1-countdown-hours").textContent = "00";
-                document.getElementById("f1-countdown-minutes").textContent = "00";
-                document.getElementById("f1-countdown-seconds").textContent = "00";
-                clearInterval(countdownInterval);
-                return;
+        if (!nextSession) {
+            // All sessions for this race are completed, reset to zeros and stop
+            hoursElement.textContent = "00";
+            minutesElement.textContent = "00";
+            secondsElement.textContent = "00";
+            countdownTitle.textContent = "RACE OVER";
+            clearInterval(countdownInterval);
+            // Check for the next race
+            const nextF1Race = getNextF1Race();
+            if (nextF1Race.date !== nextRace.date) {
+                console.log("Current race completed, switching to next race");
+                setTimeout(() => displayF1NextRace(), 1000); // Restart for next race after 1 second
             }
+            return;
+        }
 
+        const sessionTime = new Date(nextSession.time);
+        const offset = timezoneOffsets[nextRace.timezone] || 0;
+        sessionTime.setHours(sessionTime.getHours() - offset + 2); // Convert to GMT+2
+        const timeDiff = sessionTime - currentDateTimeGMT2;
+
+        if (timeDiff <= 0) {
+            // Session has started, move to next session on next tick
+            hoursElement.textContent = "00";
+            minutesElement.textContent = "00";
+            secondsElement.textContent = "00";
+        } else {
             const hours = Math.floor(timeDiff / (1000 * 60 * 60));
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            document.getElementById("f1-countdown-hours").textContent = String(hours).padStart(2, "0");
-            document.getElementById("f1-countdown-minutes").textContent = String(minutes).padStart(2, "0");
-            document.getElementById("f1-countdown-seconds").textContent = String(seconds).padStart(2, "0");
-        };
+            hoursElement.textContent = String(hours).padStart(2, "0");
+            minutesElement.textContent = String(minutes).padStart(2, "0");
+            secondsElement.textContent = String(seconds).padStart(2, "0");
+        }
+    };
 
-        // Initial update
-        updateCountdown();
-        // Update every second
-        const countdownInterval = setInterval(updateCountdown, 1000);
-    } else {
-        console.error("Countdown container or next session time not found!");
-    }
+    // Clear any existing interval to avoid duplicates
+    if (countdownInterval) clearInterval(countdownInterval);
+
+    // Initial update
+    updateCountdown();
+    // Update every second
+    countdownInterval = setInterval(updateCountdown, 1000);
 }
 
 function displaySchedules() {
