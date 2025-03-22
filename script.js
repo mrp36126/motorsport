@@ -43,7 +43,8 @@ window.showTab = function(tabId) {
         console.log("Executing F1 logic");
         fetchWeather("f1");
         displayF1Schedule();
-        displayF1StandingsTicker();
+        displayF1Standings(); // Ensure standings are up-to-date
+        displayF1StandingsTicker(); // Update ticker
         displayF1NextRace(); // Ensure this is called to initialize the countdown
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
@@ -176,6 +177,43 @@ const schedules = {
         { date: "2025-11-30", event: "Autumn Nations: England vs Argentina", venue: "Allianz Stadium, Twickenham, London", time: "17:00 GMT+2" }
     ]
 };
+
+// Standings data (updated after China Sprint, March 23, 2025)
+let driverStandings = [
+    { position: 1, driver: "Lando Norris", team: "McLaren", points: 26 },
+    { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 24 },
+    { position: 3, driver: "George Russell", team: "Mercedes", points: 20 },
+    { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 14 },
+    { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
+    { position: 6, driver: "Oscar Piastri", team: "McLaren", points: 9 },
+    { position: 7, driver: "Lewis Hamilton", team: "Ferrari", points: 9 },
+    { position: 8, driver: "Lance Stroll", team: "Aston Martin", points: 8 },
+    { position: 9, driver: "Charles Leclerc", team: "Ferrari", points: 8 },
+    { position: 10, driver: "Nico Hulkenberg", team: "Haas", points: 6 },
+    { position: 11, driver: "Yuki Tsunoda", team: "RB", points: 3 },
+    { position: 12, driver: "Pierre Gasly", team: "Alpine", points: 0 },
+    { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
+    { position: 14, driver: "Oliver Bearman", team: "Haas", points: 0 },
+    { position: 15, driver: "Jack Doohan", team: "Alpine", points: 0 },
+    { position: 16, driver: "Fernando Alonso", team: "Aston Martin", points: 0 },
+    { position: 17, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
+    { position: 18, driver: "Isack Hadjar", team: "RB", points: 0 },
+    { position: 19, driver: "Liam Lawson", team: "Red Bull", points: 0 },
+    { position: 20, driver: "Carlos Sainz", team: "Williams", points: 0 }
+];
+
+let constructorStandings = [
+    { position: 1, team: "McLaren", points: 35, icon: "McLarenIcon.png" },
+    { position: 2, team: "Mercedes", points: 34, icon: "MercedesIcon.png" },
+    { position: 3, team: "Red Bull", points: 24, icon: "RedBullIcon.png" },
+    { position: 4, team: "Ferrari", points: 22 },
+    { position: 5, team: "Williams", points: 10 },
+    { position: 6, team: "Aston Martin", points: 8 },
+    { position: 7, team: "Sauber", points: 6 },
+    { position: 8, team: "RB", points: 3 },
+    { position: 9, team: "Alpine", points: 0 },
+    { position: 10, team: "Haas", points: 0 }
+];
 
 // Helper functions
 function fetchWeather(tab) {
@@ -564,48 +602,11 @@ function displayF1Schedule() {
 }
 
 function displayF1Standings() {
-    // Data as of March 20, 2025, after the Australian Grand Prix
-    const driverStandingsData = [
-        { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
-        { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
-        { position: 3, driver: "George Russell", team: "Mercedes", points: 15 },
-        { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 12 },
-        { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
-        { position: 6, driver: "Lance Stroll", team: "Aston Martin", points: 8 },
-        { position: 7, driver: "Nico Hulkenberg", team: "Haas", points: 6 },
-        { position: 8, driver: "Charles Leclerc", team: "Ferrari", points: 4 },
-        { position: 9, driver: "Oscar Piastri", team: "McLaren", points: 2 },
-        { position: 10, driver: "Lewis Hamilton", team: "Ferrari", points: 1 },
-        { position: 11, driver: "Pierre Gasly", team: "Alpine", points: 0 },
-        { position: 12, driver: "Yuki Tsunoda", team: "RB", points: 0 },
-        { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
-        { position: 14, driver: "Oliver Bearman", team: "Haas", points: 0 },
-        { position: 15, driver: "Jack Doohan", team: "Alpine", points: 0 },
-        { position: 16, driver: "Fernando Alonso", team: "Aston Martin", points: 0 },
-        { position: 17, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
-        { position: 18, driver: "Isack Hadjar", team: "RB", points: 0 },
-        { position: 19, driver: "Liam Lawson", team: "Red Bull", points: 0 },
-        { position: 20, driver: "Carlos Sainz", team: "Williams", points: 0 }
-    ];
-
-    const constructorStandingsData = [
-        { position: 1, team: "McLaren", points: 27 },
-        { position: 2, team: "Mercedes", points: 27 },
-        { position: 3, team: "Red Bull", points: 18 },
-        { position: 4, team: "Williams", points: 10 },
-        { position: 5, team: "Aston Martin", points: 8 },
-        { position: 6, team: "Sauber", points: 6 },
-        { position: 7, team: "Ferrari", points: 5 },
-        { position: 8, team: "Alpine", points: 0 },
-        { position: 9, team: "RB", points: 0 },
-        { position: 10, team: "Haas", points: 0 }
-    ];
-
     // Populate Driver Standings
     const driverStandingsContainer = document.getElementById("f1-driver-standings");
     if (driverStandingsContainer) {
-        driverStandingsContainer.innerHTML = "<strong>Driver Standings (After Australian GP, March 16, 2025):</strong><br>";
-        driverStandingsData.forEach(driver => {
+        driverStandingsContainer.innerHTML = "<strong>Driver Standings (After China Sprint, March 23, 2025):</strong><br>";
+        driverStandings.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - <strong>${driver.points} pts</strong> ${imgTag}<br>`;
         });
@@ -616,8 +617,8 @@ function displayF1Standings() {
     // Populate Constructor Standings
     const constructorStandingsContainer = document.getElementById("f1-constructor-standings");
     if (constructorStandingsContainer) {
-        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After Australian GP, March 16, 2025):</strong><br>";
-        constructorStandingsData.forEach(constructor => {
+        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After China Sprint, March 23, 2025):</strong><br>";
+        constructorStandings.forEach(constructor => {
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
             constructorStandingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
         });
@@ -635,27 +636,20 @@ function displayF1StandingsTicker() {
     }
     console.log("Ticker element found:", ticker);
 
-    // Data as of March 20, 2025, after the Australian Grand Prix
-    const driverStandingsData = [
-        { position: 1, driver: "Lando Norris", team: "McLaren", points: 25 },
-        { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 18 },
-        { position: 3, driver: "George Russell", team: "Mercedes", points: 15 }
-    ];
-
-    const constructorStandingsData = [
-        { position: 1, team: "McLaren", points: 27, icon: "McLarenIcon.png" },
-        { position: 2, team: "Mercedes", points: 27, icon: "MercedesIcon.png" },
-        { position: 3, team: "Red Bull", points: 18, icon: "RedBullIcon.png" }
-    ];
+    // Get top 3 drivers and constructors from shared data
+    const topDrivers = driverStandings.slice(0, 3);
+    const topConstructors = constructorStandings.slice(0, 3);
 
     // Construct driver text
-    const driverText = driverStandingsData.map(driver => 
+    const driverText = topDrivers.map(driver => 
         `${driver.position}. ${driver.driver} (${driver.team}) - ${driver.points} pts`
     ).join("      •      ");
 
     // Construct constructor text with inline icons
-    const constructorText = constructorStandingsData.map(constructor => {
-        const imgTag = `<img src="images/${constructor.icon}" alt="${constructor.team} Icon" class="ticker-icon" style="display:inline; vertical-align:middle;" onerror="console.error('Failed to load icon: images/${constructor.icon}')">`;
+    const constructorText = topConstructors.map(constructor => {
+        const imgTag = constructor.icon 
+            ? `<img src="images/${constructor.icon}" alt="${constructor.team} Icon" class="ticker-icon" style="display:inline; vertical-align:middle;" onerror="console.error('Failed to load icon: images/${constructor.icon}')">`
+            : '';
         return `${constructor.position}. ${imgTag} ${constructor.team} - ${constructor.points} pts`;
     }).join("      •      ");
 
@@ -664,13 +658,29 @@ function displayF1StandingsTicker() {
     ticker.innerHTML = tickerContent;
     console.log("Ticker content set to:", tickerContent);
 
-    // Verify image loading
-    constructorStandingsData.forEach(constructor => {
-        const img = new Image();
-        img.src = `images/${constructor.icon}`;
-        img.onload = () => console.log(`Successfully loaded ${constructor.icon}`);
-        img.onerror = () => console.error(`Failed to load ${constructor.icon} - check file path or name`);
+    // Verify image loading for constructors with icons
+    topConstructors.forEach(constructor => {
+        if (constructor.icon) {
+            const img = new Image();
+            img.src = `images/${constructor.icon}`;
+            img.onload = () => console.log(`Successfully loaded ${constructor.icon}`);
+            img.onerror = () => console.error(`Failed to load ${constructor.icon} - check file path or name`);
+        }
     });
+}
+
+function updateF1Standings(newDriverStandings, newConstructorStandings) {
+    driverStandings = newDriverStandings;
+    constructorStandings = newConstructorStandings;
+
+    // Update the standings display
+    displayF1Standings();
+
+    // Update the ticker if the F1 tab is active
+    const f1Tab = document.getElementById("f1");
+    if (f1Tab && !f1Tab.classList.contains("hidden")) {
+        displayF1StandingsTicker();
+    }
 }
 
 function displayRugbySchedules() {
@@ -817,11 +827,6 @@ function displayNews(data) {
 // Initialize the page
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded and parsed");
+    displayF1Standings(); // Initialize standings
     window.showTab("motorsport"); // Default tab remains motorsport
-    displayF1Standings(); // Ensure standings are populated
-    if (document.getElementById("f1").classList.contains("active")) {
-        console.log("F1 tab is active on load, initializing ticker");
-        displayF1StandingsTicker();
-        displayF1NextRace();
-    }
 });
