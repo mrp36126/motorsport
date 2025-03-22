@@ -208,7 +208,10 @@ function displayF1Standings() {
     // Populate Driver Standings
     const driverStandingsContainer = document.getElementById("f1-driver-standings");
     if (driverStandingsContainer) {
-        driverStandingsContainer.innerHTML = "<strong>Driver Standings (After China Sprint, March 23, 2025):</strong><br>";
+        driverStandingsContainer.innerHTML = `
+            <strong>Driver Standings (After China Sprint, March 23, 2025):</strong><br>
+            <img src="images/DStandings.png" alt="Driver Standings Image" class="driver-standings-image" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        `;
         driverStandings.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - <strong>${driver.points} pts</strong> ${imgTag}<br>`;
