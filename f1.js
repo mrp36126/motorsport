@@ -205,19 +205,26 @@ function displayF1NextRace() {
 }
 
 function displayF1Standings() {
-    // Populate Driver Standings
+    // Populate Driver Standings List
     const driverStandingsContainer = document.getElementById("f1-driver-standings");
     if (driverStandingsContainer) {
-        driverStandingsContainer.innerHTML = `
-            <strong>Driver Standings (After China Race, March 23, 2025):</strong><br>
-            <img src="images/DStandings.png" alt="Driver Standings Image" class="driver-standings-image" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
-        `;
+        driverStandingsContainer.innerHTML = `<strong>Driver Standings (After China Race, March 23, 2025):</strong><br>`;
         driverStandings.forEach(driver => {
             const imgTag = `<img src="images/${driver.driver.split(" ")[0]}.png" alt="${driver.driver}" class="driver-image">`;
             driverStandingsContainer.innerHTML += `${driver.position}. ${driver.driver} (${driver.team}) - <strong>${driver.points} pts</strong> ${imgTag}<br>`;
         });
     } else {
         console.error("Driver Standings container not found!");
+    }
+
+    // Populate Driver Standings Image
+    const driverStandingsImageContainer = document.getElementById("f1-driver-standings-image");
+    if (driverStandingsImageContainer) {
+        driverStandingsImageContainer.innerHTML = `
+            <img src="images/DStandings.png" alt="Driver Standings Image" class="driver-standings-image" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        `;
+    } else {
+        console.error("Driver Standings image container not found!");
     }
 
     // Populate Constructor Standings
