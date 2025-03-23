@@ -143,14 +143,14 @@ let driverStandings = [
 let constructorStandings = [
     { position: 1, team: "McLaren", points: 78, icon: "McLarenIcon.png" },
     { position: 2, team: "Mercedes", points: 53, icon: "MercedesIcon.png" },
-    { position: 3, team: "Ferrari", points: 40 },
+    { position: 3, team: "Ferrari", points: 40, icon: "FerrariIcon.png" },
     { position: 4, team: "Red Bull", points: 36, icon: "RedBullIcon.png" },
-    { position: 5, team: "Williams", points: 12 },
-    { position: 6, team: "Aston Martin", points: 8 },
-    { position: 7, team: "Haas", points: 7 },
-    { position: 8, team: "Sauber", points: 6 },
-    { position: 9, team: "RB", points: 3 },
-    { position: 10, team: "Alpine", points: 0 }
+    { position: 5, team: "Williams", points: 12, icon: "WilliamIcon.png" },
+    { position: 6, team: "Aston Martin", points: 8, icon: "AstonMartinIcon.png" },
+    { position: 7, team: "Haas", points: 7, icon: "HaasIcon.png" },
+    { position: 8, team: "Sauber", points: 6, icon: "SauberIcon.png" },
+    { position: 9, team: "RB", points: 3, icon: "RBIcon.png" },
+    { position: 10, team: "Alpine", points: 0, icon: "AlpineIcon" }
 ];
 
 // Show tab function
