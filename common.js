@@ -192,13 +192,16 @@ window.showTab = function(tabId) {
         fetchWeather("motorsport");
         displaySchedules();
         displayUpcomingEvents();
-    } else if (tabId === "f1") {
-        console.log("Executing F1 logic");
-        fetchWeather("f1");
-        displayF1Schedule();
-        displayF1Standings();
-        displayF1StandingsTicker();
-        displayF1NextRace();
+} else if (tabId === "f1") {
+    console.log("Executing F1 logic");
+    fetchWeather("f1");
+    displayF1Schedule();
+    displayF1Standings();
+    displayF1StandingsTicker();
+    displayF1NextRace();
+    // Initialize F1 subtabs by showing the "Next Race" subtab
+    showF1Subtab("f1-next-race-tab");
+
     } else if (tabId === "sport") {
         console.log("Executing sport logic");
         displayRugbySchedules();
