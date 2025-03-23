@@ -172,74 +172,91 @@
                 </div>
             </section>
 
-            <!-- F1 Tab -->
-            <section id="f1" class="tab-content hidden">
-                <img src="images/F1.png" alt="Formula 1 Logo" class="mx-auto mb-4 h-12 sm:h-14">
-                <!-- F1 Standings Ticker -->
-                <div id="card-f1-standings" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
-                    <div class="marquee-container bg-gray-800 bg-opacity-70">
-                        <span id="f1-standings-ticker" class="marquee text-sm sm:text-base"></span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <!-- Tile: Formula 1 -->
-                    <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
-                            <h4 id="f1-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                            <!-- Countdown Clock -->
-                            <div id="f1-countdown" class="countdown-container">
+<!-- F1 Tab -->
+<section id="f1" class="tab-content hidden">
+    <img src="images/F1.png" alt="Formula 1 Logo" class="mx-auto mb-4 h-12 sm:h-14">
+    <!-- F1 Standings Ticker -->
+    <div id="card-f1-standings" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
+        <div class="marquee-container bg-gray-800 bg-opacity-70">
+            <span id="f1-standings-ticker" class="marquee text-sm sm:text-base"></span>
+        </div>
+    </div>
+
+    <!-- F1 Subtabs Navigation -->
+    <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
+        <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-next-race-tab')">Next Race</button>
+        <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-driver-standings-tab')">Driver Standings</button>
+        <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-constructor-standings-tab')">Constructor Standings</button>
+    </nav>
+
+    <!-- F1 Subtab Content -->
+    <div class="mt-4 sm:mt-6">
+        <!-- Next Race Subtab -->
+        <div id="f1-next-race-tab" class="f1-subtab-content">
+            <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
+                    <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
+                    <h4 id="f1-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
+                    <!-- Countdown Clock -->
+                    <div id="f1-countdown" class="countdown-container">
+                        <div>
+                            <div class="countdown-title">SPRINT</div>
+                            <div class="countdown-timer">
                                 <div>
-                                    <div class="countdown-title">SPRINT</div>
-                                    <div class="countdown-timer">
-                                        <div>
-                                            <span id="f1-countdown-hours">00</span>
-                                            <div class="countdown-label">HRS</div>
-                                        </div>
-                                        <div>
-                                            <span id="f1-countdown-minutes">00</span>
-                                            <div class="countdown-label">MINS</div>
-                                        </div>
-                                        <div>
-                                            <span id="f1-countdown-seconds">00</span>
-                                            <div class="countdown-label">SECS</div>
-                                        </div>
-                                    </div>
+                                    <span id="f1-countdown-hours">00</span>
+                                    <div class="countdown-label">HRS</div>
                                 </div>
-                                <img src="images/ClockIcon.png" alt="Clock Icon" class="countdown-clock">
+                                <div>
+                                    <span id="f1-countdown-minutes">00</span>
+                                    <div class="countdown-label">MINS</div>
+                                </div>
+                                <div>
+                                    <span id="f1-countdown-seconds">00</span>
+                                    <div class="countdown-label">SECS</div>
+                                </div>
                             </div>
-                            <div class="mt-1">
-                                <img id="f1-flag" class="h-6 sm:h-8 inline-block mr-2" alt="Race Flag">
-                                <span id="f1-track-name" class="text-sm sm:text-base align-middle" style="color: #FFFF00"></span>
-                            </div>
-                            <div id="f1-session-times" class="text-xs sm:text-sm" style="color: #FFFFFF"></div>
-                            <img id="f1-track" class="w-full max-w-xs mt-2" alt="Track Layout">
-                            <p id="f1-temp" class="temp-label font-bold" style="color: #FFFF00">Temp: <span class="temp-value" style="color: white">Loading...</span></p>
-                            <p id="f1-condition" class="condition-label font-bold" style="color: #FFFF00">Condition: <span class="condition-value" style="color: white">Loading...</span></p>
-                            <p class="text-xs sm:text-sm mt-2"><strong class="underline">2025 Schedule:</strong></p>
-                            <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
                         </div>
+                        <img src="images/ClockIcon.png" alt="Clock Icon" class="countdown-clock">
                     </div>
-                    <!-- Tile: Driver Standings -->
-                    <div id="card-driver-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Driver Standings</h3>
-                            <div id="f1-driver-standings" class="text-sm sm:text-base mt-2">
-                                <!-- Driver Standings will be populated by script.js -->
-                            </div>
-                        </div>
+                    <div class="mt-1">
+                        <img id="f1-flag" class="h-6 sm:h-8 inline-block mr-2" alt="Race Flag">
+                        <span id="f1-track-name" class="text-sm sm:text-base align-middle" style="color: #FFFF00"></span>
                     </div>
-                    <!-- Tile: Constructor Standings -->
-                    <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
-                            <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
-                                <!-- Constructor Standings will be populated by script.js -->
-                            </div>
-                        </div>
+                    <div id="f1-session-times" class="text-xs sm:text-sm" style="color: #FFFFFF"></div>
+                    <img id="f1-track" class="w-full max-w-xs mt-2" alt="Track Layout">
+                    <p id="f1-temp" class="temp-label font-bold" style="color: #FFFF00">Temp: <span class="temp-value" style="color: white">Loading...</span></p>
+                    <p id="f1-condition" class="condition-label font-bold" style="color: #FFFF00">Condition: <span class="condition-value" style="color: white">Loading...</span></p>
+                    <p class="text-xs sm:text-sm mt-2"><strong class="underline">2025 Schedule:</strong></p>
+                    <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Driver Standings Subtab -->
+        <div id="f1-driver-standings-tab" class="f1-subtab-content hidden">
+            <div id="card-driver-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
+                    <h3 class="text-base sm:text-lg font-bold">Driver Standings</h3>
+                    <div id="f1-driver-standings" class="text-sm sm:text-base mt-2">
+                        <!-- Driver Standings will be populated by script.js -->
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+
+        <!-- Constructor Standings Subtab -->
+        <div id="f1-constructor-standings-tab" class="f1-subtab-content hidden">
+            <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
+                    <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
+                    <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
+                        <!-- Constructor Standings will be populated by script.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
             <!-- Sport -->
             <section id="sport" class="tab-content hidden">
