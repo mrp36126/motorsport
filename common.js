@@ -115,7 +115,7 @@ const schedules = {
     ]
 };
 
-// Updated Driver Standings (after Japan, April 6, 2025)
+// Updated Driver Standings (after China, March 23, 2025)
 let driverStandings = [
     { position: 1, driver: "Lando Norris", team: "McLaren", points: 44 },
     { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 36 },
@@ -139,7 +139,7 @@ let driverStandings = [
     { position: 20, driver: "Carlos Sainz", team: "Williams", points: 0 }
 ];
 
-// Updated Constructor Standings (after Japan, April 6, 2025)
+// Updated Constructor Standings (after China, March 23, 2025)
 let constructorStandings = [
     { position: 1, team: "McLaren", points: 78, icon: "McLarenIcon.png" },
     { position: 2, team: "Mercedes", points: 53, icon: "MercedesIcon.png" },
