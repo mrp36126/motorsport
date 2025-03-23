@@ -223,7 +223,10 @@ function displayF1Standings() {
     // Populate Constructor Standings
     const constructorStandingsContainer = document.getElementById("f1-constructor-standings");
     if (constructorStandingsContainer) {
-        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After China, March 23, 2025):</strong><br>";
+        constructorStandingsContainer.innerHTML = `
+            <strong>Constructor Standings (After China, March 23, 2025):</strong><br>
+            <img src="images/CStandings.png" alt="Constructor Standings Image" class="constructor-standings-image" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
+        `;
         constructorStandings.forEach(constructor => {
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
             constructorStandingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
