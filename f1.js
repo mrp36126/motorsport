@@ -209,7 +209,7 @@ function displayF1Standings() {
     const driverStandingsContainer = document.getElementById("f1-driver-standings");
     if (driverStandingsContainer) {
         driverStandingsContainer.innerHTML = `
-            <strong>Driver Standings (After Japan, April 6, 2025):</strong><br>
+            <strong>Driver Standings (After China Race, March 23, 2025):</strong><br>
             <img src="images/DStandings.png" alt="Driver Standings Image" class="driver-standings-image" style="max-width: 100%; height: auto; margin-top: 10px; margin-bottom: 10px;">
         `;
         driverStandings.forEach(driver => {
@@ -223,7 +223,7 @@ function displayF1Standings() {
     // Populate Constructor Standings
     const constructorStandingsContainer = document.getElementById("f1-constructor-standings");
     if (constructorStandingsContainer) {
-        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After Japan, April 6, 2025):</strong><br>";
+        constructorStandingsContainer.innerHTML = "<strong>Constructor Standings (After China, March 23, 2025):</strong><br>";
         constructorStandings.forEach(constructor => {
             const imgTag = `<img src="images/${constructor.team}.png" alt="${constructor.team} Car" class="constructor-image">`;
             constructorStandingsContainer.innerHTML += `${constructor.position}. ${constructor.team} - ${constructor.points} pts ${imgTag}<br>`;
