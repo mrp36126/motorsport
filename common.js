@@ -215,7 +215,38 @@ window.showTab = function(tabId) {
         console.warn(`No specific logic defined for tab: ${tabId}`);
     }
 };
+// Show F1 subtab function
+window.showF1Subtab = function(subtabId) {
+    console.log(`Switching to F1 subtab: ${subtabId}`);
 
+    // Hide all F1 subtab content and set default styling for all subtab buttons
+    document.querySelectorAll(".f1-subtab-content").forEach(subtab => {
+        subtab.classList.add("hidden");
+        console.log(`Hiding F1 subtab: ${subtab.id}`);
+    });
+    document.querySelectorAll(".f1-subtab").forEach(subtab => {
+        subtab.classList.remove("active", "bg-blue-500", "bg-gray-600", "bg-gray-700");
+        subtab.classList.add("bg-gray-600");
+        console.log(`Setting default background for F1 subtab button: ${subtab.textContent}`);
+    });
+
+    // Show the selected subtab and style the active subtab button
+    const activeSubtab = document.getElementById(subtabId);
+    if (activeSubtab) {
+        console.log(`Showing F1 subtab: ${subtabId}`);
+        activeSubtab.classList.remove("hidden");
+        const activeSubtabButton = document.querySelector(`button[onclick="showF1Subtab('${subtabId}')"]`);
+        if (activeSubtabButton) {
+            console.log(`Activating button for F1 subtab: ${subtabId}`);
+            activeSubtabButton.classList.remove("bg-gray-600");
+            activeSubtabButton.classList.add("active", "bg-blue-500");
+        } else {
+            console.error(`Button for F1 subtab ${subtabId} not found`);
+        }
+    } else {
+        console.error(`F1 subtab ${subtabId} not found in DOM`);
+    }
+};
 // Helper functions
 function fetchWeather(tab) {
     fetch("/api/weather")
