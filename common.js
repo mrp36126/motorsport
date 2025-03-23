@@ -115,22 +115,22 @@ const schedules = {
     ]
 };
 
-// Standings data (updated after China Sprint, March 23, 2025)
+// Updated Driver Standings (after Japan, April 6, 2025)
 let driverStandings = [
-    { position: 1, driver: "Lando Norris", team: "McLaren", points: 26 },
-    { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 24 },
-    { position: 3, driver: "George Russell", team: "Mercedes", points: 20 },
-    { position: 4, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 14 },
-    { position: 5, driver: "Alexander Albon", team: "Williams", points: 10 },
-    { position: 6, driver: "Oscar Piastri", team: "McLaren", points: 9 },
-    { position: 7, driver: "Lewis Hamilton", team: "Ferrari", points: 9 },
-    { position: 8, driver: "Lance Stroll", team: "Aston Martin", points: 8 },
-    { position: 9, driver: "Charles Leclerc", team: "Ferrari", points: 8 },
+    { position: 1, driver: "Lando Norris", team: "McLaren", points: 44 },
+    { position: 2, driver: "Max Verstappen", team: "Red Bull", points: 36 },
+    { position: 3, driver: "George Russell", team: "Mercedes", points: 35 },
+    { position: 4, driver: "Oscar Piastri", team: "McLaren", points: 34 },
+    { position: 5, driver: "Andrea Kimi Antonelli", team: "Mercedes", points: 18 },
+    { position: 6, driver: "Charles Leclerc", team: "Ferrari", points: 18 },
+    { position: 7, driver: "Lewis Hamilton", team: "Ferrari", points: 17 },
+    { position: 8, driver: "Alexander Albon", team: "Williams", points: 12 },
+    { position: 9, driver: "Lance Stroll", team: "Aston Martin", points: 8 },
     { position: 10, driver: "Nico Hulkenberg", team: "Haas", points: 6 },
-    { position: 11, driver: "Yuki Tsunoda", team: "RB", points: 3 },
-    { position: 12, driver: "Pierre Gasly", team: "Alpine", points: 0 },
-    { position: 13, driver: "Esteban Ocon", team: "Alpine", points: 0 },
-    { position: 14, driver: "Oliver Bearman", team: "Haas", points: 0 },
+    { position: 11, driver: "Esteban Ocon", team: "Alpine", points: 6 },
+    { position: 12, driver: "Yuki Tsunoda", team: "RB", points: 3 },
+    { position: 13, driver: "Oliver Bearman", team: "Haas", points: 1 },
+    { position: 14, driver: "Pierre Gasly", team: "Alpine", points: 0 },
     { position: 15, driver: "Jack Doohan", team: "Alpine", points: 0 },
     { position: 16, driver: "Fernando Alonso", team: "Aston Martin", points: 0 },
     { position: 17, driver: "Gabriel Bortoleto", team: "Sauber", points: 0 },
@@ -139,17 +139,18 @@ let driverStandings = [
     { position: 20, driver: "Carlos Sainz", team: "Williams", points: 0 }
 ];
 
+// Updated Constructor Standings (after Japan, April 6, 2025)
 let constructorStandings = [
-    { position: 1, team: "McLaren", points: 35, icon: "McLarenIcon.png" },
-    { position: 2, team: "Mercedes", points: 34, icon: "MercedesIcon.png" },
-    { position: 3, team: "Red Bull", points: 24, icon: "RedBullIcon.png" },
-    { position: 4, team: "Ferrari", points: 22 },
-    { position: 5, team: "Williams", points: 10 },
+    { position: 1, team: "McLaren", points: 78, icon: "McLarenIcon.png" },
+    { position: 2, team: "Mercedes", points: 53, icon: "MercedesIcon.png" },
+    { position: 3, team: "Ferrari", points: 40 },
+    { position: 4, team: "Red Bull", points: 36, icon: "RedBullIcon.png" },
+    { position: 5, team: "Williams", points: 12 },
     { position: 6, team: "Aston Martin", points: 8 },
-    { position: 7, team: "Sauber", points: 6 },
-    { position: 8, team: "RB", points: 3 },
-    { position: 9, team: "Alpine", points: 0 },
-    { position: 10, team: "Haas", points: 0 }
+    { position: 7, team: "Haas", points: 7 },
+    { position: 8, team: "Sauber", points: 6 },
+    { position: 9, team: "RB", points: 3 },
+    { position: 10, team: "Alpine", points: 0 }
 ];
 
 // Show tab function
