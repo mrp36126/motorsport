@@ -150,7 +150,7 @@ let constructorStandings = [
     { position: 7, team: "Haas", points: 7, icon: "HaasIcon.png" },
     { position: 8, team: "Sauber", points: 6, icon: "SauberIcon.png" },
     { position: 9, team: "RB", points: 3, icon: "RBIcon.png" },
-    { position: 10, team: "Alpine", points: 0, icon: "AlpineIcon" }
+    { position: 10, team: "Alpine", points: 0, icon: "AlpineIcon.png" }
 ];
 
 // Show tab function
