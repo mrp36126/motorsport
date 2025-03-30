@@ -1,11 +1,11 @@
 position;driver;team;points
 1;Lando Norris;McLaren;44
-2;Max Verstappen;RedBull;36
+2;Max Verstappen;Red Bull;36
 3;George Russell;Mercedes;35
 4;Oscar Piastri;McLaren;34
 5;Andrea Kimi Antonelli;Mercedes;22
 6;Alexander Albon;Williams;16
-7;Lance Stroll;AstonMartin;10
+7;Lance Stroll;Aston Martin;10
 8;Esteban Ocon;Alpine;10
 9;Lewis Hamilton;Ferrari;9
 10;Charles Leclerc;Ferrari;8
@@ -15,7 +15,7 @@ position;driver;team;points
 14;Carlos Sainz;Williams;1
 15;Pierre Gasly;Alpine;0
 16;Jack Doohan;Alpine;0
-17;Fernando Alonso;AstonMartin;0
+17;Fernando Alonso;Aston Martin;0
 18;Gabriel Bortoleto;Sauber;0
 19;Isack Hadjar;RB;0
-20;Liam Lawson;RedBull;0
+20;Liam Lawson;Red Bull;0
