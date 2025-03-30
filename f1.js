@@ -114,12 +114,12 @@ function updateCountdown(nextSession) {
     countdownTitle.textContent = `NEXT EVENT: ${nextSession.name.toUpperCase()}`;
 
     const interval = setInterval(() => {
-        const now = new Date(); // Use system time, adjusted to GMT+2 in common.js
+        const now = currentDateTimeGMT2; // Use live SAST from common.js
         const targetTime = new Date(nextSession.date);
         const timeLeft = targetTime - now;
 
-        // Update current time
-        currentTimeDisplay.textContent = currentDateTimeGMT2.toLocaleString();
+        // Update current time to South African time
+        currentTimeDisplay.textContent = now.toLocaleString("en-ZA", { timeZone: "Africa/Johannesburg" });
 
         if (timeLeft <= 0) {
             clearInterval(interval);
