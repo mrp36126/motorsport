@@ -69,7 +69,7 @@ function displayF1Standings() {
 
     if (constructorStandingsDiv && constructorStandings) {
         constructorStandingsDiv.innerHTML = constructorStandings
-            .map(c => `<img src="images/${c.icon}" class="constructor-image"> ${c.position}. ${c.team} - ${c.points} pts`)
+            .map(c => `<img src="images/${c.team}.png" alt="${c.team} Logo" class="h-8 w-8 inline-block mr-2"> ${c.position}. ${c.team} - ${c.points} pts`)
             .join("<br>");
     }
 }
