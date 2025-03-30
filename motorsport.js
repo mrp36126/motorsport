@@ -1,5 +1,3 @@
-// motorsport.js
-
 function displaySchedules() {
     const categories = ["zwartkops", "ultimate", "rock", "mahem"];
     categories.forEach(category => {
@@ -13,7 +11,12 @@ function displaySchedules() {
             schedules[category].forEach(event => {
                 const eventDate = new Date(event.date);
                 const li = document.createElement("li");
-                li.textContent = `${event.date} - ${event.event || "TBC"}`;
+
+                // Get the country flag based on the venue (e.g., Suzuka, Japan)
+                const countryFlag = event.venue ? event.venue.split(",")[1].toUpperCase() : "UNKNOWN";
+                const flagImage = `/images/${countryFlag}Flag.png`; // Path to the flag image
+
+                li.innerHTML = `${event.date} = <img src="${flagImage}" alt="${event.venue}" class="inline-block w-6 h-6"> ${event.event || "TBC"} (${event.venue || "TBC"})`;
                 scheduleList.appendChild(li);
 
                 if (!nextRace && eventDate >= now) {
@@ -21,7 +24,7 @@ function displaySchedules() {
                 }
             });
 
-            nextRaceElement.textContent = nextRace ? `${nextRace.date} - ${nextRace.event || "TBC"}` : "No upcoming races";
+            nextRaceElement.textContent = nextRace ? `${nextRace.date} - ${nextRace.event || "TBC"} (${nextRace.venue || "TBC"})` : "No upcoming races";
         }
     });
 }
