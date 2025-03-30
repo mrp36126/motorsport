@@ -1,7 +1,7 @@
 date;event;location;flag;track;trackName;practice1;practice2;practice3;qualifying;race;timezone;isSprint;sprintQualifying;sprintRace
 2025/03/16;Australia;Melbourne;AustraliaFlag.png;AustraliaTrack.png;AlbertParkGrandPrixCircuit;2025-03-14T12:30:00;2025-03-14T16:00:00;2025-03-15T12:30:00;2025-03-15T16:00:00;2025-03-16T15:00:00;AEDT;;;
 2025/03/23;China;Shanghai;ChinaFlag.png;ChinaTrack.png;ShanghaiInternationalCircuit;2025-03-21T11:30:00;;;2025-03-22T15:00:00;2025-03-23T15:00:00;CST;TRUE;2025-03-21T15:30:00;2025-03-22T11:00:00
-2025/04/06;Japan;Suzuka;JapanFlag.png;JapanTrack.png;SuzukaInternationalRacingCourse;2025-04-04T04:30:00;2025-04-04T08:00:00;2025-04-05T04:30:00;2025-04-05T08:00:00;2025-04-06T07:00:00;JST;;;
+2025/04/06;Japan;Suzuka,JP;JapanFlag.png;JapanTrack.png;Suzuka International Racing Course;2025-04-04T04:30:00;2025-04-04T08:00:00;2025-04-05T04:30:00;2025-04-05T08:00:00;2025-04-06T07:00:00;JST;;;
 2025/04/13;Bahrain;Sakhir;BahrainFlag.png;BahrainTrack.png;BahrainInternationalCircuit;2025-04-11T13:30:00;2025-04-11T17:00:00;2025-04-12T14:00:00;2025-04-12T17:00:00;2025-04-13T17:00:00;AST;;;
 2025/04/20;Saudi Arabia;Jeddah;SaudiArabiaFlag.png;SaudiArabiaTrack.png;JeddahCornicheCircuit;2025-04-18T15:30:00;2025-04-18T19:00:00;2025-04-19T15:30:00;2025-04-19T19:00:00;2025-04-20T19:00:00;AST;;;
 2025/05/04;Miami;Miami;USFlag.png;MiamiTrack.png;MiamiInternationalAutodrome;2025-05-02T12:30:00;;;2025-05-03T16:00:00;2025-05-04T15:00:00;EDT;TRUE;2025-05-02T16:30:00;2025-05-03T12:00:00
@@ -18,8 +18,8 @@ date;event;location;flag;track;trackName;practice1;practice2;practice3;qualifyin
 2025/09/21;Azerbaijan;Baku;AzerbaijanFlag.png;AzerbaijanTrack.png;BakuCityCircuit;2025-09-19T13:30:00;2025-09-19T17:00:00;2025-09-20T12:30:00;2025-09-20T16:00:00;2025-09-21T15:00:00;AZT;;;
 2025/10/05;Singapore;Singapore;SingaporeFlag.png;SingaporeTrack.png;MarinaBayStreetCircuit;2025-10-03T17:30:00;2025-10-03T21:00:00;2025-10-04T18:00:00;2025-10-04T21:00:00;2025-10-05T20:00:00;SGT;;;
 2025/10/19;United States;Austin;USFlag.png;UnitedStatesTrack.png;CircuitoftheAmericas;2025-10-17T12:30:00;;;2025-10-18T17:00:00;2025-10-19T14:00:00;CDT;TRUE;2025-10-17T16:30:00;2025-10-18T13:00:00
-2025/10/26;Mexico;MexicoCity;MexicoFlag.png;MexicoTrack.png;AutÛdromoHermanosRodrÌguez;2025-10-24T12:30:00;2025-10-24T16:00:00;2025-10-25T11:30:00;2025-10-25T15:00:00;2025-10-26T14:00:00;CST;;;
-2025/11/09;Brazil;SaoPaulo;BrazilFlag.png;BrazilTrack.png;AutÛdromoJosÈCarlosPace;2025-11-07T11:30:00;;;2025-11-08T14:00:00;2025-11-09T13:00:00;BRT;TRUE;2025-11-07T15:30:00;2025-11-08T10:00:00
+2025/10/26;Mexico;MexicoCity;MexicoFlag.png;MexicoTrack.png;Aut√≥dromoHermanosRodr√≠guez;2025-10-24T12:30:00;2025-10-24T16:00:00;2025-10-25T11:30:00;2025-10-25T15:00:00;2025-10-26T14:00:00;CST;;;
+2025/11/09;Brazil;SaoPaulo;BrazilFlag.png;BrazilTrack.png;Aut√≥dromoJos√©CarlosPace;2025-11-07T11:30:00;;;2025-11-08T14:00:00;2025-11-09T13:00:00;BRT;TRUE;2025-11-07T15:30:00;2025-11-08T10:00:00
 2025/11/22;Las Vegas;LasVegas;USFlag.png;LasVegasTrack.png;LasVegasStreetCircuit;2025-11-20T18:00:00;2025-11-20T22:00:00;2025-11-21T18:00:00;2025-11-21T22:00:00;2025-11-22T22:00:00;PST;;;
 2025/11/30;Qatar;Lusail;QatarFlag.png;QatarTrack.png;LusailInternationalCircuit;2025-11-28T15:30:00;;;2025-11-29T18:00:00;2025-11-30T18:00:00;AST;TRUE;2025-11-28T19:30:00;2025-11-29T14:00:00
 2025/12/07;Abu Dhabi;YasMarina;AbuDhabiFlag.png;AbuDhabiTrack.png;YasMarinaCircuit;2025-12-05T13:30:00;2025-12-05T17:00:00;2025-12-06T14:30:00;2025-12-06T18:00:00;2025-12-07T17:00:00;GST;;;
