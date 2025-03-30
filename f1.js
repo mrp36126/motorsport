@@ -118,8 +118,8 @@ function updateCountdown(nextSession) {
         const targetTime = new Date(nextSession.date);
         const timeLeft = targetTime - now;
 
-        // Display current time in SAST
-        currentTimeDisplay.textContent = now.toLocaleString("en-ZA", { timeZone: "Africa/Johannesburg" });
+        // Display current time as-is (already SAST)
+        currentTimeDisplay.textContent = now.toLocaleString("en-ZA");
 
         if (timeLeft <= 0) {
             clearInterval(interval);
