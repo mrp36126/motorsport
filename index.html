@@ -3,268 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sport & News</title>
+    <title>Motorsport Updates</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
     <style>
-        @keyframes marquee {
-            0% { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
-        }
-        .marquee {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 20s linear infinite;
-            position: absolute;
-            will-change: transform;
-        }
-        .marquee-container {
-            overflow: hidden;
-            width: 100%;
-            position: relative;
-            height: 2rem;
-        }
-        #intRugby-schedule li {
-            line-height: 2;
-        }
-        .weather-icon-inline {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-            margin: 0 4px;
-        }
-        .driver-image {
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            vertical-align: middle;
-            margin-left: 8px;
-            margin-right: 8px;
-        }
-        .constructor-image {
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            vertical-align: left;
-            margin-left: 1px;
-        }
-        .ticker-icon {
-            width: 20px;
-            height: 20px;
-            display: inline;
-            vertical-align: middle;
-            margin: 0 4px;
-        }
-        .countdown-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #1a1a1a;
-            padding: 8px;
-            border-radius: 8px;
-            margin-top: 8px;
-            width: 100%;
-            max-width: 300px;
-        }
-        .countdown-timer {
-            display: flex;
-            gap: 8px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-        }
-        .countdown-label {
-            font-size: 0.75rem;
-            color: #ccc;
-            text-align: center;
-        }
-        .countdown-clock {
-            width: 50px;
-            height: 50px;
-        }
-        .countdown-title {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #ccc;
-            text-align: center;
-            margin-bottom: 4px;
-        }
+        .tab-content { display: none; }
+        .tab-content:not(.hidden) { display: block; }
+        .f1-subtab-content { display: none; }
+        .f1-subtab-content:not(.hidden) { display: block; }
+        .weather-icon-inline { width: 30px; height: 30px; vertical-align: middle; }
+        .countdown-container { display: flex; align-items: center; gap: 20px; max-width: 300px; }
+        .countdown-timer { display: flex; gap: 10px; }
+        .countdown-clock { width: 50px; height: 50px; }
+        .countdown-label { font-size: 12px; color: white; }
+        .constructor-image { width: 30px; height: 30px; vertical-align: middle; margin-right: 5px; }
+        .ticker-container { overflow: hidden; white-space: nowrap; }
+        .ticker-content { display: inline-block; animation: ticker 20s linear infinite; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        /* Custom red color to replace yellow */
+        .text-red-custom { color: #E10600 !important; }
+        #f1-countdown-days, #f1-countdown-hours, #f1-countdown-minutes, #f1-countdown-seconds { color: #E10600; font-size: 24px; font-weight: bold; }
+        #zwartkops-temp, #ultimate-temp, #rock-temp, #mahem-temp, #f1-temp .temp-value,
+        #zwartkops-condition, #ultimate-condition, #rock-condition, #mahem-condition, #f1-condition .condition-value { color: #E10600; }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
-    <div class="container mx-auto p-4 sm:p-6">
-        <header class="text-center text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-white">
-            Sport & News
-        </header>
-        <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
-            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showTab('motorsport')">Motorsport</button>
-            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showTab('f1')">F1</button>
-            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showTab('sport')">Sport</button>
-            <button class="tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showTab('news')">News</button>
-        </nav>
-        <main class="mt-4 sm:mt-6">
-            <section id="motorsport" class="tab-content active">
-                <h2 class="text-center text-xl sm:text-2xl font-semibold text-white mb-4">Motorsport & Weather</h2>
-                <div id="card-upcoming" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
-                    <div class="marquee-container bg-gray-800 bg-opacity-70">
-                        <span id="upcoming-schedule" class="marquee text-sm sm:text-base"></span>
-                    </div>
+<body class="bg-gray-900 text-white font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold text-center mb-6">Motorsport Updates</h1>
+        
+        <!-- Tabs -->
+        <div class="flex justify-center space-x-4 mb-6">
+            <button class="tab bg-gray-600 text-white px-4 py-2 rounded" onclick="showTab('motorsport')">Motorsport</button>
+            <button class="tab bg-gray-600 text-white px-4 py-2 rounded" onclick="showTab('f1')">Formula 1</button>
+            <button class="tab bg-gray-600 text-white px-4 py-2 rounded" onclick="showTab('sport')">Sport</button>
+            <button class="tab bg-gray-600 text-white px-4 py-2 rounded" onclick="showTab('news')">News</button>
+        </div>
+
+        <!-- Motorsport Tab -->
+        <div id="motorsport" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-2">Zwartkops Raceway</h2>
+                    <img src="images/Racing1.jpg" alt="Zwartkops Raceway" class="w-full h-40 object-cover rounded mb-2">
+                    <p id="zwartkops-temp" class="text-red-custom font-bold">Loading...</p>
+                    <p id="zwartkops-condition" class="text-red-custom">Loading...</p>
+                    <p id="zwartkops-schedule" class="mt-2">Loading schedule...</p>
                 </div>
-                <div id="weather" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                    <div id="card-zwartkops" class="weather-card bg-[url('images/Racing1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Zwartkops Raceway, Pretoria</h3>
-                            <h4 id="zwartkops-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                            <p id="zwartkops-temp">Temp: Loading...</p>
-                            <p id="zwartkops-condition">Condition: Loading...</p>
-                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="zwartkops-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                        </div>
-                    </div>
-                    <div id="card-ultimate" class="weather-card bg-[url('images/Racing2.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Ultimate Raceway, Vereeniging</h3>
-                            <h4 id="ultimate-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                            <p id="ultimate-temp">Temp: Loading...</p>
-                            <p id="ultimate-condition">Condition: Loading...</p>
-                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="ultimate-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                        </div>
-                    </div>
-                    <div id="card-rock" class="weather-card bg-[url('images/Racing3.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">The Rock Raceway, Brakpan</h3>
-                            <h4 id="rock-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                            <p id="rock-temp">Temp: Loading...</p>
-                            <p id="rock-condition">Condition: Loading...</p>
-                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="rock-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                        </div>
-                    </div>
-                    <div id="card-mahem" class="weather-card bg-[url('images/Racing4.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">Mahem Raceway, Pretoria</h3>
-                            <h4 id="mahem-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                            <p id="mahem-temp">Temp: Loading...</p>
-                            <p id="mahem-condition">Condition: Loading...</p>
-                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="mahem-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                        </div>
-                    </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-2">Ultimate Raceway</h2>
+                    <img src="images/Racing1.jpg" alt="Ultimate Raceway" class="w-full h-40 object-cover rounded mb-2">
+                    <p id="ultimate-temp" class="text-red-custom font-bold">Loading...</p>
+                    <p id="ultimate-condition" class="text-red-custom">Loading...</p>
+                    <p id="ultimate-schedule" class="mt-2">Loading schedule...</p>
                 </div>
-            </section>
-            <section id="f1" class="tab-content hidden">
-                <img src="images/F1.png" alt="Formula 1 Logo" class="mx-auto mb-4 h-12 sm:h-14">
-                <div id="card-f1-standings" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
-                    <div class="marquee-container bg-gray-800 bg-opacity-70">
-                        <span id="f1-standings-ticker" class="marquee text-sm sm:text-base"></span>
-                    </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-2">Rock Raceway</h2>
+                    <img src="images/Racing1.jpg" alt="Rock Raceway" class="w-full h-40 object-cover rounded mb-2">
+                    <p id="rock-temp" class="text-red-custom font-bold">Loading...</p>
+                    <p id="rock-condition" class="text-red-custom">Loading...</p>
+                    <p id="rock-schedule" class="mt-2">Loading schedule...</p>
                 </div>
-                <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
-                    <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-next-race-tab')">Next Race</button>
-                    <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-driver-standings-tab')">Driver Standings</button>
-                    <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-constructor-standings-tab')">Constructor Standings</button>
-                </nav>
-                <div class="mt-4 sm:mt-6">
-                    <div id="f1-next-race-tab" class="f1-subtab-content">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                            <div id="card-f1" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                                <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">Formula 1</h3>
-                                    <h4 id="f1-next-race" class="text-lg sm:text-xl font-bold" style="color: #FFFF00"></h4>
-                                    <div id="f1-countdown" class="countdown-container">
-                                        <div>
-                                            <div class="countdown-title" id="f1-countdown-title">NEXT EVENT</div>
-                                            <div class="countdown-timer">
-                                                <div>
-                                                    <span id="f1-countdown-days">00</span>
-                                                    <div class="countdown-label">DAYS</div>
-                                                </div>
-                                                <div>
-                                                    <span id="f1-countdown-hours">00</span>
-                                                    <div class="countdown-label">HRS</div>
-                                                </div>
-                                                <div>
-                                                    <span id="f1-countdown-minutes">00</span>
-                                                    <div class="countdown-label">MINS</div>
-                                                </div>
-                                                <div>
-                                                    <span id="f1-countdown-seconds">00</span>
-                                                    <div class="countdown-label">SECS</div>
-                                                </div>
-                                            </div>
-                                            <div class="countdown-title mt-2">CURRENT TIME</div>
-                                            <div id="f1-current-time" class="text-sm text-white font-bold"></div>
-                                        </div>
-                                        <img src="images/ClockIcon.png" alt="Clock Icon" class="countdown-clock">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-2">Mahem Raceway</h2>
+                    <img src="images/Racing1.jpg" alt="Mahem Raceway" class="w-full h-40 object-cover rounded mb-2">
+                    <p id="mahem-temp" class="text-red-custom font-bold">Loading...</p>
+                    <p id="mahem-condition" class="text-red-custom">Loading...</p>
+                    <p id="mahem-schedule" class="mt-2">Loading schedule...</p>
+                </div>
+            </div>
+            <div class="mt-6 bg-gray-800 p-4 rounded-lg">
+                <h2 class="text-xl font-bold mb-2">Upcoming Events</h2>
+                <ul id="upcoming-events" class="list-disc pl-5"></ul>
+            </div>
+        </div>
+
+        <!-- Formula 1 Tab -->
+        <div id="f1" class="tab-content hidden">
+            <div class="flex justify-center space-x-4 mb-6">
+                <button class="f1-subtab bg-gray-600 text-white px-4 py-2 rounded" onclick="showF1Subtab('f1-next-race-tab')">Next Race</button>
+                <button class="f1-subtab bg-gray-600 text-white px-4 py-2 rounded" onclick="showF1Subtab('f1-schedule-tab')">Schedule</button>
+                <button class="f1-subtab bg-gray-600 text-white px-4 py-2 rounded" onclick="showF1Subtab('f1-standings-tab')">Standings</button>
+            </div>
+
+            <!-- F1 Next Race Subtab -->
+            <div id="f1-next-race-tab" class="f1-subtab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div id="card-f1" class="bg-gray-800 p-4 rounded-lg">
+                        <h2 class="text-xl font-bold mb-2">Formula 1</h2>
+                        <img src="images/F1.png" alt="F1 Logo" class="w-32 h-32 mx-auto mb-2">
+                        <p id="f1-next-race" class="text-lg font-semibold mb-2">Loading...</p>
+                        <img id="f1-flag" src="" alt="Flag" class="w-16 h-12 mx-auto mb-2 hidden">
+                        <img id="f1-track" src="" alt="Track" class="w-full h-40 object-cover rounded mb-2 hidden">
+                        <p id="f1-track-name" class="text-center mb-2">Loading...</p>
+                        <div id="f1-weather" class="mb-2">
+                            <div id="f1-temp"><span class="temp-label">Temperature:</span> <span class="temp-value text-red-custom">Loading...</span></div>
+                            <div id="f1-condition"><span class="condition-label">Condition:</span> <span class="condition-value text-red-custom">Loading...</span></div>
+                        </div>
+                        <div id="f1-countdown" class="countdown-container">
+                            <div>
+                                <div class="countdown-title" id="f1-countdown-title">NEXT EVENT</div>
+                                <div class="countdown-timer">
+                                    <div>
+                                        <span id="f1-countdown-days" class="text-red-custom">00</span>
+                                        <div class="countdown-label">DAYS</div>
                                     </div>
-                                    
-                                    <div class="mt-1">
-                                        <img id="f1-flag" class="h-6 sm:h-8 inline-block mr-2" alt="Race Flag">
-                                        <span id="f1-track-name" class="text-sm sm:text-base align-middle" style="color: #FFFF00"></span>
+                                    <div>
+                                        <span id="f1-countdown-hours" class="text-red-custom">00</span>
+                                        <div class="countdown-label">HRS</div>
                                     </div>
-                                    <div id="f1-session-times" class="text-xs sm:text-sm" style="color: #FFFFFF"></div>
-                                    <img id="f1-track" class="w-full max-w-xs mt-2" alt="Track Layout">
-                                    <p id="f1-temp" class="temp-label font-bold" style="color: #FFFF00">Temp: <span class="temp-value" style="color: white">Loading...</span></p>
-                                    <p id="f1-condition" class="condition-label font-bold" style="color: #FFFF00">Condition: <span class="condition-value" style="color: white">Loading...</span></p>
-                                </div>
-                            </div>
-                            <div id="card-f1-schedule" class="weather-card bg-[url('images/Racing6.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                                <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">2025 F1 Schedule</h3>
-                                    <p class="text-xs sm:text-sm mt-2"><strong class="underline">Upcoming Races:</strong></p>
-                                    <ul id="f1-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="f1-driver-standings-tab" class="f1-subtab-content hidden">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                            <div id="card-driver-standings-image" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">Driver Standings Visual</h3>
-                                    <div id="f1-driver-standings-image" class="mt-2">
+                                    <div>
+                                        <span id="f1-countdown-minutes" class="text-red-custom">00</span>
+                                        <div class="countdown-label">MINS</div>
+                                    </div>
+                                    <div>
+                                        <span id="f1-countdown-seconds" class="text-red-custom">00</span>
+                                        <div class="countdown-label">SECS</div>
                                     </div>
                                 </div>
+                                <div class="countdown-title mt-2">CURRENT TIME</div>
+                                <div id="f1-current-time" class="text-sm text-white font-bold"></div>
                             </div>
-                            <div id="card-driver-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">Driver Standings</h3>
-                                    <div id="f1-driver-standings" class="text-sm sm:text-base mt-2">
-                                    </div>
-                                </div>
-                            </div>
+                            <img src="images/ClockIcon.png" alt="Clock Icon" class="countdown-clock">
                         </div>
-                    </div>
-                    <div id="f1-constructor-standings-tab" class="f1-subtab-content hidden">
-                        <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                            <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                                <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
-                                <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
-                                </div>
-                            </div>
-                        </div>
+                        <div id="f1-session-times" class="mt-2"></div>
                     </div>
                 </div>
-            </section>
-            <section id="sport" class="tab-content hidden">
-                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">International Rugby Schedules</h2>
-                <div class="grid grid-cols-1 gap-4 sm:gap-6">
-                    <div id="card-int-rugby" class="weather-card bg-[url('images/Rugby1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                        <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
-                            <h3 class="text-base sm:text-lg font-bold">International Rugby</h3>
-                            <p class="text-xs sm:text-sm mt-2"><strong>2025 Schedule:</strong></p>
-                            <ul id="intRugby-schedule" class="text-xs sm:text-sm list-disc list-inside"></ul>
-                        </div>
+            </div>
+
+            <!-- F1 Schedule Subtab -->
+            <div id="f1-schedule-tab" class="f1-subtab-content hidden">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h2 class="text-xl font-bold mb-2">F1 Schedule</h2>
+                    <ul id="f1-schedule" class="list-disc pl-5"></ul>
+                </div>
+            </div>
+
+            <!-- F1 Standings Subtab -->
+            <div id="f1-standings-tab" class="f1-subtab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h2 class="text-xl font-bold mb-2">Driver Standings</h2>
+                        <div id="f1-driver-standings">Loading...</div>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h2 class="text-xl font-bold mb-2">Constructor Standings</h2>
+                        <div id="f1-constructor-standings">Loading...</div>
                     </div>
                 </div>
-            </section>
-            <section id="news" class="tab-content hidden">
-                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">Latest News</h2>
-                <div id="news-content"></div>
-            </section>
-        </main>
+                <div class="mt-6 bg-gray-800 p-4 rounded-lg ticker-container">
+                    <div id="f1-standings-ticker" class="ticker-content">Loading standings ticker...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sport Tab -->
+        <div id="sport" class="tab-content hidden">
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <h2 class="text-xl font-bold mb-2">International Rugby Schedule</h2>
+                <ul id="rugby-schedule" class="list-disc pl-5"></ul>
+            </div>
+        </div>
+
+        <!-- News Tab -->
+        <div id="news" class="tab-content hidden">
+            <div class="bg-gray-800 p-4 rounded-lg">
+                <h2 class="text-xl font-bold mb-2">Latest News</h2>
+                <div id="news-content">Loading news...</div>
+            </div>
+        </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
     <script src="common.js"></script>
     <script src="motorsport.js"></script>
     <script src="f1.js"></script>
