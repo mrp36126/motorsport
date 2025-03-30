@@ -38,10 +38,20 @@ function displayF1Schedule() {
         scheduleList.innerHTML = "";
         const now = currentDateTimeGMT2;
         schedules.f1
-            .filter(event => new Date(event.race) >= now)
+            .filter(event => new Date(event.race) >= now) // Filter for upcoming races
             .forEach(event => {
                 const li = document.createElement("li");
-                li.textContent = `${event.date} - ${event.event} (${event.location})`;
+                // Format the date as YYYY/MM/DD
+                const eventDate = new Date(event.race); // Assuming 'race' is the main race date
+                const formattedDate = `${eventDate.getFullYear()}/${String(eventDate.getMonth() + 1).padStart(2, "0")}/${String(eventDate.getDate()).padStart(2, "0")}`;
+                
+                // Create the flag image element (assumes 'flag' field exists in CSV)
+                const flagImg = event.flag 
+                    ? `<img src="images/${event.flag}" alt="${event.event} Flag" class="h-5 w-7 inline-block mr-2">`
+                    : ""; // Fallback if no flag is provided
+                
+                // Construct the text with flag: "YYYY/MM/DD - [flag] Event (Location)"
+                li.innerHTML = `${formattedDate} - ${flagImg} ${event.event} (${event.location})`;
                 scheduleList.appendChild(li);
             });
     }
