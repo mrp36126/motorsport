@@ -22,34 +22,40 @@ let constructorStandings = [];
 const githubBaseUrl = "https://raw.githubusercontent.com/mrp36126/motorsport/edit/main/data";
 
 // Function to fetch and parse CSV
-async function fetchCSV(url) {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to fetch ${url}`);
-    const csvText = await response.text();
-    return new Promise((resolve, reject) => {
-        Papa.parse(csvText, {
-            header: true,
-            skipEmptyLines: true,
-            complete: (result) => resolve(result.data),
-            error: (error) => reject(error)
-        });
-    });
-}
-
-// Load all data from CSVs
+// Replace fetchCSV and loadData with:
 async function loadData() {
     try {
-        // Load schedules
-        const scheduleCategories = ["zwartkops", "ultimate", "rock", "mahem", "f1", "intRugby"];
-        for (const category of scheduleCategories) {
-            schedules[category] = await fetchCSV(`${githubBaseUrl}${category}.csv`);
-            // Convert isSprint to boolean for F1
+        const response = await fetch("/api/data");
+        if (!response.ok) throw new Error("Failed to fetch data from API");
+        const csvData = await response.json();
+
+        schedules = {};
+        for (const category of ["zwartkops", "ultimate", "rock", "mahem", "f1", "intRugby"]) {
+            schedules[category] = Papa.parse(csvData[category], { header: true, skipEmptyLines: true }).data;
             if (category === "f1") {
                 schedules[category].forEach(event => {
                     event.isSprint = event.isSprint === "true";
                 });
             }
         }
+
+        driverStandings = Papa.parse(csvData.driverStandings, { header: true, skipEmptyLines: true }).data;
+        constructorStandings = Papa.parse(csvData.constructorStandings, { header: true, skipEmptyLines: true }).data;
+
+        driverStandings.forEach(d => {
+            d.position = parseInt(d.position);
+            d.points = parseInt(d.points);
+        });
+        constructorStandings.forEach(c => {
+            c.position = parseInt(c.position);
+            c.points = parseInt(c.points);
+        });
+
+        console.log("Data loaded:", { schedules, driverStandings, constructorStandings });
+    } catch (error) {
+        console.error("Error loading data:", error);
+    }
+}
 
         // Load standings
         driverStandings = await fetchCSV(`${githubBaseUrl}driverStandings.csv`);
