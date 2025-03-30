@@ -90,13 +90,13 @@ function displayF1NextRace() {
 
         const sessionTimes = document.getElementById("f1-session-times");
         sessionTimes.innerHTML = `
-            ${nextRace.practice1 ? `<p>Practice 1: ${new Date(nextRace.practice1).toLocaleString()}</p>` : ""}
-            ${nextRace.practice2 ? `<p>Practice 2: ${new Date(nextRace.practice2).toLocaleString()}</p>` : ""}
-            ${nextRace.practice3 ? `<p>Practice 3: ${new Date(nextRace.practice3).toLocaleString()}</p>` : ""}
-            ${nextRace.sprintQualifying ? `<p>Sprint Qualifying: ${new Date(nextRace.sprintQualifying).toLocaleString()}</p>` : ""}
-            ${nextRace.sprintRace ? `<p>Sprint Race: ${new Date(nextRace.sprintRace).toLocaleString()}</p>` : ""}
-            ${nextRace.qualifying ? `<p>Qualifying: ${new Date(nextRace.qualifying).toLocaleString()}</p>` : ""}
-            <p>Race: ${new Date(nextRace.race).toLocaleString()}</p>
+            ${nextRace.practice1 ? `<p>Practice 1: ${nextRace.practice1}</p>` : ""}
+            ${nextRace.practice2 ? `<p>Practice 2: ${nextRace.practice2}</p>` : ""}
+            ${nextRace.practice3 ? `<p>Practice 3: ${nextRace.practice3}</p>` : ""}
+            ${nextRace.sprintQualifying ? `<p>Sprint Qualifying: ${nextRace.sprintQualifying}</p>` : ""}
+            ${nextRace.sprintRace ? `<p>Sprint Race: ${nextRace.sprintRace}</p>` : ""}
+            ${nextRace.qualifying ? `<p>Qualifying: ${nextRace.qualifying}</p>` : ""}
+            <p>Race: ${nextRace.race}</p>
         `;
 
         updateCountdown(nextSession);
@@ -115,10 +115,10 @@ function updateCountdown(nextSession) {
 
     const interval = setInterval(() => {
         const now = currentDateTimeGMT2; // Live SAST from common.js
-        const targetTime = new Date(nextSession.date);
+        const targetTime = new Date(nextSession.date); // SAST from CSV
         const timeLeft = targetTime - now;
 
-        // Display current SAST time directly, no locale adjustment
+        // Display current SAST time directly from currentDateTimeGMT2
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         const seconds = String(now.getSeconds()).padStart(2, "0");
