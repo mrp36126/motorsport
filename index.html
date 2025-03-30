@@ -156,7 +156,7 @@
                 <img src="images/F1.png" alt="Formula 1 Logo" class="mx-auto mb-4 h-12 sm:h-14">
                 <div id="card-f1-standings" class="bg-[url('images/Racing5.jpg')] bg-cover bg-center p-2 rounded-lg shadow-md text-white mb-4">
                     <div class="marquee-container bg-gray-800 bg-opacity-70">
-                        <span###### id="f1-standings-ticker" class="marquee text-sm sm:text-base"></span>
+                        <span id="f1-standings-ticker" class="marquee text-sm sm:text-base"></span>
                     </div>
                 </div>
                 <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
@@ -237,10 +237,20 @@
                         </div>
                     </div>
                     <div id="f1-constructor-standings-tab" class="f1-subtab-content hidden">
-                        <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
-                            <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
-                                <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
-                                <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                            <div id="card-constructor-standings-image" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
+                                    <h3 class="text-base sm:text-lg font-bold">Constructor Standings Visual</h3>
+                                    <div id="f1-constructor-standings-image" class="mt-2">
+                                        <img src="images/CStandings.png" alt="Constructor Standings Visual" class="w-full max-w-md h-auto">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="card-constructor-standings" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
+                                <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
+                                    <h3 class="text-base sm:text-lg font-bold">Constructor Standings</h3>
+                                    <div id="f1-constructor-standings" class="text-xs sm:text-sm mt-2">
+                                    </div>
                                 </div>
                             </div>
                         </div>
