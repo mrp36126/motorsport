@@ -2,12 +2,17 @@
 
 // Global variables
 const weatherContainer = document.getElementById("weather");
-let currentDateTimeGMT2 = new Date(new Date().getTime() + (2 * 60 * 60 * 1000) - (new Date().getTimezoneOffset() * 60 * 1000));
+let currentDateTimeGMT2;
 
-// Update currentDateTimeGMT2 every second to reflect live South African time (SAST, UTC+2)
-setInterval(() => {
-    currentDateTimeGMT2 = new Date(new Date().getTime() + (2 * 60 * 60 * 1000) - (new Date().getTimezoneOffset() * 60 * 1000));
-}, 1000);
+// Set currentDateTimeGMT2 to South African Standard Time (UTC+2) based on UTC
+function updateSAST() {
+    const nowUTC = new Date(); // Current UTC time
+    currentDateTimeGMT2 = new Date(nowUTC.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours to UTC
+}
+
+// Initialize and update SAST every second
+updateSAST();
+setInterval(updateSAST, 1000);
 
 // Initialize data as empty
 let schedules = {};
