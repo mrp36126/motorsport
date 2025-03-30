@@ -1,7 +1,7 @@
 // f1.js
 
 function getNextF1Race() {
-    const now = currentDateTimeGMT2; // Use GMT+2 time from common.js
+    const now = currentDateTimeGMT2; // Use live SAST from common.js
     return schedules.f1.find(event => {
         const sessionDates = [
             event.practice1,
@@ -114,11 +114,11 @@ function updateCountdown(nextSession) {
     countdownTitle.textContent = `NEXT EVENT: ${nextSession.name.toUpperCase()}`;
 
     const interval = setInterval(() => {
-        const now = currentDateTimeGMT2; // Use live SAST from common.js
+        const now = currentDateTimeGMT2; // Live SAST from common.js
         const targetTime = new Date(nextSession.date);
         const timeLeft = targetTime - now;
 
-        // Update current time to South African time
+        // Display current time in SAST
         currentTimeDisplay.textContent = now.toLocaleString("en-ZA", { timeZone: "Africa/Johannesburg" });
 
         if (timeLeft <= 0) {
