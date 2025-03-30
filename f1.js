@@ -1,16 +1,91 @@
+// f1.js
+
+function getNextF1Race() {
+    const now = currentDateTimeGMT2; // Use live SAST from common.js
+    return schedules.f1.find(event => {
+        const sessionDates = [
+            event.practice1,
+            event.practice2,
+            event.practice3,
+            event.sprintQualifying,
+            event.sprintRace,
+            event.qualifying,
+            event.race
+        ].filter(Boolean).map(date => new Date(date));
+        return sessionDates.some(date => date >= now);
+    }) || schedules.f1[0];
+}
+
+function getNextSession(event) {
+    const now = currentDateTimeGMT2;
+    const sessions = [
+        { name: "Practice 1", date: event.practice1 },
+        { name: "Practice 2", date: event.practice2 },
+        { name: "Practice 3", date: event.practice3 },
+        { name: "Sprint Qualifying", date: event.sprintQualifying },
+        { name: "Sprint Race", date: event.sprintRace },
+        { name: "Qualifying", date: event.qualifying },
+        { name: "Race", date: event.race }
+    ].filter(session => session.date);
+
+    const nextSession = sessions.find(session => new Date(session.date) >= now) || sessions[sessions.length - 1];
+    return nextSession;
+}
+
+function displayF1Schedule() {
+    const scheduleList = document.getElementById("f1-schedule");
+    if (scheduleList && schedules.f1) {
+        scheduleList.innerHTML = "";
+        const now = currentDateTimeGMT2;
+        schedules.f1
+            .filter(event => new Date(event.race) >= now)
+            .forEach(event => {
+                const li = document.createElement("li");
+                li.textContent = `${event.date} - ${event.event} (${event.location})`;
+                scheduleList.appendChild(li);
+            });
+    }
+}
+
+function displayF1Standings() {
+    const driverStandingsDiv = document.getElementById("f1-driver-standings");
+    const constructorStandingsDiv = document.getElementById("f1-constructor-standings");
+
+    if (driverStandingsDiv && driverStandings) {
+        driverStandingsDiv.innerHTML = driverStandings
+            .map(d => `${d.position}. ${d.driver} (${d.team}) - ${d.points} pts`)
+            .join("<br>");
+    }
+
+    if (constructorStandingsDiv && constructorStandings) {
+        constructorStandingsDiv.innerHTML = constructorStandings
+            .map(c => `<img src="images/${c.icon}" class="constructor-image"> ${c.position}. ${c.team} - ${c.points} pts`)
+            .join("<br>");
+    }
+}
+
+function displayF1StandingsTicker() {
+    const ticker = document.getElementById("f1-standings-ticker");
+    if (ticker && driverStandings && constructorStandings) {
+        const driverText = driverStandings
+            .slice(0, 5)
+            .map(d => `${d.position}. ${d.driver} - ${d.points}`)
+            .join(" | ");
+        const constructorText = constructorStandings
+            .slice(0, 5)
+            .map(c => `${c.position}. ${c.team} - ${c.points}`)
+            .join(" | ");
+        ticker.innerHTML = `Drivers: ${driverText} | Constructors: ${constructorText}`;
+    }
+}
+
 function displayF1NextRace() {
     const nextRace = getNextF1Race();
     if (nextRace) {
         const nextSession = getNextSession(nextRace);
         document.getElementById("f1-next-race").textContent = `${nextRace.event} - ${nextRace.date}`;
-        
-        // Assuming flags are in the format like 'JapanFlag.png' for Suzuka, and so on.
-        const countryFlag = nextRace.location ? nextRace.location.split(",")[1].toUpperCase() : "UNKNOWN"; // Extract country code from location
-        const flagImage = `/images/${countryFlag}Flag.png`; // Path to the flag image
-        
-        // Set the flag image and track info
-        document.getElementById("f1-flag").src = flagImage;
-        document.getElementById("f1-track").src = `images/${nextRace.track}`; // Assuming track image is handled similarly
+        document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
+        document.getElementById("f1-track").src = `images/${nextRace.track}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
 
         const sessionTimes = document.getElementById("f1-session-times");
@@ -51,6 +126,9 @@ function updateCountdown(nextSession) {
         const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
         const year = now.getFullYear();
         currentTimeDisplay.textContent = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+
+        // Log for debugging
+        console.log("Countdown Now (SAST):", now.toISOString(), "Target:", targetTime.toISOString(), "Time Left (ms):", timeLeft);
 
         if (timeLeft <= 0) {
             clearInterval(interval);
