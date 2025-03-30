@@ -1,7 +1,7 @@
+// api/data.js
 const fetch = require('node-fetch');
 
 const githubBaseUrl = "https://raw.githubusercontent.com/mrp36126/motorsport/main/data/";
-
 const categories = ["zwartkops", "ultimate", "rock", "mahem", "f1", "intRugby", "driverStandings", "constructorStandings"];
 
 module.exports = async (req, res) => {
