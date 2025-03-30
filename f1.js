@@ -118,8 +118,9 @@ function updateCountdown(nextSession) {
         const targetTime = new Date(nextSession.date);
         const timeLeft = targetTime - now;
 
-        // Display current time as-is (already SAST)
-        currentTimeDisplay.textContent = now.toLocaleString("en-ZA");
+        // Display current SAST time directly
+        currentTimeDisplay.textContent = now.toLocaleString("en-ZA"); // SAST formatted
+        console.log("Countdown - Now (SAST):", now.toISOString(), "Target:", targetTime.toISOString(), "Time Left (ms):", timeLeft);
 
         if (timeLeft <= 0) {
             clearInterval(interval);
