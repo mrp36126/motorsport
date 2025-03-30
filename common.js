@@ -7,7 +7,7 @@ let currentDateTimeGMT2;
 // Set currentDateTimeGMT2 to South African Standard Time (UTC+2) based on UTC
 function updateSAST() {
     const nowUTC = new Date(); // Current UTC time from system
-    currentDateTimeGMT2 = new Date(nowUTC.getTime() // + (2 * 60 * 60 * 1000)); // UTC + 2 hours
+    currentDateTimeGMT2 = new Date(nowUTC.getTime() + (2 * 60 * 60 * 1000)); // UTC + 2 hours
     console.log("Current SAST:", currentDateTimeGMT2.toISOString(), "Local Display:", currentDateTimeGMT2.toLocaleString("en-ZA"));
 }
 
