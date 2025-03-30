@@ -118,9 +118,17 @@ function updateCountdown(nextSession) {
         const targetTime = new Date(nextSession.date);
         const timeLeft = targetTime - now;
 
-        // Display current SAST time directly
-        currentTimeDisplay.textContent = now.toLocaleString("en-ZA"); // SAST formatted
-        console.log("Countdown - Now (SAST):", now.toISOString(), "Target:", targetTime.toISOString(), "Time Left (ms):", timeLeft);
+        // Display current SAST time directly, no locale adjustment
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+        const year = now.getFullYear();
+        currentTimeDisplay.textContent = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+
+        // Log for debugging
+        console.log("Countdown Now (SAST):", now.toISOString(), "Target:", targetTime.toISOString(), "Time Left (ms):", timeLeft);
 
         if (timeLeft <= 0) {
             clearInterval(interval);
@@ -133,13 +141,13 @@ function updateCountdown(nextSession) {
         }
 
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
         countdownDays.textContent = String(days).padStart(2, "0");
-        countdownHours.textContent = String(hours).padStart(2, "0");
-        countdownMinutes.textContent = String(minutes).padStart(2, "0");
-        countdownSeconds.textContent = String(seconds).padStart(2, "0");
+        countdownHours.textContent = String(hoursLeft).padStart(2, "0");
+        countdownMinutes.textContent = String(minutesLeft).padStart(2, "0");
+        countdownSeconds.textContent = String(secondsLeft).padStart(2, "0");
     }, 1000);
 }
