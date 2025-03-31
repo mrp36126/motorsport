@@ -63,7 +63,10 @@ function displayF1Standings() {
 
     if (driverStandingsDiv && driverStandings) {
         driverStandingsDiv.innerHTML = driverStandings
-            .map(d => `${d.position}. ${d.driver} (${d.team}) - ${d.points} pts`)
+            .map(d => `
+                ${d.position}. ${d.driver} (${d.team}) - ${d.points} pts
+                <br><img src="images/${d.driver}.png" alt="${d.driver} Image" class="driver-image">
+            `)
             .join("<br>");
     }
 
