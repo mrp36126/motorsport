@@ -86,7 +86,7 @@ function displayF1StandingsTicker() {
             .join(" | ");
         const constructorText = constructorStandings
             .slice(0, 5)
-            .map(c => `${c.position}. ${c.team} - ${c.points}`)
+            .map(c => `${c.position}. <img src="images/${c.team}Icon.png" alt="${c.team} Icon" class="ticker-icon"> ${c.team} - ${c.points}`)
             .join(" | ");
         ticker.innerHTML = `Drivers: ${driverText} | Constructors: ${constructorText}`;
     }
