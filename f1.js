@@ -82,7 +82,7 @@ function displayF1StandingsTicker() {
     if (ticker && driverStandings && constructorStandings) {
         const driverText = driverStandings
             .slice(0, 5)
-            .map(d => `${d.position}. ${d.driver} - ${d.points}`)
+            .map(d => `${d.position}. <img src="images/${d.driver}Icon.png" alt="${d.driver} Icon" class="ticker-icon"> ${d.driver} - ${d.points}`)
             .join(" | ");
         const constructorText = constructorStandings
             .slice(0, 5)
