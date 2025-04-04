@@ -95,36 +95,23 @@ function displayF1StandingsTicker() {
 function displayF1NextRace() {
     const nextRace = getNextF1Race();
     if (nextRace) {
-        const now = currentDateTimeGMT2; // Live SAST from common.js
-        const sessions = [
-            { name: "Practice 1", date: nextRace.practice1 },
-            { name: "Practice 2", date: nextRace.practice2 },
-            { name: "Practice 3", date: nextRace.practice3 },
-            { name: "Sprint Qualifying", date: nextRace.sprintQualifying },
-            { name: "Sprint Race", date: nextRace.sprintRace },
-            { name: "Qualifying", date: nextRace.qualifying },
-            { name: "Race", date: nextRace.race }
-        ].filter(session => session.date); // Remove sessions with no date
-
-        // Find the index of the next session that hasn't started yet
-        const nextSessionIndex = sessions.findIndex(session => new Date(session.date) >= now);
-        const nextSession = nextSessionIndex !== -1 ? sessions[nextSessionIndex] : sessions[sessions.length - 1];
-
-        // Get only the next session and all subsequent sessions
-        const upcomingSessions = nextSessionIndex !== -1 ? sessions.slice(nextSessionIndex) : [];
-
-        // Update the UI
-        document.getElementById("f1-next-race").textContent = `${nextRace.event} - ${nextRace.race}`; // Main race date
+        const nextSession = getNextSession(nextRace);
+        document.getElementById("f1-next-race").textContent = `${nextRace.event} - ${nextRace.date}`;
         document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
 
         const sessionTimes = document.getElementById("f1-session-times");
-        sessionTimes.innerHTML = upcomingSessions
-            .map(session => `<p>${session.name}: ${session.date}</p>`)
-            .join("");
+        sessionTimes.innerHTML = `
+            ${nextRace.practice1 ? `<p>Practice 1: ${nextRace.practice1}</p>` : ""}
+            ${nextRace.practice2 ? `<p>Practice 2: ${nextRace.practice2}</p>` : ""}
+            ${nextRace.practice3 ? `<p>Practice 3: ${nextRace.practice3}</p>` : ""}
+            ${nextRace.sprintQualifying ? `<p>Sprint Qualifying: ${nextRace.sprintQualifying}</p>` : ""}
+            ${nextRace.sprintRace ? `<p>Sprint Race: ${nextRace.sprintRace}</p>` : ""}
+            ${nextRace.qualifying ? `<p>Qualifying: ${nextRace.qualifying}</p>` : ""}
+            <p>Race: ${nextRace.race}</p>
+        `;
 
-        // Update countdown with the next session
         updateCountdown(nextSession);
     }
 }
