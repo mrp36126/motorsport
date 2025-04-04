@@ -41,7 +41,7 @@ async function loadData() {
         const csvData = await response.json();
 
         schedules = {};
-        for (const category of ["zwartkops", "ultimate", "rock", "mahem", "f1", "intRugby", "urc"]) {
+        for (const category of ["zwartkops", "ultimate", "rock", "mahem", "f1", "intRugby"]) {
             schedules[category] = Papa.parse(csvData[category], { header: true, skipEmptyLines: true }).data;
             if (category === "f1") {
                 schedules[category].forEach(event => {
