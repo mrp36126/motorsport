@@ -177,20 +177,28 @@ function displayF1Results() {
         if (pastRaces.length > 0) {
             pastRaces.forEach((event, index) => {
                 let resultImage;
-                // Determine the appropriate image based on event name and sprint status
-                if (event.event.toLowerCase().includes("australian")) {
+                let displayName;
+
+                // Match exact event names and sprint status
+                if (event.event === "Australian Grand Prix") {
+                    displayName = "Australian Grand Prix";
                     resultImage = "AustraliaResult.png";
-                } else if (event.event.toLowerCase().includes("chinese")) {
-                    resultImage = event.isSprint ? "ChinaSprintResult.png" : "ChinaResult.png";
+                } else if (event.event === "Chinese Grand Prix" && event.isSprint) {
+                    displayName = "China Sprint";
+                    resultImage = "ChinaSprintResult.png";
+                } else if (event.event === "Chinese Grand Prix" && !event.isSprint) {
+                    displayName = "China";
+                    resultImage = "ChinaResult.png";
                 } else {
-                    // Fallback image for other races
-                    resultImage = "AustraliaResult.png"; // Default fallback, adjust as needed
+                    // Fallback for other races
+                    displayName = event.event;
+                    resultImage = "AustraliaResult.png"; // Default fallback
                 }
 
                 const resultItem = document.createElement("div");
                 resultItem.innerHTML = `
-                    ${index + 1}. ${event.event}:<br>
-                    <img src="images/${resultImage}" alt="${event.event} Result" class="w-full max-w-xs mt-2 mb-4">
+                    ${index + 1}. ${displayName}:<br>
+                    <img src="images/${resultImage}" alt="${displayName} Result" class="w-full max-w-xs mt-2 mb-4">
                 `;
                 resultsDiv.appendChild(resultItem);
             });
