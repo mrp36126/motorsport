@@ -6,7 +6,6 @@ let currentDateTimeGMT2;
 
 // Set currentDateTimeGMT2 to South African Standard Time (Johannesburg, UTC+2)
 function updateSAST() {
-    // Use Intl.DateTimeFormat to get current Johannesburg time directly
     const formatter = new Intl.DateTimeFormat("en-ZA", {
         timeZone: "Africa/Johannesburg",
         year: "numeric",
@@ -97,6 +96,7 @@ window.showTab = function(tabId) {
         displayF1Standings();
         displayF1StandingsTicker();
         displayF1NextRace();
+        displayF1Results(); // Added to initialize Results subtab
         showF1Subtab("f1-next-race-tab");
     } else if (tabId === "sport") {
         displayRugbySchedules();
@@ -124,6 +124,17 @@ window.showF1Subtab = function(subtabId) {
             activeSubtabButton.classList.remove("bg-gray-600");
             activeSubtabButton.classList.add("active", "bg-blue-500");
         }
+    }
+
+    // Call the appropriate display function based on subtab
+    if (subtabId === "f1-next-race-tab") {
+        displayF1NextRace();
+    } else if (subtabId === "f1-driver-standings-tab") {
+        displayF1Standings();
+    } else if (subtabId === "f1-constructor-standings-tab") {
+        displayF1Standings();
+    } else if (subtabId === "f1-results-tab") {
+        displayF1Results();
     }
 };
 
