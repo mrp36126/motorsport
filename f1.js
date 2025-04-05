@@ -1,5 +1,3 @@
-// f1.js
-
 function getNextF1Race() {
     const now = currentDateTimeGMT2; // Use live SAST from common.js
     return schedules.f1.find(event => {
@@ -41,11 +39,16 @@ function displayF1Schedule() {
             .filter(event => new Date(event.race) >= now) // Filter for upcoming races
             .forEach(event => {
                 const li = document.createElement("li");
-                const eventDate = new Date(event.race);
+                // Format the date as YYYY/MM/DD
+                const eventDate = new Date(event.race); // Assuming 'race' is the main race date
                 const formattedDate = `${eventDate.getFullYear()}/${String(eventDate.getMonth() + 1).padStart(2, "0")}/${String(eventDate.getDate()).padStart(2, "0")}`;
+                
+                // Create the flag image element (assumes 'flag' field exists in CSV)
                 const flagImg = event.flag 
                     ? `<img src="images/${event.flag}" alt="${event.event} Flag" class="h-5 w-7 inline-block mr-2">`
-                    : "";
+                    : ""; // Fallback if no flag is provided
+                
+                // Construct the text with flag: "YYYY/MM/DD - [flag] Event (Location)"
                 li.innerHTML = `${formattedDate} - ${flagImg} ${event.event} (${event.location})`;
                 scheduleList.appendChild(li);
             });
@@ -90,7 +93,7 @@ function displayF1StandingsTicker() {
 function displayF1NextRace() {
     const nextRace = getNextF1Race();
     if (nextRace) {
-        const now = currentDateTimeGMT2;
+        const now = currentDateTimeGMT2; // Live SAST from common.js
         const sessions = [
             { name: "Practice 1", date: nextRace.practice1 },
             { name: "Practice 2", date: nextRace.practice2 },
@@ -99,13 +102,17 @@ function displayF1NextRace() {
             { name: "Sprint Race", date: nextRace.sprintRace },
             { name: "Qualifying", date: nextRace.qualifying },
             { name: "Race", date: nextRace.race }
-        ].filter(session => session.date);
+        ].filter(session => session.date); // Remove sessions with no date
 
+        // Find the index of the next session that hasn't started yet
         const nextSessionIndex = sessions.findIndex(session => new Date(session.date) >= now);
         const nextSession = nextSessionIndex !== -1 ? sessions[nextSessionIndex] : sessions[sessions.length - 1];
+
+        // Get only the next session and all subsequent sessions
         const upcomingSessions = nextSessionIndex !== -1 ? sessions.slice(nextSessionIndex) : [];
 
-        document.getElementById("f1-next-race").textContent = `${nextRace.event} - ${nextRace.race}`;
+        // Update the UI
+        document.getElementById("f1-next-race").textContent = `${nextRace.event} - ${nextRace.race}`; // Main race date
         document.getElementById("f1-flag").src = `images/${nextRace.flag}`;
         document.getElementById("f1-track").src = `images/${nextRace.track}`;
         document.getElementById("f1-track-name").textContent = nextRace.trackName;
@@ -115,6 +122,7 @@ function displayF1NextRace() {
             .map(session => `<p>${session.name}: ${session.date}</p>`)
             .join("");
 
+        // Update countdown with the next session
         updateCountdown(nextSession);
     }
 }
@@ -130,18 +138,20 @@ function updateCountdown(nextSession) {
     countdownTitle.textContent = `NEXT EVENT: ${nextSession.name.toUpperCase()}`;
 
     const interval = setInterval(() => {
-        const now = currentDateTimeGMT2;
-        const targetTime = new Date(nextSession.date);
+        const now = currentDateTimeGMT2; // Live SAST from common.js
+        const targetTime = new Date(nextSession.date); // SAST from CSV
         const timeLeft = targetTime - now;
 
+        // Display current SAST time directly from currentDateTimeGMT2
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         const seconds = String(now.getSeconds()).padStart(2, "0");
         const day = String(now.getDate()).padStart(2, "0");
-        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
         const year = now.getFullYear();
         currentTimeDisplay.textContent = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
 
+        // Log for debugging
         console.log("Countdown Now (SAST):", now.toISOString(), "Target:", targetTime.toISOString(), "Time Left (ms):", timeLeft);
 
         if (timeLeft <= 0) {
@@ -168,42 +178,8 @@ function updateCountdown(nextSession) {
 
 function displayF1Results() {
     const resultsDiv = document.getElementById("f1-results");
-    if (resultsDiv && schedules.f1) {
-        resultsDiv.innerHTML = "";
-        const now = currentDateTimeGMT2;
-
-        const pastRaces = schedules.f1.filter(event => new Date(event.race) < now);
-
-        if (pastRaces.length > 0) {
-            pastRaces.forEach((event, index) => {
-                let resultImage;
-                let displayName;
-
-                // Match exact event names and sprint status
-                if (event.event === "Australian Grand Prix") {
-                    displayName = "Australian Grand Prix";
-                    resultImage = "AustraliaResult.png";
-                } else if (event.event === "Chinese Grand Prix" && event.isSprint) {
-                    displayName = "China Sprint";
-                    resultImage = "ChinaSprintResult.png";
-                } else if (event.event === "Chinese Grand Prix" && !event.isSprint) {
-                    displayName = "China";
-                    resultImage = "ChinaResult.png";
-                } else {
-                    // Fallback for other races
-                    displayName = event.event;
-                    resultImage = "AustraliaResult.png"; // Default fallback
-                }
-
-                const resultItem = document.createElement("div");
-                resultItem.innerHTML = `
-                    ${index + 1}. ${displayName}:<br>
-                    <img src="images/${resultImage}" alt="${displayName} Result" class="w-full max-w-xs mt-2 mb-4">
-                `;
-                resultsDiv.appendChild(resultItem);
-            });
-        } else {
-            resultsDiv.innerHTML = `<p class="text-gray-400">No past races available yet.</p>`;
-        }
+    if (resultsDiv) {
+        // Since you're manually updating the HTML, we don't need to dynamically generate content here
+        // This function can be empty for now, but it's here for future expansion if needed
     }
 }
