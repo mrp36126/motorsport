@@ -176,10 +176,21 @@ function displayF1Results() {
 
         if (pastRaces.length > 0) {
             pastRaces.forEach((event, index) => {
+                let resultImage;
+                // Determine the appropriate image based on event name and sprint status
+                if (event.event.toLowerCase().includes("australian")) {
+                    resultImage = "AustraliaResult.png";
+                } else if (event.event.toLowerCase().includes("chinese")) {
+                    resultImage = event.isSprint ? "ChinaSprintResult.png" : "ChinaResult.png";
+                } else {
+                    // Fallback image for other races
+                    resultImage = "AustraliaResult.png"; // Default fallback, adjust as needed
+                }
+
                 const resultItem = document.createElement("div");
                 resultItem.innerHTML = `
                     ${index + 1}. ${event.event}:<br>
-                    <img src="images/AustraliaResult.png" alt="${event.event} Result" class="w-full max-w-xs mt-2 mb-4">
+                    <img src="images/${resultImage}" alt="${event.event} Result" class="w-full max-w-xs mt-2 mb-4">
                 `;
                 resultsDiv.appendChild(resultItem);
             });
