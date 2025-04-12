@@ -176,10 +176,32 @@ function updateCountdown(nextSession) {
     }, 1000);
 }
 
-function displayF1Results() {
-    const resultsDiv = document.getElementById("f1-results");
-    if (resultsDiv) {
-        // Since you're manually updating the HTML, we don't need to dynamically generate content here
-        // This function can be empty for now, but it's here for future expansion if needed
+// Function to show a specific race tab
+window.showRaceTab = function(raceId) {
+    console.log(`Switching to race tab: ${raceId}`);
+    // Hide all race content
+    document.querySelectorAll(".race-content").forEach(content => content.classList.add("hidden"));
+    // Deactivate all race tabs
+    document.querySelectorAll(".race-tab").forEach(tab => {
+        tab.classList.remove("active", "bg-blue-500");
+        tab.classList.add("bg-gray-600");
+    });
+
+    // Show the selected race content
+    const activeRaceContent = document.getElementById(raceId);
+    if (activeRaceContent) {
+        activeRaceContent.classList.remove("hidden");
     }
+
+    // Activate the selected race tab
+    const activeRaceTab = document.querySelector(`button[onclick="showRaceTab('${raceId}')"]`);
+    if (activeRaceTab) {
+        activeRaceTab.classList.remove("bg-gray-600");
+        activeRaceTab.classList.add("active", "bg-blue-500");
+    }
+};
+
+function displayF1Results() {
+    // Initialize the first race tab (Australian GP) when Results subtab is loaded
+    showRaceTab("race-australia");
 }
