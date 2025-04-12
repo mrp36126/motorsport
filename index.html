@@ -162,6 +162,7 @@
                 <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto">
                     <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-next-race-tab')">Next Race</button>
                     <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-driver-standings-tab')">Driver Standings</button>
+ Buying this domain? Contact us at inquiry@brandforce.com
                     <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-constructor-standings-tab')">Constructor Standings</button>
                     <button class="f1-subtab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showF1Subtab('f1-results-tab')">Results</button>
                 </nav>
@@ -261,17 +262,36 @@
                             <div id="card-results" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                                 <div class="bg-gray-500 bg-opacity-70 p-2 rounded">
                                     <h3 class="text-base sm:text-lg font-bold">Past Races</h3>
-                                    <div id="f1-results" class="text-sm sm:text-base mt-2">
-                                        <p><strong>1. Australian Grand Prix</strong></p>
-                                        <img src="images/AustraliaResult.png" alt="Australian Grand Prix Result" class="w-full max-w-md h-auto mb-4">
-                                        <p><strong>2. Chinese Grand Prix Sprint</strong></p>
-                                        <img src="images/ChinaSprintResult.png" alt="Chinese Grand Prix Sprint Result" class="w-full max-w-md h-auto mb-4">
-                                        <p><strong>2. Chinese Grand Prix</strong></p>
-                                        <img src="images/ChinaResult.png" alt="Chinese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
-                                        <p><strong>3. Japanese Grand Prix</strong></p>
-                                        <img src="images/JapanResult.png" alt="Japanese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
-                                        <p><strong>4. Bahrain Grand Prix</strong></p>
-                                        <img src="images/BahrainResult.png" alt="Bahrain Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                    <!-- Race Tabs Navigation -->
+                                    <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-australia')">Australian GP</button>
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-china-sprint')">Chinese GP Sprint</button>
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-china')">Chinese GP</button>
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-japan')">Japanese GP</button>
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-bahrain')">Bahrain GP</button>
+                                    </nav>
+                                    <!-- Race Results Content -->
+                                    <div id="f1-results-content" class="text-sm sm:text-base mt-2">
+                                        <div id="race-australia" class="race-content">
+                                            <p><strong>Australian Grand Prix</strong></p>
+                                            <img src="images/AustraliaResult.png" alt="Australian Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
+                                        <div id="race-china-sprint" class="race-content hidden">
+                                            <p><strong>Chinese Grand Prix Sprint</strong></p>
+                                            <img src="images/ChinaSprintResult.png" alt="Chinese Grand Prix Sprint Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
+                                        <div id="race-china" class="race-content hidden">
+                                            <p><strong>Chinese Grand Prix</strong></p>
+                                            <img src="images/ChinaResult.png" alt="Chinese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
+                                        <div id="race-japan" class="race-content hidden">
+                                            <p><strong>Japanese Grand Prix</strong></p>
+                                            <img src="images/JapanResult.png" alt="Japanese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
+                                        <div id="race-bahrain" class="race-content hidden">
+                                            <p><strong>Bahrain Grand Prix</strong></p>
+                                            <img src="images/BahrainResult.png" alt="Bahrain Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -306,5 +326,5 @@
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9288117d7a78bd3f',t:'MTc0MzM0MjU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'929f56f2c8d71375',t:'MTc0MzU4NjU2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b1736bf97aade3',t:'MTc0Mzc3NjQ3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b92479fe18bcf8',t:'MTc0Mzg1NzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b92479fe18bcf8',t:'MTc0Mzg1NzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f2f28eec98dd20',t:'MTc0NDQ2MzI1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
