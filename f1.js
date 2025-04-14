@@ -199,9 +199,45 @@ window.showRaceTab = function(raceId) {
         activeRaceTab.classList.remove("bg-gray-600");
         activeRaceTab.classList.add("active", "bg-blue-500");
     }
+
+    // Initialize the first subtab for the selected race
+    const subtabId = raceId === "race-australia" ? "australia-track-data" :
+                    raceId === "race-china-sprint" ? "china-sprint-track-data" :
+                    raceId === "race-china" ? "china-track-data" :
+                    raceId === "race-japan" ? "japan-track-data" :
+                    raceId === "race-bahrain" ? "bahrain-track-data" :
+                    raceId === "race-saudi arabia" ? "saudi-arabia-track-data" : "";
+    if (subtabId) {
+        showRaceSubtab(raceId, subtabId);
+    }
+};
+
+// Function to show a specific race subtab
+window.showRaceSubtab = function(raceId, subtabId) {
+    console.log(`Switching to race subtab: ${raceId} - ${subtabId}`);
+    // Hide all subtabs within the race
+    document.querySelectorAll(`#${raceId} .race-subtab-content`).forEach(content => content.classList.add("hidden"));
+    // Deactivate all subtab buttons within the race
+    document.querySelectorAll(`#${raceId} .race-subtab`).forEach(tab => {
+        tab.classList.remove("active", "bg-blue-500");
+        tab.classList.add("bg-gray-600");
+    });
+
+    // Show the selected subtab content
+    const activeSubtabContent = document.getElementById(subtabId);
+    if (activeSubtabContent) {
+        activeSubtabContent.classList.remove("hidden");
+    }
+
+    // Activate the selected subtab button
+    const activeSubtabButton = document.querySelector(`button[onclick="showRaceSubtab('${raceId}', '${subtabId}')"]`);
+    if (activeSubtabButton) {
+        activeSubtabButton.classList.remove("bg-gray-600");
+        activeSubtabButton.classList.add("active", "bg-blue-500");
+    }
 };
 
 function displayF1Results() {
-    // Initialize the first race tab (Australian GP) when Results subtab is loaded
+    // Initialize the first race tab (Australian GP) and its first subtab (Track Data)
     showRaceTab("race-australia");
 }
