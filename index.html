@@ -272,245 +272,29 @@
                                     </nav>
                                     <!-- Race Results Content -->
                                     <div id="f1-results-content" class="text-sm sm:text-base mt-2">
-                                        <!-- Australian Grand Prix -->
                                         <div id="race-australia" class="race-content">
                                             <p><strong>Australian Grand Prix</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-practice-2')">Practice 2</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-practice-3')">Practice 3</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-australia', 'australia-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="australia-track-data" class="race-subtab-content">
-                                                <img src="images/AustraliaTrack.png" alt="Australia Track Data" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-practice-2" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 2 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-practice-3" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 3 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="australia-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/AustraliaResult.png" alt="Australian Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
-                                        <!-- Chinese Grand Prix Sprint -->
                                         <div id="race-china-sprint" class="race-content hidden">
                                             <p><strong>Chinese Grand Prix Sprint</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-sprint-qualifying')">Sprint Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-sprint-race')">Sprint Race</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china-sprint', 'china-sprint-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="china-sprint-track-data" class="race-subtab-content">
-                                                <img src="images/placeholder.png" alt="Track Data Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-sprint-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Sprint Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-sprint-race" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Sprint Race Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/ChinaSprintResult.png" alt="Chinese Grand Prix Sprint Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
-                                        <!-- Chinese Grand Prix -->
                                         <div id="race-china" class="race-content hidden">
                                             <p><strong>Chinese Grand Prix</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-sprint-qualifying')">Sprint Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-sprint-race')">Sprint Race</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-china', 'china-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="china-track-data" class="race-subtab-content">
-                                                <img src="images/placeholder.png" alt="Track Data Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Sprint Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-sprint-race" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Sprint Race Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="china-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/ChinaResult.png" alt="Chinese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
-                                        <!-- Japanese Grand Prix -->
                                         <div id="race-japan" class="race-content hidden">
                                             <p><strong>Japanese Grand Prix</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-practice-2')">Practice 2</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-practice-3')">Practice 3</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-japan', 'japan-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="japan-track-data" class="race-subtab-content">
-                                                <img src="images/placeholder.png" alt="Track Data Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-practice-2" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 2 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-practice-3" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 3 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="japan-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/JapanResult.png" alt="Japanese Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
-                                        <!-- Bahrain Grand Prix -->
                                         <div id="race-bahrain" class="race-content hidden">
                                             <p><strong>Bahrain Grand Prix</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-practice-2')">Practice 2</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-practice-3')">Practice 3</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-bahrain', 'bahrain-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="bahrain-track-data" class="race-subtab-content">
-                                                <img src="images/placeholder.png" alt="Track Data Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-practice-2" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 2 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-practice-3" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 3 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="bahrain-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/BahrainResult.png" alt="Bahrain Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
-                                        <!-- Saudi Arabia Grand Prix -->
                                         <div id="race-saudi arabia" class="race-content hidden">
                                             <p><strong>Saudi Arabia Grand Prix</strong></p>
-                                            <!-- Subtab Navigation -->
-                                            <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-track-data')">Track Data</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-practice-1')">Practice 1</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-practice-2')">Practice 2</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-practice-3')">Practice 3</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-qualifying')">Qualifying</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-race-results')">Race Results</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-fastest-lap')">Fastest Lap</button>
-                                                <button class="race-subtab px-3 py-1 rounded-lg text-sm sm:text-base bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceSubtab('race-saudi arabia', 'saudi-arabia-driver-of-day')">Driver of the Day</button>
-                                            </nav>
-                                            <!-- Subtab Content -->
-                                            <div id="saudi-arabia-track-data" class="race-subtab-content">
-                                                <img src="images/placeholder.png" alt="Track Data Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-practice-1" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 1 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-practice-2" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 2 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-practice-3" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Practice 3 Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-qualifying" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Qualifying Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-race-results" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Race Results Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-fastest-lap" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Fastest Lap Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
-                                            <div id="saudi-arabia-driver-of-day" class="race-subtab-content hidden">
-                                                <img src="images/placeholder.png" alt="Driver of the Day Placeholder" class="w-full max-w-md h-auto mb-4">
-                                            </div>
+                                            <img src="images/SaudiArabiaResult.png" alt="Saudi Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
                                     </div>
                                 </div>
@@ -520,7 +304,7 @@
                 </div>
             </section>
             <section id="sport" class="tab-content hidden">
-                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue-400 mb-4">International Rugby Schedules</h2>
+                <h2 class="text-center text-xl sm:text-2xl font-semibold text-blue- anyways400 mb-4">International Rugby Schedules</h2>
                 <div class="grid grid-cols-1 gap-4 sm:gap-6">
                     <div id="card-int-rugby" class="weather-card bg-[url('images/Rugby1.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                         <div class="bg-gray-800 bg-opacity-70 p-2 rounded">
@@ -546,5 +330,5 @@
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9288117d7a78bd3f',t:'MTc0MzM0MjU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'929f56f2c8d71375',t:'MTc0MzU4NjU2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b1736bf97aade3',t:'MTc0Mzc3NjQ3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b92479fe18bcf8',t:'MTc0Mzg1NzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(windowBMW.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'/solution'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f2f28eec98dd20',t:'MTc0NDQ2MzI1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9304113fbd6aed30',t:'MTc0NDY0Mjc2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92b92479fe18bcf8',t:'MTc0Mzg1NzEyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92f2f28eec98dd20',t:'MTc0NDQ2MzI1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
