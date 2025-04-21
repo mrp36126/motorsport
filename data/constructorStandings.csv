@@ -1,11 +1,11 @@
 position;team;points;icon
 1;McLaren;188;McLarenIcon.png
 2;Mercedes;111;MercedesIcon.png
-3;RedBull;92;RedBullIcon.png
+3;RedBull;89;RedBullIcon.png
 4;Ferrari;78;FerrariIcon.png
 5;Williams;25;WilliamsIcon.png
 6;Haas;20;HaasIcon.png
 7;AstonMartin;10;AstonMartinIcon.png
-8;Sauber;6;SauberIcon.png
+8;RB;8;RBIcon.png
 9;Alpine;6;AlpineIcon.png
-10;RB;5;RBIcon.png
+10;Sauber;6;SauberIcon.png
