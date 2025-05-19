@@ -227,7 +227,7 @@ window.showFactsTab = function(raceId) {
 
 function displayF1Facts() {
     // Initialize the first facts tab (Australian GP) when Facts subtab is loaded
-    showFactsTab("facts-australia");
+    showFactsTab("facts-general");
 }
 function displayF1Results() {
     // Initialize the first race tab (Australian GP) when Results subtab is loaded
