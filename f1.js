@@ -200,6 +200,30 @@ window.showRaceTab = function(raceId) {
         activeRaceTab.classList.add("active", "bg-blue-500");
     }
 };
+// Function to show a specific facts tab
+window.showFactsTab = function(raceId) {
+    console.log(`Switching to race tab: ${raceId}`);
+    // Hide all race content
+    document.querySelectorAll(".facts-content").forEach(content => content.classList.add("hidden"));
+    // Deactivate all race tabs
+    document.querySelectorAll(".facts-tab").forEach(tab => {
+        tab.classList.remove("active", "bg-blue-500");
+        tab.classList.add("bg-gray-600");
+    });
+
+    // Show the selected race content
+    const activeFactsContent = document.getElementById(raceId);
+    if (activeFactsContent) {
+        activeFactsContent.classList.remove("hidden");
+    }
+
+    // Activate the selected race tab
+    const activeFactsTab = document.querySelector(`button[onclick="showFactsTab('${raceId}')"]`);
+    if (activeFactsTab) {
+        activeFactsTab.classList.remove("bg-gray-600");
+        activeFactsTab.classList.add("active", "bg-blue-500");
+    }
+};
 
 function displayF1Results() {
     // Initialize the first race tab (Australian GP) when Results subtab is loaded
