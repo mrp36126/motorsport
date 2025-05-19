@@ -226,6 +226,10 @@ window.showFactsTab = function(raceId) {
 };
 
 function displayF1Results() {
+    // Initialize the first facts tab (Australian GP) when Facts subtab is loaded
+    showFactsTab("facts-australia");
+}
+function displayF1Results() {
     // Initialize the first race tab (Australian GP) when Results subtab is loaded
     showRaceTab("race-australia");
 }
