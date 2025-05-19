@@ -339,6 +339,7 @@
                                     <h3 class="text-base sm:text-lg font-bold">Interesting facts during Past Races</h3>
                                     <!-- Race Facts Navigation -->
                                     <nav class="flex flex-wrap justify-center gap-2 sm:gap-4 border-b-2 border-gray-700 pb-4 overflow-x-auto mt-2">
+                                        <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-general')">General</button>
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-australia')">Australian GP</button>
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-china-sprint')">Chinese GP Sprint</button>
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-china')">Chinese GP</button>
@@ -351,6 +352,11 @@
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-monaco')">Monaco GP</button>
                                     </nav>
                                     <!-- Race Facts content -->
+                                    <div id="f1-facts-content" class="text-sm sm:text-base mt-2">
+                                        <div id="facts-general" class="facts-content">
+                                            <p><strong>General</strong></p>
+                                            <img src="images/AustraliaResult.png" alt="General" class="w-full max-w-md h-auto mb-4">
+                                        </div>
                                     <div id="f1-facts-content" class="text-sm sm:text-base mt-2">
                                         <div id="facts-australia" class="facts-content">
                                             <p><strong>Australian Grand Prix</strong></p>
