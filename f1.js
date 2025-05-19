@@ -226,7 +226,7 @@ window.showFactsTab = function(raceId) {
 };
 
 function displayF1Facts() {
-    // Initialize the first facts tab (Australian GP) when Facts subtab is loaded
+    // Initialize the first facts tab (General) when Facts subtab is loaded
     showFactsTab("facts-general");
 }
 function displayF1Results() {
