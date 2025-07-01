@@ -99,7 +99,7 @@ window.showTab = function(tabId) {
         showF1Subtab("f1-next-race-tab");
     } else if (tabId === "sport") {
         displayRugbySchedules();
-        displayBILSchedules();
+        displayBILSchedules(); //Added for BIL
     } else if (tabId === "news") {
         fetchNews().catch(error => {
             document.getElementById("news-content").innerHTML = `<p class="text-red-400">Failed to load news: ${error.message}</p>`;
