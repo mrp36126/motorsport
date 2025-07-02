@@ -22,5 +22,5 @@ function displayRugbySchedules() {
 //            li.textContent = `${event.date} - ${event.event} at ${event.venue} (${event.tome})`;
 //            scheduleList.appendChild(li);
 //        });
-    }
-}
+//    }
+//}
