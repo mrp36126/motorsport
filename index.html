@@ -247,7 +247,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             <div id="card-driver-standings-image" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75">
                                 <div class="bg-black bg-opacity-90 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">Driver Standings after the Singapore Race</h3>
+                                    <h3 class="text-base sm:text-lg font-bold">Driver Standings after the United States Race</h3>
                                     <div id="f1-driver-standings-image" class="mt-2">
                                         <img src="images/DStandingsVisual.png" alt="Driver Standings Visual Additional" class="w-full max-w-md h-auto mb-4">
                                         <img src="images/DStandings.png" alt="Driver Standings Visual" class="w-full max-w-md h-auto">
@@ -268,7 +268,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 direction-ltr">
                             <div id="card-constructor-standings-image" class="weather-card bg-[url('images/Racing7.jpg')] bg-cover bg-center p-4 rounded-lg shadow-md text-left text-white bg-opacity-75 order-1">
                                 <div class="bg-black bg-opacity-90 p-2 rounded">
-                                    <h3 class="text-base sm:text-lg font-bold">Constructor Standings after the Singapore Race</h3>
+                                    <h3 class="text-base sm:text-lg font-bold">Constructor Standings after the United States Race</h3>
                                     <div id="f1-constructor-standings-image" class="mt-2">
                                         <img src="images/CStandings.png" alt="Constructor Standings Visual" class="w-full max-w-md h-auto">
                                     </div>
@@ -313,6 +313,7 @@
                                         <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-singapore')">Singapore GP</button>
                                         <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-united-sprint')">United States Sprint GP</button>
                                         <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-united')">United States GP</button>
+                                        <button class="race-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showRaceTab('race-mexico')">Mexico GP</button>
                                     </nav>
                                     <!-- Race Results Content -->
                                     <div id="f1-results-content" class="text-sm sm:text-base mt-2">
@@ -412,6 +413,10 @@
                                             <p><strong>United States Grand Prix</strong></p>
                                             <img src="images/USResult.png" alt="United States Grand Prix Result" class="w-full max-w-md h-auto mb-4">
                                         </div>
+                                         <div id="race-mexico" class="race-content">
+                                            <p><strong>Mexico Grand Prix</strong></p>
+                                            <img src="images/MexicoResult.png" alt="Mexico Grand Prix Result" class="w-full max-w-md h-auto mb-4">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -444,6 +449,7 @@
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-baku')">Baku GP</button>
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-singapore')">Singapore GP</button>
                                         <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-united')">United States GP</button>
+                                        <button class="facts-tab px-4 py-2 rounded-lg text-base sm:text-lg bg-gray-600 hover:bg-gray-500 transition whitespace-nowrap" onclick="showFactsTab('facts-mexico')">Mexico GP</button>
                                     </nav>
                                     <!-- Race Facts content -->
                                     <div id="f1-facts-content" class="text-sm sm:text-base mt-2">
@@ -681,6 +687,10 @@
                                         <div id="facts-united" class="facts-content hidden">
                                             <p><strong>United States Grand Prix</strong></p>
                                             <img src="images/united.png" alt="United States Grand Prix" class="w-full max-w-md h-auto mb-4">
+                                        </div>
+                                         <div id="facts-mexico" class="facts-content hidden">
+                                            <p><strong>Mexico Grand Prix</strong></p>
+                                            <img src="images/mexico.png" alt="Mexico Grand Prix" class="w-full max-w-md h-auto mb-4">
                                         </div>
                                     </div>
                                 </div>
