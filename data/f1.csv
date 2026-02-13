@@ -1,5 +1,5 @@
 date;event;location;flag;track;trackName;practice1;practice2;practice3;qualifying;race;timezone;isSprint;sprintQualifying;sprintRace
-2026/03/08;Australia;Melbourne,AU;AustraliaFlag.png;AustraliaTrack.png;Albert Park Grand Prix Circuit;2026-03-06T12:30:00;2026-03-06T16:00:00;2026-03-07T12:30:00;2026-03-07T16:00:00;2026-03-08T15:00:00;AEDT;;;
+2026/03/08;Australia;Melbourne,AU;AustraliaFlag.png;AustraliaTrack.png;Albert Park Grand Prix Circuit;2026-03-06T03:30:00;2026-03-06T07:00:00;2026-03-07T03:30:00;2026-03-07T07:00:00;2026-03-08T06:00:00;AEDT;;;
 2025/03/23;China;Shanghai,CN;ChinaFlag.png;ChinaTrack.png;Shanghai International Circuit;2025-03-21T11:30:00;;;2025-03-22T15:00:00;2025-03-23T15:00:00;CST;TRUE;2025-03-21T15:30:00;2025-03-22T11:00:00
 2025/04/06;Japan;Suzuka,JP;JapanFlag.png;JapanTrack.png;Suzuka International Racing Course;2025-04-04T04:30:00;2025-04-04T08:00:00;2025-04-05T04:30:00;2025-04-05T08:00:00;2025-04-06T07:00:00;JST;;;
 2025/04/13;Bahrain;Sakhir,BH;BahrainFlag.png;BahrainTrack.png;Bahrain International Circuit;2025-04-11T13:30:00;2025-04-11T17:00:00;2025-04-12T14:30:00;2025-04-12T18:00:00;2025-04-13T17:00:00;AST;;;
@@ -23,5 +23,6 @@ date;event;location;flag;track;trackName;practice1;practice2;practice3;qualifyin
 2025/11/22;Las Vegas;Las Vegas,US;USFlag.png;LasVegasTrack.png;Las Vegas Street Circuit;2025-11-20T02:30:00;2025-11-20T06:00:00;2025-11-21T02:30:00;2025-11-21T06:00:00;2025-11-22T06:00:00;PST;;;
 2025/11/30;Qatar;Lusail,QA;QatarFlag.png;QatarTrack.png;Lusail International Circuit;2025-11-28T15:30:00;;;2025-11-29T20:00:00;2025-11-30T18:00:00;AST;TRUE;2025-11-28T19:30:00;2025-11-29T16:00:00
 2025/12/07;Abu Dhabi;Yas Marina,AE;AbuDhabiFlag.png;AbuDhabiTrack.png;Yas Marina Circuit;2025-12-05T11:30:00;2025-12-05T15:00:00;2025-12-06T12:30:00;2025-12-06T16:00:00;2025-12-07T15:00:00;GST;;;
+
 
 
