@@ -229,6 +229,14 @@ function displayF1Facts() {
     // Initialize the first facts tab (General) when Facts subtab is loaded
     showFactsTab("facts-general");
 }
+
+//inserted cars here
+function displayCars() {
+    // Initialize the first facts tab (General) when Facts subtab is loaded
+    showCarsTab("cars-general");
+}
+//stopped cars here
+
 function displayF1Results() {
     // Initialize the first race tab (Australian GP) when Results subtab is loaded
     showRaceTab("race-australia");
