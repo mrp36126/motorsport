@@ -230,7 +230,7 @@ window.showFactsTab = function(raceId)
 };
 
 // Function to show a specific cars tab
-window.showFactsTab = function(raceId) 
+window.showRaceTab = function(raceId) 
 {
     console.log(`Switching to cars tab: ${raceId}`);
     // Hide all race content
