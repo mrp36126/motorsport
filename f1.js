@@ -201,27 +201,60 @@ window.showRaceTab = function(raceId) {
     }
 };
 // Function to show a specific facts tab
-window.showFactsTab = function(raceId) {
+window.showFactsTab = function(raceId) 
+{
     console.log(`Switching to race tab: ${raceId}`);
     // Hide all race content
     document.querySelectorAll(".facts-content").forEach(content => content.classList.add("hidden"));
     // Deactivate all race tabs
-    document.querySelectorAll(".facts-tab").forEach(tab => {
+    document.querySelectorAll(".facts-tab").forEach(tab => 
+    {
         tab.classList.remove("active", "bg-blue-500");
         tab.classList.add("bg-gray-600");
     });
 
     // Show the selected race content
     const activeFactsContent = document.getElementById(raceId);
-    if (activeFactsContent) {
+    if (activeFactsContent) 
+    {
         activeFactsContent.classList.remove("hidden");
     }
 
     // Activate the selected race tab
     const activeFactsTab = document.querySelector(`button[onclick="showFactsTab('${raceId}')"]`);
-    if (activeFactsTab) {
+    if (activeFactsTab) 
+    {
         activeFactsTab.classList.remove("bg-gray-600");
         activeFactsTab.classList.add("active", "bg-blue-500");
+    }
+};
+
+// Function to show a specific cars tab
+window.showFactsTab = function(raceId) 
+{
+    console.log(`Switching to cars tab: ${raceId}`);
+    // Hide all race content
+    document.querySelectorAll(".cars-content").forEach(content => content.classList.add("hidden"));
+    // Deactivate all race tabs
+    document.querySelectorAll(".cars-tab").forEach(tab => 
+    {
+        tab.classList.remove("active", "bg-blue-500");
+        tab.classList.add("bg-gray-600");
+    });
+
+    // Show the selected race content
+    const activeCarsContent = document.getElementById(raceId);
+    if (activeCarsContent) 
+    {
+        activeCarsContent.classList.remove("hidden");
+    }
+
+    // Activate the selected race tab
+    const activeCarsTab = document.querySelector(`button[onclick="showCarsTab('${raceId}')"]`);
+    if (activeCarsTab) 
+    {
+        activeCarsTab.classList.remove("bg-gray-600");
+        activeCarsTab.classList.add("active", "bg-blue-500");
     }
 };
 
