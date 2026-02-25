@@ -264,7 +264,7 @@ function displayF1Facts() {
 }
 
 //inserted cars here
-function displayCars() {
+function displayF1Cars() {
     // Initialize the first facts tab (General) when Facts subtab is loaded
     showCarsTab("cars-general");
 }
