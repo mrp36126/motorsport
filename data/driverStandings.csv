@@ -1,26 +1,29 @@
 position;driver;team;points
-1;Valtteri Bottas;Cadillac;0
-2;Sergio Perez;Cadillac;0
-3;Gabriel Bortoleto;Audi;0
-4;Arvid Lindblad;RB;0
-5;Isack Hadjar;RedBull;0
-6;Lando Norris;McLaren;0
-7;Max Verstappen;RedBull;0
-8;Oscar Piastri;McLaren;0
-9;George Russell;Mercedes;0
-10;Charles Leclerc;Ferrari;0
-11;Lewis Hamilton;Ferrari;0
-12;Andrea Kimi Antonelli;Mercedes;0
-13;Alexander Albon;Williams;0
-14;Carlos Sainz;Williams;0
-15;Fernando Alonso;AstonMartin;0
-16;Nico Hulkenberg;Audi;0
-17;Oliver Bearman;Haas;0
-18;Liam Lawson;RB;0
-19;Esteban Ocon;Haas;0
-20;Lance Stroll;AstonMartin;0
-21;Pierre Gasly;Alpine;0
-22;Franco Colapinto;Alpine;0
+1;George Russell;Mercedes;25
+2;Andrea Kimi Antonelli;Mercedes;18
+3;Charles Leclerc;Ferrari;15
+4;Lewis Hamilton;Ferrari;12
+5;Lando Norris;McLaren;10
+6;Max Verstappen;RedBull;8
+7;Oliver Bearman;Haas;6
+8;Arvid Lindblad;RB;4
+9;Gabriel Bortoleto;Audi;2
+10;Pierre Gasly;Alpine;1
+11;Esteban Ocon;Haas;0
+12;Alexander Albon;Williams;0
+13;Liam Lawson;RB;0
+14;Franco Colapinto;Alpine;0
+15;Carlos Sainz;Williams;0
+16;Sergio Perez;Cadillac;0
+17;Isack Hadjar;RedBull;0
+18;Oscar Piastri;McLaren;0
+19;Nico Hulkenberg;Audi;0
+20;Fernando Alonso;AstonMartin;0
+21;Valtteri Bottas;Cadillac;0
+22;Lance Stroll;AstonMartin;0
+
+
+
 
 
 
